@@ -1,6 +1,6 @@
 /**
  * @license
- * EQuery.js 7.10.2 <https://enemetronics.com.ng/equery/>
+ * EQuery.js 4.2.8 <https://enemetronics.com.ng/equery/>
  * By Sharon Abodunrin
  * Copyright Enemetronics. <https://enemetronics.com.ng/>
  */

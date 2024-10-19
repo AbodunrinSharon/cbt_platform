@@ -1,8 +1,8 @@
 /**
  * @license
- * EQuery.js 4.2.8 <https://enemetronics.com.ng/equery/>
+ * EQuery.js 3.0.4 <https://enemetronics.com.ng/equery/>
  * By Sharon Abodunrin
- * Copyright Enemetronics. <https://enemetronics.com.ng/>
+ * Copyright Enemetronics. <https://enemetronics.com.ng/privacy-policy>
  */
 
 (function (global, factory) {
@@ -19,12 +19,12 @@
      * @module create-logger
      */
 
-    var history = [];
+    let history = [];
 
-    var LogByTypeFactory = function LogByTypeFactory(name, log) {
+    let LogByTypeFactory = function LogByTypeFactory(name, log) {
         return function (type, level, args) {
-            var lvl = log.levels[level];
-            var lvlRegExp = new RegExp('^(' + lvl + ')$');
+            let lvl = log.levels[level];
+            let lvlRegExp = new RegExp('^(' + lvl + ')$');
 
             if (type !== 'log') {
                 args.unshift(type.toUpperCase() + ':');
@@ -35,12 +35,12 @@
             if (history) {
                 history.push([].concat(args));
 
-                var splice = history.length - 1000;
+                let splice = history.length - 1000;
                 history.splice(0, splice > 0 ? splice : 0);
             }
 
             if (!window$1.console) { return; }
-            var fn = window$1.console[type];
+            let fn = window$1.console[type];
             if (!fn && type === 'debug') { fn = window$1.console.info || window$1.console.log; }
             if (!fn || !lvl || !lvlRegExp.test(type)) { return; }
 
@@ -49,28 +49,11 @@
     };
 
     function createLogger(name) {
-        var level = 'info';
+        let level = 'info';
 
-        var logByType;
-        /**
-         * Logs plain debug messages. Similar to `console.log`.
-         *
-         * Due to [limitations](https://github.com/jsdoc3/jsdoc/issues/955#issuecomment-313829149)
-         * of our JSDoc template, we cannot properly document this as both a function
-         * and a namespace, so its function signature is documented here.
-        *
-        * Any combination of values that could be passed to `console.log()`.
-        *
-        * #### Return Value
-        *
-        * `undefined`
-        *
-        * @namespace
-        * @param    {Mixed[]} args
-        *           One or more messages or objects that should be logged.
-        */
+        let logByType;
 
-        var log = function log() {
+        let log = function log() {
             for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
                 args[_key] = arguments[_key];
             }
@@ -164,15 +147,15 @@
         return log;
     }
 
-    var log = createLogger('EQuery');
+    const log = createLogger('EQuery');
 
 
     /**
      * @file guid.js
      * @module guid
      */
-    var _initialGuid = 3;
-    var _guid = _initialGuid;
+    let _initialGuid = 3;
+    let _guid = _initialGuid;
     function newGUID() {
         return _guid++;
     }
@@ -181,7 +164,7 @@
      * @file dom-data.js
      * @module dom-data
      */
-    var FakeWeakMap;
+    let FakeWeakMap;
 
     if (!window$1.WeakMap) {
         FakeWeakMap = function () {
@@ -190,10 +173,10 @@
                 this.data = {};
             }
 
-            var _proto = FakeWeakMap.prototype;
+            let _proto = FakeWeakMap.prototype;
 
             _proto.set = function set(key, value) {
-                var access = key[this.vdata] || newGUID();
+                let access = key[this.vdata] || newGUID();
 
                 if (!key[this.vdata]) {
                     key[this.vdata] = access;
@@ -204,7 +187,7 @@
             };
 
             _proto.get = function get(key) {
-                var access = key[this.vdata];
+                let access = key[this.vdata];
 
                 if (access) {
                     return this.data[access];
@@ -215,12 +198,12 @@
             };
 
             _proto.has = function has(key) {
-                var access = key[this.vdata];
+                let access = key[this.vdata];
                 return access in this.data;
             };
 
             _proto['delete'] = function _delete(key) {
-                var access = key[this.vdata];
+                let access = key[this.vdata];
 
                 if (access) {
                     delete this.data[access];
@@ -232,7 +215,7 @@
         }();
     }
 
-    var DomData = window$1.WeakMap ? new WeakMap() : new FakeWeakMap();
+    let DomData = window$1.WeakMap ? new WeakMap() : new FakeWeakMap();
 
     /**
      * @file events.js
@@ -244,7 +227,7 @@
             return;
         }
 
-        var data = DomData.get(elemt);
+        let data = DomData.get(elemt);
 
         if (data.handlers[type].length === 0) {
             delete data.handlers[type];
@@ -268,40 +251,13 @@
             DomData['delete'](elemt);
         }
     }
-    /**
-     * Loops through an array of event types and calls the requested method for each type.
-     *
-     * @param {Function} fn
-     *        The event method we want to use.
-     *
-     * @param {Element|Object} elemt
-     *        Element or object to bind listeners to
-     *
-     * @param {string} type
-     *        Type of event to bind to.
-     *
-     * @param {EventTarget~EventListener} callback
-     *        Event listener.
-     */
-
 
     function _handleMultipleEvents(fn, elemt, types, callback) {
         types.forEach(function (type) {
-            // Call the event method for each one of the types
             fn(elemt, type, callback);
         });
     }
-    /**
-     * Fix a native event to have standard property values
-     *
-     * @param {Object} event
-     *        Event object to fix.
-     *
-     * @return {Object}
-     *         Fixed event object.
-     */
-
-
+    
     function fixEvent(event) {
         if (event.fixed_) {
             return event;
@@ -313,43 +269,28 @@
 
         function returnFalse() {
             return false;
-        } // Test if fixing up is needed
-        // Used to check if !event.stopPropagation instead of isPropagationStopped
-        // But native events return true for stopPropagation, but don't have
-        // other expected methods like isPropagationStopped. Seems to be a problem
-        // with the Javascript Ninja code. So we're just overriding all events now.
-
+        }
 
         if (!event || !event.isPropagationStopped) {
-            var old = event || window$1.event;
-            event = {}; // Clone the old object so that we can modify the values event = {};
-            // IE8 Doesn't like when you mess with native event properties
-            // Firefox returns false for event.hasOwnProperty('type') and other props
-            //  which makes copying more difficult.
-            // TODO: Probably best to create a whitelist of event props
-
-            for (var key in old) {
-                // Safari 6.0.3 warns you if you try to copy deprecated layerX/Y
-                // Chrome warns you if you try to copy deprecated keyboardEvent.keyLocation
-                // and webkitMovementX/Y
+            let old = event || window$1.event;
+            event = {};
+            for (let key in old) {
                 if (key !== 'layerX' && key !== 'layerY' && key !== 'keyLocation' && key !== 'webkitMovementX' && key !== 'webkitMovementY') {
-                    // Chrome 32+ warns if you try to copy deprecated returnValue, but
-                    // we still want to if preventDefault isn't supported (IE8).
                     if (!(key === 'returnValue' && old.preventDefault)) {
                         event[key] = old[key];
                     }
                 }
-            } // The event occurred on this element
+            }
 
 
             if (!event.target) {
                 event.target = event.srcElement || document;
-            } // Handle which other element the event is related to
+            }
 
 
             if (!event.relatedTarget) {
                 event.relatedTarget = event.fromElement === event.target ? event.toElement : event.fromElement;
-            } // Stop the default browser action
+            }
 
 
             event.preventDefault = function () {
@@ -362,7 +303,7 @@
                 event.defaultPrevented = true;
             };
 
-            event.defaultPrevented = false; // Stop the event from bubbling
+            event.defaultPrevented = false;
 
             event.stopPropagation = function () {
                 if (old.stopPropagation) {
@@ -374,7 +315,7 @@
                 event.isPropagationStopped = returnTrue;
             };
 
-            event.isPropagationStopped = returnFalse; // Stop the event from bubbling and executing other handlers
+            event.isPropagationStopped = returnFalse;
 
             event.stopImmediatePropagation = function () {
                 if (old.stopImmediatePropagation) {
@@ -385,77 +326,50 @@
                 event.stopPropagation();
             };
 
-            event.isImmediatePropagationStopped = returnFalse; // Handle mouse position
+            event.isImmediatePropagationStopped = returnFalse;
 
             if (event.clientX !== null && event.clientX !== undefined) {
-                var doc = document.documentElement;
-                var body = document.body;
+                let doc = document.documentElement;
+                let body = document.body;
                 event.pageX = event.clientX + (doc && doc.scrollLeft || body && body.scrollLeft || 0) - (doc && doc.clientLeft || body && body.clientLeft || 0);
                 event.pageY = event.clientY + (doc && doc.scrollTop || body && body.scrollTop || 0) - (doc && doc.clientTop || body && body.clientTop || 0);
-            } // Handle key presses
+            }
 
 
-            event.which = event.charCode || event.keyCode; // Fix button for mouse clicks:
-            // 0 == left; 1 == middle; 2 == right
+            event.which = event.charCode || event.keyCode;
 
             if (event.button !== null && event.button !== undefined) {
-
-                /* eslint-disable */
                 event.button = event.button & 1 ? 0 : event.button & 4 ? 1 : event.button & 2 ? 2 : 0;
-                /* eslint-enable */
             }
         }
 
-        event.fixed_ = true; // Returns fixed-up instance
+        event.fixed_ = true;
 
         return event;
     }
-    /**
-     * Whether passive event listeners are supported
-     */
+    
+    let _supportsPassive;
 
-    var _supportsPassive;
-
-    var supportsPassive = function supportsPassive() {
+    let supportsPassive = function supportsPassive() {
         if (typeof _supportsPassive !== 'boolean') {
             _supportsPassive = false;
 
             try {
-                var opts = Object.defineProperty({}, 'passive', {
+                let opts = Object.defineProperty({}, 'passive', {
                     get: function get() {
                         _supportsPassive = true;
                     }
                 });
                 window$1.addEventListener('test', null, opts);
                 window$1.removeEventListener('test', null, opts);
-            } catch (e) {// disregard
-            }
+            } catch (e) {}
         }
 
         return _supportsPassive;
     };
-    /**
-     * Touch events Chrome expects to be passive
-     */
-
-
-    var passiveEvents = ['touchstart', 'touchmove'];
-    /**
-     * Add an event listener to element
-     * It stores the handler function in a separate cache object
-     * and adds a generic handler to the element's event,
-     * along with a unique id (guid) to the element.
-     *
-     * @param {Element|Object} elemt
-     *        Element or object to bind listeners to
-     *
-     * @param {string|string[]} type
-     *        Type of event to bind to.
-     *
-     * @param {EventTarget~EventListener} fn
-     *        Event listener.
-     */
-
+    
+    let passiveEvents = ['touchstart', 'touchmove'];
+    
     function on(elemt, type, fn) {
         if (Array.isArray(type)) {
             return _handleMultipleEvents(on, elemt, type, fn);
@@ -465,7 +379,7 @@
             DomData.set(elemt, {});
         }
 
-        var data = DomData.get(elemt); // We need a place to store all our handler data
+        let data = DomData.get(elemt);
 
         if (!data.handlers) {
             data.handlers = {};
@@ -490,13 +404,12 @@
                 }
 
                 event = fixEvent(event);
-                var handlers = data.handlers[event.type];
+                let handlers = data.handlers[event.type];
 
                 if (handlers) {
-                    // Copy handlers so if handlers are added/removed during the process it doesn't throw everything off.
-                    var handlersCopy = handlers.slice(0);
+                    let handlersCopy = handlers.slice(0);
 
-                    for (var m = 0, n = handlersCopy.length; m < n; m++) {
+                    for (let m = 0, n = handlersCopy.length; m < n; m++) {
                         if (event.isImmediatePropagationStopped()) {
                             break;
                         } else {
@@ -513,7 +426,7 @@
 
         if (data.handlers[type].length === 1) {
             if (elemt.addEventListener) {
-                var options = false;
+                let options = false;
 
                 if (supportsPassive() && passiveEvents.indexOf(type) > -1) {
                     options = {
@@ -527,27 +440,13 @@
             }
         }
     }
-    /**
-     * Removes event listeners from an element
-     *
-     * @param {Element|Object} elemt
-     *        Object to remove listeners from.
-     *
-     * @param {string|string[]} [type]
-     *        Type of listener to remove. Don't include to remove all events from element.
-     *
-     * @param {EventTarget~EventListener} [fn]
-     *        Specific listener to remove. Don't include to remove listeners for an event
-     *        type.
-     */
-
+    
     function off(elemt, type, fn) {
-        // Don't want to add a cache object through getElData if not needed
         if (!DomData.has(elemt)) {
             return;
         }
 
-        var data = DomData.get(elemt); // If no events exist, nothing to unbind
+        let data = DomData.get(elemt);
 
         if (!data.handlers) {
             return;
@@ -555,41 +454,37 @@
 
         if (Array.isArray(type)) {
             return _handleMultipleEvents(off, elemt, type, fn);
-        } // Utility function
+        }
 
-
-        var removeType = function removeType(el, t) {
+        let removeType = function removeType(el, t) {
             data.handlers[t] = [];
-
             _cleanUpEvents(el, t);
-        }; // Are we removing all bound events?
-
+        };
 
         if (type === undefined) {
-            for (var t in data.handlers) {
+            for (let t in data.handlers) {
                 if (Object.prototype.hasOwnProperty.call(data.handlers || {}, t)) {
                     removeType(elemt, t);
                 }
             }
-
             return;
         }
 
-        var handlers = data.handlers[type]; // If no handlers exist, nothing to unbind
+        let handlers = data.handlers[type];
 
         if (!handlers) {
             return;
-        } // If no listener was provided, remove all listeners for type
+        }
 
 
         if (!fn) {
             removeType(elemt, type);
             return;
-        } // We're only removing a single handler
+        }
 
 
         if (fn.guid) {
-            for (var n = 0; n < handlers.length; n++) {
+            for (let n = 0; n < handlers.length; n++) {
                 if (handlers[n].guid === fn.guid) {
                     handlers.splice(n--, 1);
                 }
@@ -598,31 +493,10 @@
 
         _cleanUpEvents(elemt, type);
     }
-    /**
-     * Trigger an event for an element
-     *
-     * @param {Element|Object} elemt
-     *        Element to trigger an event on
-     *
-     * @param {EventTarget~Event|string} event
-     *        A string (the type) or an event object with a type attribute
-     *
-     * @param {Object} [hash]
-     *        data hash to pass along with the event
-     *
-     * @return {boolean|undefined}
-     *         Returns the opposite of `defaultPrevented` if default was
-     *         prevented. Otherwise, returns `undefined`
-     */
 
     function trigger(elemt, event, hash) {
-        // Fetches element data and a reference to the parent (for bubbling).
-        // Don't want to add a data object to cache for every parent,
-        // so checking hasElData first.
-        var elemData = DomData.has(elemt) ? DomData.get(elemt) : {};
-        var parent = elemt.parentNode || elemt.ownerDocument; // type = event.type || event,
-        // handler;
-        // If an event name was passed as a string, creates an event out of it
+        let elemData = DomData.has(elemt) ? DomData.get(elemt) : {};
+        let parent = elemt.parentNode || elemt.ownerDocument;
 
         if (typeof event === 'string') {
             event = {
@@ -631,85 +505,43 @@
             };
         } else if (!event.target) {
             event.target = elemt;
-        } // Normalizes the event properties.
+        }
 
-
-        event = fixEvent(event); // If the passed element has a dispatcher, executes the established handlers.
+        event = fixEvent(event);
 
         if (elemData.dispatcher) {
             elemData.dispatcher.call(elemt, event, hash);
-        } // Unless explicitly stopped or the event does not bubble (g. media events)
-        // recursively calls this function to bubble the event up the DOM.
-
+        }
 
         if (parent && !event.isPropagationStopped() && event.bubbles === true) {
-            trigger.call(null, parent, event, hash); // If at the top of the DOM, triggers the default action unless disabled.
+            trigger.call(null, parent, event, hash);
         } else if (!parent && !event.defaultPrevented && event.target && event.target[event.type]) {
             if (!DomData.has(event.target)) {
                 DomData.set(event.target, {});
             }
 
-            var targetData = DomData.get(event.target); // Checks if the target has a default action for this event.
+            let targetData = DomData.get(event.target);
 
             if (event.target[event.type]) {
-                // Temporarily disables event dispatching on the target as we have already executed the handler.
-                targetData.disabled = true; // Executes the default action.
+                targetData.disabled = true;
 
                 if (typeof event.target[event.type] === 'function') {
                     event.target[event.type]();
-                } // Re-enables event dispatching.
-
+                }
 
                 targetData.disabled = false;
             }
-        } // Inform the triggerer if the default was prevented by returning false
-
+        }
 
         return !event.defaultPrevented;
     }
-    /**
-     * Trigger a listener only once for an event.
-     *
-     * @param {Element|Object} elemt
-     *        Element or object to bind to.
-     *
-     * @param {string|string[]} type
-     *        Name/type of event
-     *
-     * @param {Event~EventListener} fn
-     *        Event listener function
-     */
 
     function one(elemt, type, fn) {
         if (Array.isArray(type)) {
             return _handleMultipleEvents(one, elemt, type, fn);
         }
 
-        var func = function func() {
-            off(elemt, type, func);
-            fn.apply(this, arguments);
-        }; // copy the guid to the new function so it can removed using the original function's ID
-
-
-        func.guid = fn.guid = fn.guid || newGUID();
-        on(elemt, type, func);
-    }
-    /**
-     * Trigger a listener only once and then turn if off for all
-     * configured events
-     *
-     * @param {Element|Object} elemt
-     *        Element or object to bind to.
-     *
-     * @param {string|string[]} type
-     *        Name/type of event
-     *
-     * @param {Event~EventListener} fn
-     *        Event listener function
-     */
-
-    function any(elemt, type, fn) {
-        var func = function func() {
+        let func = function func() {
             off(elemt, type, func);
             fn.apply(this, arguments);
         };
@@ -718,163 +550,51 @@
         on(elemt, type, func);
     }
 
+    function any(elemt, type, fn) {
+        let func = function func() {
+            off(elemt, type, func);
+            fn.apply(this, arguments);
+        };
 
-
-    /**
-     * @file src/js/event-target.js
-     */
-    /**
-     * `EventTarget` is a class that can have the same API as the DOM `EventTarget`. It
-     * adds shorthand functions that wrap around lengthy functions. For example:
-     * the `on` function is a wrapper around `addEventListener`.
-     *
-     * @see [EventTarget Spec]{@link https://www.w3.org/TR/DOM-Level-2-Events/events.html#Events-EventTarget}
-     * @class EventTarget
-     */
-
-    var EventTarget = function EventTarget() { };
-    /**
-     * A Custom DOM event.
-     *
-     * @typedef {Object} EventTarget~Event
-     * @see [Properties]{@link https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent}
-     */
-
-    /**
-     * All event listeners should follow the following format.
-     *
-     * @callback EventTarget~EventListener
-     * @this {EventTarget}
-     *
-     * @param {EventTarget~Event} event
-     *        the event that triggered this function
-     *
-     * @param {Object} [hash]
-     *        hash of data sent during the event
-     */
-
-    /**
-     * An object containing event names as keys and booleans as values.
-     *
-     * > NOTE: If an event name is set to a true value here {@link EventTarget#trigger}
-     *         will have extra functionality. See that function for more information.
-     *
-     * @property EventTarget.prototype.allowedEvents_
-     * @private
-     */
-
+        func.guid = fn.guid = fn.guid || newGUID();
+        on(elemt, type, func);
+    }
+    
+    let EventTarget = function EventTarget() { };
 
     EventTarget.prototype.allowedEvents_ = {};
-    /**
-     * Adds an `event listener` to an instance of an `EventTarget`. An `event listener` is a
-     * function that will get called when an event with a certain name gets triggered.
-     *
-     * @param {string|string[]} type
-     *        An event name or an array of event names.
-     *
-     * @param {EventTarget~EventListener} fn
-     *        The function to call with `EventTarget`s
-     */
 
     EventTarget.prototype.on = function (type, fn) {
-        // Remove the addEventListener alias before calling Events.on
-        // so we don't get into an infinite type loop
-        var ael = this.addEventListener;
-
+        let ael = this.addEventListener;
         this.addEventListener = function () { };
-
         on(this, type, fn);
         this.addEventListener = ael;
     };
-    /**
-     * An alias of {@link EventTarget#on}. Allows `EventTarget` to mimic
-     * the standard DOM API.
-     *
-     * @function
-     * @see {@link EventTarget#on}
-     */
-
-
+    
     EventTarget.prototype.addEventListener = EventTarget.prototype.on;
-    /**
-     * Removes an `event listener` for a specific event from an instance of `EventTarget`.
-     * This makes it so that the `event listener` will no longer get called when the
-     * named event happens.
-     *
-     * @param {string|string[]} type
-     *        An event name or an array of event names.
-     *
-     * @param {EventTarget~EventListener} fn
-     *        The function to remove.
-     */
 
     EventTarget.prototype.off = function (type, fn) {
         off(this, type, fn);
     };
-    /**
-     * An alias of {@link EventTarget#off}. Allows `EventTarget` to mimic
-     * the standard DOM API.
-     *
-     * @function
-     * @see {@link EventTarget#off}
-     */
-
 
     EventTarget.prototype.removeEventListener = EventTarget.prototype.off;
-    /**
-     * This function will add an `event listener` that gets triggered only once. After the
-     * first trigger it will get removed. This is like adding an `event listener`
-     * with {@link EventTarget#on} that calls {@link EventTarget#off} on itself.
-     *
-     * @param {string|string[]} type
-     *        An event name or an array of event names.
-     *
-     * @param {EventTarget~EventListener} fn
-     *        The function to be called once for each event name.
-     */
-
+    
     EventTarget.prototype.one = function (type, fn) {
-        // Remove the addEventListener aliasing Events.on
-        // so we don't get into an infinite type loop
-        var ael = this.addEventListener;
-
+        let ael = this.addEventListener;
         this.addEventListener = function () { };
-
         one(this, type, fn);
         this.addEventListener = ael;
     };
 
     EventTarget.prototype.any = function (type, fn) {
-        // Remove the addEventListener aliasing Events.on
-        // so we don't get into an infinite type loop
-        var ael = this.addEventListener;
-
+        let ael = this.addEventListener;
         this.addEventListener = function () { };
-
         any(this, type, fn);
         this.addEventListener = ael;
     };
-    /**
-     * This function causes an event to happen. This will then cause any `event listeners`
-     * that are waiting for that event, to get called. If there are no `event listeners`
-     * for an event then nothing will happen.
-     *
-     * If the name of the `Event` that is being triggered is in `EventTarget.allowedEvents_`.
-     * Trigger will also call the `on` + `uppercaseEventName` function.
-     *
-     * Example:
-     * 'click' is in `EventTarget.allowedEvents_`, so, trigger will attempt to call
-     * `onClick` if it exists.
-     *
-     * @param {string|EventTarget~Event|Object} event
-     *        The name of the event, an `Event`, or an object with a key of type set to
-     *        an event name.
-     */
-
-
 
     EventTarget.prototype.trigger = function (event) {
-        var type = event.type || event;
+        let type = event.type || event;
 
         if (typeof event === 'string') {
             event = {
@@ -890,37 +610,28 @@
 
         trigger(this, event);
     };
-
-    /**
-     * An alias of {@link EventTarget#trigger}. Allows `EventTarget` to mimic
-     * the standard DOM API.
-     *
-     * @function
-     * @see {@link EventTarget#trigger}
-     */
-
-
+    
     EventTarget.prototype.dispatchEvent = EventTarget.prototype.trigger;
-    var EVENT_MAP;
+    let EVENT_MAP;
 
     EventTarget.prototype.queueTrigger = function (event) {
-        var _this = this;
+        let _this = this;
         if (!EVENT_MAP) {
             EVENT_MAP = new Map();
         }
 
-        var type = event.type || event;
-        var map = EVENT_MAP.get(this);
+        let type = event.type || event;
+        let map = EVENT_MAP.get(this);
 
         if (!map) {
             map = new Map();
             EVENT_MAP.set(this, map);
         }
 
-        var oldTimeout = map.get(type);
+        let oldTimeout = map.get(type);
         map['delete'](type);
         window$1.clearTimeout(oldTimeout);
-        var timeout = window$1.setTimeout(function () {
+        let timeout = window$1.setTimeout(function () {
             if (map.size === 0) {
                 map = null;
                 EVENT_MAP['delete'](_this);
@@ -936,63 +647,60 @@
      * able to allow custom functions into it. For example:
      * the `EQuery.fn.css` function return the `css` function {@link css}.
      *
-     * @see [EQuery Spec]{@link https://enemetronics02.000webhostapp.com/equery/}
+     * @see [EQuery Spec]{@link https://enemetronics.000webhostapp.com/equery/}
      * @see [EQuery func]{@link G @alias q.fn.init}
      * @class EQuery
      */
 
-    var q = function (a, b) {
-        return new q.fn.init(a, b);
+    let q = function (selector, context) {
+        return new q.fn.init(selector, context);
     };
 
-    var c = [], d = window$1.document, f = c.slice, h = c.push, j = {}, k = j.toString, l = j.hasOwnProperty;
+    let arr = [], slice = arr.slice, push = arr.push, toString = {}.toString;
 
     q.fn = q.prototype = {
         equery: q,
         constructor: q,
         length: 0,
         toArray: function () {
-            return f.call(this)
+            return slice.call(this);
         },
         get: function (a) {
-            return a == null ? f.call(this) : a < 0 ? this[a + this.length] : this[a]
+            return a == null ? slice.call(this) : (a < 0 ? this[a + this.length] : this[a]);
         },
         pushStack: function (a) {
-            var b = q.merge(this.constructor(), a);
-            return b.prevObject = this,
-                b
+            let ret = q.merge(this.constructor(), a);
+            ret.prevObject = this;
+            return ret;
         },
-        each: function (a) {
-            return q.each(this, a)
+        each: function (callback) {
+            return q.each(this, callback);
         },
-        map: function (a) {
-            return this.pushStack(q.map(this, function (b, c) {
-                return a.call(b, c, b)
-            }))
+        map: function (callback) {
+            return this.pushStack(q.map(this, function (elem, i) {
+                return callback.call(elem, i, elem);
+            }));
         },
         slice: function () {
-            return this.pushStack(f.apply(this, arguments))
+            return this.pushStack(slice.apply(this, arguments));
         },
         first: function () {
-            return this.eq(0)
+            return this.eq(0);
         },
         last: function () {
-            return this.eq(-1)
+            return this.eq(-1);
         },
-        find: function () {
-
-        },
-        eq: function (a) {
-            var b = this.length
-                , c = +a + (a < 0 ? b : 0);
-            return this.pushStack(c >= 0 && c < b ? [this[c]] : [])
+        eq: function (i) {
+            let len = this.length,
+                j = +i + (i < 0 ? len : 0);
+            return this.pushStack(j >= 0 && j < len ? [this[j]] : []);
         },
         end: function () {
-            return this.prevObject || this.constructor()
+            return this.prevObject || this.constructor();
         },
-        push: h,
-        sort: c.sort,
-        splice: c.splice
+        push: push,
+        sort: arr.sort,
+        splice: arr.splice
     };
 
     /**
@@ -1001,8 +709,8 @@
      * @param {Element|String} parent 
      * @returns an element of `height: 30px` and `width: 30px` and color styles
      */
-    var drawBox = function (color, parent) {
-        var box;
+    let drawBox = function (color, parent) {
+        let box;
         parent = typeof parent == 'string' ? getElemt(parent) : parent;
         if (color) { box = elemt('div', null, 'box', null, 'height: 30px;width: 30px;background-color: ' + color + ';float: left') }
         else { box = elemt('div', null, 'box', null, 'height: 30px;width: 30px;background-color: #000;float: left') }
@@ -1017,9 +725,9 @@
      * @param {Element|String} parent
      * Appends an element of `height: 30px` and `width: 30px` to add a new line effect ot that of {@link drawBox}
      */
-    var newLine = function (parent) {
+    let newLine = function (parent) {
         parent = typeof parent == 'string' ? getElemt(parent) : parent;
-        var bl = elemt('div', null, 'box', null, 'height: 30px;');
+        let bl = elemt('div', null, 'box', null, 'height: 30px;');
         if (parent) { addChild(parent, [bl]) }
         else if (!parent) { addChild('body', [bl]) }
     };
@@ -1029,9 +737,9 @@
      * @param {Element|String} parent 
      * Removes all boxes appended into an element from {@link drawBox}
      */
-    var clearBox = function (parent) {
+    let clearBox = function (parent) {
         parent = typeof parent == 'string' ? getElemt(parent) : parent;
-        for (var i = 0; i < parent.length; i++) { remove(parent[i].querySelector('div.box')) }
+        for (let i = 0; i < parent.length; i++) { remove(parent[i].querySelector('div.box')) }
     };
 
     /**
@@ -1048,9 +756,9 @@
      * 
      * The element can also be resized by the {@link resize} function
      */
-    var dragElement = function (elemt, x, y, resize) {
+    let dragElement = function (elemt, x, y, resize) {
         elemt = typeof elemt == 'string' ? getElemt(elemt) : elemt;
-        var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+        let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
         if (elemt.querySelector('#' + elemt.id + '-header')) {
             on(elemt.querySelector('#' + elemt.id + '-header'), 'mousedown', dragMouseDown);
         } else {
@@ -1103,19 +811,19 @@
      * @param {Boolean} y 
      *   
      */
-    var resize = function (elemt, x, y) {
+    let resize = function (elemt, x, y) {
         elemt = typeof elemt == 'string' ? getElemt(elemt) : elemt;
 
-        var ne = elemt('div', null, 'e-display-topright', null, 'width: 10px;height: 10px;cursor: ne-resize');
-        var n = elemt('div', null, 'e-display-top', null, 'width: calc(100% - 20px);height: 10px;margin-left: 31px;cursor: n-resize');
-        var nw = elemt('div', null, 'e-display-topleft', null, 'width: 10px;height: 10px;cursor: nw-resize');
-        var se = elemt('div', null, 'e-display-bottomright', null, 'width: 10px;height: 10px;cursor: nw-resize');
-        var s = elemt('div', null, 'e-display-bottom', null, 'width: calc(100% - 20px);height: 10px;margin-left: 10px;cursor: s-resize');
-        var sw = elemt('div', null, 'e-display-bottomleft', null, 'width: 10px;height: 10px;cursor: ne-resize');
-        var ep = elemt('div', null, 'e-display-right', null, 'height: calc(100% - 20px);width: 10px;margin-top: 10px;cursor: e-resize');
-        var w = elemt('div', null, 'e-display-left', null, 'height: calc(100% - 20px);width: 10px;margin-top: 10px;cursor: w-resize');
+        let ne = elemt('div', null, 'e-display-topright', null, 'width: 10px;height: 10px;cursor: ne-resize');
+        let n = elemt('div', null, 'e-display-top', null, 'width: calc(100% - 20px);height: 10px;margin-left: 31px;cursor: n-resize');
+        let nw = elemt('div', null, 'e-display-topleft', null, 'width: 10px;height: 10px;cursor: nw-resize');
+        let se = elemt('div', null, 'e-display-bottomright', null, 'width: 10px;height: 10px;cursor: nw-resize');
+        let s = elemt('div', null, 'e-display-bottom', null, 'width: calc(100% - 20px);height: 10px;margin-left: 10px;cursor: s-resize');
+        let sw = elemt('div', null, 'e-display-bottomleft', null, 'width: 10px;height: 10px;cursor: ne-resize');
+        let ep = elemt('div', null, 'e-display-right', null, 'height: calc(100% - 20px);width: 10px;margin-top: 10px;cursor: e-resize');
+        let w = elemt('div', null, 'e-display-left', null, 'height: calc(100% - 20px);width: 10px;margin-top: 10px;cursor: w-resize');
 
-        var cont = elemt('div', [nw, n, ne, sw, s, se, ep, w], 'e-resize-container e-overlay');
+        let cont = elemt('div', [nw, n, ne, sw, s, se, ep, w], 'e-resize-container e-overlay');
         addChild(elemt, [cont]);
 
         if (x) {
@@ -1133,7 +841,7 @@
      * @param {string} style 
      * @returns 
      */
-    var getStyleValue = function (elemt, style) {
+    let getStyleValue = function (elemt, style) {
         elemt = typeof elemt == 'string' ? getElemt(elemt) : elemt;
         if (window.getComputedStyle) {
             return window.getComputedStyle(elemt, null).getPropertyValue(style);
@@ -1143,22 +851,22 @@
     };
 
 
-    var toCssPx = function (pixels) {
+    let toCssPx = function (pixels) {
         if (!window.isFinite(pixels)) {
             console.error('Pixel value is not a number: ' + pixels);
         }
         return Math.round(pixels) + 'px';
     };
 
-    var magnify = function (img, zoom) {
+    let magnify = function (img, zoom) {
         remove('.e-img-magnifier-glass');
         img = typeof img == 'string' ? getElemt(img) : img;
-        var glass = elemt('div', null, 'e-img-magnifier-glass dragable');
+        let glass = elemt('div', null, 'e-img-magnifier-glass dragable');
         img.parentNode.insertBefore(glass, img);
-        css(glass, 'background-image: url("' + img.src + '")');
+        css(glass, 'background-image: url(\'img.src\')');
         css(glass, 'background-repeat: no-repeat');
         css(glass, 'background-size: ' + toCssPx(img.width * zoom) + toCssPx(img.height * zoom));
-        var bw = 3, w = glass.offsetWidth / 2, h = glass.offsetHeight / 2;
+        let bw = 3, w = glass.offsetWidth / 2, h = glass.offsetHeight / 2;
 
         on(glass, 'mousemove', moveMagnifier);
         on(img, 'mousemove', moveMagnifier);
@@ -1168,9 +876,9 @@
 
         function moveMagnifier(event) {
             event.preventDefault();
-            var pos = getCursorPos(event);
-            var x = pos.x;
-            var y = pos.y;
+            let pos = getCursorPos(event);
+            let x = pos.x;
+            let y = pos.y;
 
             if (x > img.width - (w / zoom)) { x = img.width - (w / zoom); }
             if (x < w / zoom) { x = w / zoom; }
@@ -1184,9 +892,9 @@
         }
 
         function getCursorPos(event) {
-            var x = 0, y = 0;
+            let x = 0, y = 0;
             event = event || window.event;
-            var a = img.getBoundingClientRect();
+            let a = img.getBoundingClientRect();
 
             x = event.pageX - a.left;
             y = event.pageY - a.top;
@@ -1197,7 +905,7 @@
         }
     };
 
-    var spinner = function (parent) {
+    let spinner = function (parent) {
         if (!(this instanceof spinner)) return new spinner(parent);
         parent = typeof parent == 'string' ? parent = getElemt(parent) : parent = parent;
 
@@ -1212,14 +920,14 @@
         addChild(parent, [this.spinner]);
     };
 
-    var pickRandom = function (items) {
-        var min = 0;
-        var max = items.length;
+    let pickRandom = function (items) {
+        let min = 0;
+        let max = items.length;
         return items[Math.floor(Math.random() * (max - min)) + min];
     };
 
-    var newComment = function (txt, type) {
-        var c = this;
+    let newComment = function (txt, type) {
+        let c = this;
         if (!type) { type = 'error' }
         if (txt) {
             c.closeBtn = elemt('strong', 'x', 'alert-closeBtn');
@@ -1228,20 +936,20 @@
             addChild(document.body, [c.comment]);
         }
         c.closeBtn.onclick = function () {
-            var div = this.parentElement;
+            let div = this.parentElement;
             div.style.opacity = '0';
             setTimeout(function () { remove(div); }, 600);
         }
     };
 
-    var throwIfWhitespace = function (str) {
+    let throwIfWhitespace = function (str) {
         if (str.indexOf(' ') >= 0) {
             throw new Error('class has illegal whitespace characters');
         }
     };
 
-    var elemt = function (tag, content, className, attributes, style) {
-        var elt = document.createElement(tag);
+    let elemt = function (tag, content, className, attributes, style) {
+        let elt = document.createElement(tag);
         if (className) {
             elt.className = className;
         }
@@ -1251,7 +959,7 @@
         if (typeof content == 'string') {
             elt.appendChild(document.createTextNode(content));
         } else if (content) {
-            for (var i = 0; i < content.length; ++i) {
+            for (let i = 0; i < content.length; ++i) {
                 elt.appendChild(content[i]);
             }
         }
@@ -1264,22 +972,22 @@
         return elt;
     };
 
-    var remove = function (elt) {
+    let remove = function (elt) {
         elt = typeof elt == 'string' ? getElemt(elt) : elt;
         elt.remove();
     };
 
-    var hide = function (elt) {
+    let hide = function (elt) {
         elt = typeof elt == 'string' ? getElemt(elt) : elt;
         css(elt, 'display: none');
     };
 
-    var show = function (elt) {
+    let show = function (elt) {
         elt = typeof elt == 'string' ? getElemt(elt) : elt;
         css(elt, 'display: block');
     };
 
-    var toggleShow = function (elt) {
+    let toggleShow = function (elt) {
         elt = typeof elt == 'string' ? getElemt(elt) : elt;
         if (elt.style.display == 'none') {
             show(elt);
@@ -1288,11 +996,11 @@
         }
     };
 
-    var classRegExp = function (className) {
+    let classRegExp = function (className) {
         return new RegExp('(^|\\s)' + className + '($|\\s)');
     ;}
 
-    var hasClass = function (elt, classToCheck) {
+    let hasClass = function (elt, classToCheck) {
         elt = typeof elt == 'string' ? getElemt(elt) : elt;
         throwIfWhitespace(classToCheck);
 
@@ -1303,7 +1011,7 @@
         return classRegExp(classToCheck).test(elt.className);
     };
 
-    var addClass = function (elt, classN) {
+    let addClass = function (elt, classN) {
         elt = typeof elt == 'string' ? getElemt(elt) : elt;
         if (elt.classList) {
             elt.classList.add(classN);
@@ -1313,7 +1021,7 @@
         return elt;
     };
 
-    var removeClass = function (elt, classN) {
+    let removeClass = function (elt, classN) {
         elt = typeof elt == 'string' ? getElemt(elt) : elt;
         if (elt.classList) {
             elt.classList.remove(classN);
@@ -1327,9 +1035,9 @@
         return elt;
     };
 
-    var toggleClass = function (elt, classToToggle, predicate) {
+    let toggleClass = function (elt, classToToggle, predicate) {
         elt = typeof elt == 'string' ? getElemt(elt) : elt;
-        var has = hasClass(elt, classToToggle);
+        let has = hasClass(elt, classToToggle);
 
         if (typeof predicate === 'function') {
             predicate = predicate(elt, classToToggle);
@@ -1353,12 +1061,12 @@
         return elt;
     };
 
-    var attr = function (elt, attr, value) {
+    let attr = function (elt, attr, value) {
         elt = typeof elt == 'string' ? getElemt(elt) : elt;
         if (typeof attr == 'object') {
             setAttributes(elt, attr);
         } else if (typeof attr == 'string' && value) {
-            var obj = {};
+            let obj = {};
             obj[attr] = value;
             setAttributes(elt, obj);
         } else {
@@ -1366,10 +1074,10 @@
         }
     }
 
-    var setAttributes = function (elt, attributes) {
+    let setAttributes = function (elt, attributes) {
         elt = typeof elt == 'string' ? getElemt(elt) : elt;
         Object.getOwnPropertyNames(attributes).forEach(function (attrName) {
-            var attrValue = attributes[attrName];
+            let attrValue = attributes[attrName];
 
             if (attrValue === null || typeof attrValue === 'undefined' || attrValue === false) {
                 elt.removeAttribute(attrName);
@@ -1379,15 +1087,15 @@
         });
     };
 
-    var getAttributes = function (elt) {
+    let getAttributes = function (elt) {
         elt = typeof elt == 'string' ? getElemt(elt) : elt;
-        var obj = {};
+        let obj = {};
         if (elt && elt.attributes && elt.attributes.length > 0) {
-            var attrs = elt.attributes;
+            let attrs = elt.attributes;
 
-            for (var i = attrs.length - 1; i >= 0; i--) {
-                var attrName = attrs[i].name;
-                var attrVal = attrs[i].value;
+            for (let i = attrs.length - 1; i >= 0; i--) {
+                let attrName = attrs[i].name;
+                let attrVal = attrs[i].value;
 
                 if (typeof elt[attrName] === 'boolean') {
                     attrVal = attrVal !== null ? true : false;
@@ -1400,12 +1108,12 @@
         return obj;
     };
 
-    var getElemt = function (elt) {
+    let getElemt = function (elt) {
         if (typeof elt == 'string') { return document.querySelector(elt) }
         else { return elt }
     };
 
-    var getElements = function (elt) {
+    let getElements = function (elt) {
         if (typeof elt == 'object') { return [elt] }
         else {
             if (document.querySelectorAll(elt)) { return document.querySelectorAll(elt) }
@@ -1413,60 +1121,60 @@
         }
     };
 
-    var removeAttr = function (elt, attribute) {
+    let removeAttr = function (elt, attribute) {
         elt = typeof elt == 'string' ? getElemt(elt) : elt;
         elt.removeAttribute(attribute);
     };
 
-    var css = function (elt, style, val) {
+    let css = function (elt, style, val) {
         elt = typeof elt == 'string' ? getElemt(elt) : elt;
         if (style) { elt.style.cssText += style; }
         else if (style && val) { elt.style.setProperty(style, val) }
         else { return elt.style.cssText }
     };
 
-    var addChild = function (parent, child) {
+    let addChild = function (parent, child) {
         if (typeof parent == 'string') {
-            for (var i = 0; i < getElements(parent).length; i++) {
-                var elt = getElements(parent)[i];
-                for (var i = 0; i < child.length; i++) { elt.appendChild(child[i]); }
+            for (let i = 0; i < getElements(parent).length; i++) {
+                let elt = getElements(parent)[i];
+                for (let i = 0; i < child.length; i++) { elt.appendChild(child[i]); }
             }
         } else {
-            for (var i = 0; i < child.length; i++) {
+            for (let i = 0; i < child.length; i++) {
                 parent.appendChild(child[i]);
             }
         }
     };
 
-    var appendChild = function (parent, child) {
+    let appendChild = function (parent, child) {
         parent = typeof parent == 'string' ? getElemt(parent) : parent
         parent.appendChild(child);
     };
 
-    var removeChild = function (parent, child) {
+    let removeChild = function (parent, child) {
         if (typeof parent == 'string') {
-            for (var i = 0; i < getElements(parent).length; i++) {
-                var elt = getElements(parent)[i];
-                for (var i = 0; i < child.length; i++) { elt.removeChild(child[i]); }
+            for (let i = 0; i < getElements(parent).length; i++) {
+                let elt = getElements(parent)[i];
+                for (let i = 0; i < child.length; i++) { elt.removeChild(child[i]); }
             }
         } else {
-            for (var i = 0; i < child.length; i++) {
+            for (let i = 0; i < child.length; i++) {
                 parent.removeChild(child[i]);
             }
         }
     };
 
-    var removeChildren = function (elt) {
+    let removeChildren = function (elt) {
         elt = typeof elt == 'string' ? getElemt(elt) : elt;
-        for (var count = elt.childNodes.length; count > 0; --count) { elt.removeChild(elt.firstChild); }
+        for (let count = elt.childNodes.length; count > 0; --count) { elt.removeChild(elt.firstChild); }
         return elt;
     };
 
-    var getBoundingClientRect = function (elt) {
+    let getBoundingClientRect = function (elt) {
         elt = typeof elt == 'string' ? getElemt(elt) : elt;
         if (elt && elt.getBoundingClientRect && elt.parentNode) {
-            var rect = elt.getBoundingClientRect();
-            var result = {};
+            let rect = elt.getBoundingClientRect();
+            let result = {};
             ['bottom', 'height', 'left', 'right', 'top', 'width'].forEach(function (k) {
                 if (rect[k] !== undefined) {
                     result[k] = rect[k];
@@ -1485,7 +1193,7 @@
         }
     };
 
-    var findPosition = function (elt) {
+    let findPosition = function (elt) {
         elt = typeof elt == 'string' ? getElemt(elt) : elt;
         if (!elt || elt && !elt.offsetParent) {
             return {
@@ -1496,10 +1204,10 @@
             };
         }
 
-        var width = elt.offsetWidth;
-        var height = elt.offsetHeight;
-        var left = 0;
-        var top = 0;
+        let width = elt.offsetWidth;
+        let height = elt.offsetHeight;
+        let left = 0;
+        let top = 0;
 
         do {
             left += elt.offsetLeft;
@@ -1515,15 +1223,15 @@
         };
     };
 
-    var getPointerPosition = function (elt, event) {
+    let getPointerPosition = function (elt, event) {
         elt = typeof elt == 'string' ? getElemt(elt) : elt;
-        var position = {};
-        var boxTarget = findPosition(event.target);
-        var box = findPosition(elt);
-        var boxW = box.width;
-        var boxH = box.height;
-        var offsetY = event.offsetY - (box.top - boxTarget.top);
-        var offsetX = event.offsetX - (box.left - boxTarget.left);
+        let position = {};
+        let boxTarget = findPosition(event.target);
+        let box = findPosition(elt);
+        let boxW = box.width;
+        let boxH = box.height;
+        let offsetY = event.offsetY - (box.top - boxTarget.top);
+        let offsetX = event.offsetX - (box.left - boxTarget.left);
 
         if (event.changedTouches) {
             offsetX = event.changedTouches[0].pageX - box.left;
@@ -1535,11 +1243,11 @@
         return position;
     };
 
-    var isTextNode = function (value) {
+    let isTextNode = function (value) {
         return isObject(value) && value.nodeType === 3;
     };
 
-    var clearElemt = function (elt) {
+    let clearElemt = function (elt) {
         elt = typeof elt == 'string' ? getElemt(elt) : elt;
         while (elt.firstChild) {
             elt.removeChild(elt.firstChild);
@@ -1548,7 +1256,7 @@
         return elt;
     };
 
-    var normalizeContent = function (content) {
+    let normalizeContent = function (content) {
         if (typeof content === 'function') {
             content = content();
         }
@@ -1571,7 +1279,7 @@
         });
     };
 
-    var appendContent = function (elt, content) {
+    let appendContent = function (elt, content) {
         elt = typeof elt == 'string' ? getElemt(elt) : elt;
         normalizeContent(content).forEach(function (node) {
             return elt.appendChild(node);
@@ -1579,12 +1287,12 @@
         return elt;
     };
 
-    var insertContent = function (elt, content) {
+    let insertContent = function (elt, content) {
         elt = typeof elt == 'string' ? getElemt(elt) : elt;
         return appendContent(emptyEl(elt), content);
     };
 
-    var isSingleLeftClick = function (event) {
+    let isSingleLeftClick = function (event) {
         if (event.button === undefined && event.buttons === undefined) {
             return true;
         }
@@ -1605,16 +1313,16 @@
         return true;
     };
 
-    var copyObj = function (obj, target, overwrite) {
+    let copyObj = function (obj, target, overwrite) {
         if (!target) { target = {}; }
-        for (var prop in obj) {
+        for (let prop in obj) {
             if (obj.hasOwnProperty(prop) && (overwrite !== false || !target.hasOwnProperty(prop))) { target[prop] = obj[prop]; }
         }
         return target;
     };
 
-    var createObj = function (base, props) {
-        var inst;
+    let createObj = function (base, props) {
+        let inst;
         if (Object.create) {
             inst = Object.create(base);
         } else {
@@ -1625,14 +1333,14 @@
         return inst
     };
 
-    var select = function (place, data) {
+    let select = function (place, data) {
         if (!(this instanceof select)) return new select(place, data);
         place = typeof place == 'string' ? getElemt(place) : place;
         data = data ? copyObj(data) : {}
 
         if (data.select) {
             this.select = elemt('select');
-            for (var i = 0; i < data.select.length; i++) {
+            for (let i = 0; i < data.select.length; i++) {
                 this.option = elemt('option', data.select[i], null, { 'value': i });
                 addChild(this.select, [this.option]);
             }
@@ -1644,12 +1352,12 @@
         return this;
     };
 
-    var editSelect = function (place) {
-        var elt = place.querySelector('select');
-        var a = elemt('div', elt.options[0].innerText, 'e-selected');
-        var b = elemt('div', null, 'e-select-item e-select-hidden');
-        for (var i = 0; i < elt.options.length; i++) {
-            var c = elemt('div', elt.options[i].innerHTML);
+    let editSelect = function (place) {
+        let elt = place.querySelector('select');
+        let a = elemt('div', elt.options[0].innerText, 'e-selected');
+        let b = elemt('div', null, 'e-select-item e-select-hidden');
+        for (let i = 0; i < elt.options.length; i++) {
+            let c = elemt('div', elt.options[i].innerHTML);
             addChild(b, [c]);
         }
         addClass(b.firstChild, 'e-same-as-selected');
@@ -1659,11 +1367,11 @@
             closeAllSelect(this);
             toggleClass(this.nextSibling, 'e-select-hidden');
             toggleClass(this, 'e-select-arrow-active');
-            var d = place.querySelectorAll('.e-select-item div');
-            for (var i = 0; i < d.length; i++) {
+            let d = place.querySelectorAll('.e-select-item div');
+            for (let i = 0; i < d.length; i++) {
                 d[i].addEventListener('click', function () {
                     this.parentElement.parentElement.children[1].innerHTML = this.innerHTML;
-                    for (var i = 0; i < place.querySelectorAll('.e-select-item div').length; i++) {
+                    for (let i = 0; i < place.querySelectorAll('.e-select-item div').length; i++) {
                         removeClass(place.querySelectorAll('.e-select-item div')[i], 'e-same-as-selected');
                     }
                     addClass(this, 'e-same-as-selected');
@@ -1673,32 +1381,32 @@
         on(document, 'click', closeAllSelect);
     };
 
-    var closeAllSelect = function (elt) {
-        var arrNo = [];
-        var x = getElements('.e-select-item');
-        var y = getElements('.e-selected');
-        for (var i = 0; i < y.length; i++) {
+    let closeAllSelect = function (elt) {
+        let arrNo = [];
+        let x = getElements('.e-select-item');
+        let y = getElements('.e-selected');
+        for (let i = 0; i < y.length; i++) {
             if (elt == y[i]) {
                 arrNo.push(i)
             } else {
                 removeClass(y[i], 'e-select-arrow-active');
             }
         }
-        for (var i = 0; i < x.length; i++) {
+        for (let i = 0; i < x.length; i++) {
             if (arrNo.indexOf(i)) {
                 addClass(x[i], 'e-select-hidden');
             }
         }
     };
 
-    var input = function (place, data) {
+    let input = function (place, data) {
         place = typeof place == 'string' ? getElemt(place) : place;
         if (!(this instanceof input)) return new input(place, data);
         if (data.input) {
             this.inputWrapper = elemt('div', null, null, 'max-width: 220px;padding: 5px;');
-            for (var i in data.input) {
-                var type, placeholder, value;
-                var input = data.input[i] ? copyObj(data.input[i]) : {}
+            for (let i in data.input) {
+                let type, placeholder, value;
+                let input = data.input[i] ? copyObj(data.input[i]) : {}
                 if (input.type) { type = input.type }
                 else { type = 'text' }
                 if (input.placeholder) { placeholder = input.placeholder }
@@ -1719,10 +1427,10 @@
         return this.inputWrapper
     };
 
-    var table = function (parent, data) {
+    let table = function (parent, data) {
         place = typeof place == 'string' ? getElemt(place) : place;
         if (!(this instanceof table)) return new table(parent, data);
-        var col = 0, row = 0;
+        let col = 0, row = 0;
         parent = typeof parent == 'string' ? getElemt(parent) : parent || document.body;
         data = data ? copyObj(data) : {};
 
@@ -1734,7 +1442,7 @@
         if (data.col) col = data.col;
         if (data.heading) {
             col = data.heading.length;
-            for (var i = 0; i < col; i++) {
+            for (let i = 0; i < col; i++) {
                 this.heading = elemt('th', data.heading[i]);
                 addChild(this.row, [this.heading]);
             }
@@ -1742,29 +1450,29 @@
 
         if (data.content) {
             row = data.content.length / col;
-            for (var i = 0; i < row; i++) {
+            for (let i = 0; i < row; i++) {
                 this.row2 = elemt('tr');
-                var cells = data.content[row]
+                let cells = data.content[row]
                 console.log(cells)
                 addChild(this.tbody, [this.row2]);
             }
         }
     };
 
-    var setCookie = function (cname, cvalue, exdays, path) {
-        var d = new Date();
+    let setCookie = function (cname, cvalue, exdays, path) {
+        let d = new Date();
         d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-        var expires = 'expires=' + d.toUTCString();
+        let expires = 'expires=' + d.toUTCString();
         if (!path) document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/';
         else document.cookie = cname + '=' + cvalue + ';' + expires + ';path=' + path;
     };
 
-    var getCookie = function (cname) {
-        var name = cname + '=';
-        var decodedCookie = decodeURIComponent(document.cookie);
-        var ca = decodedCookie.split(';');
-        for (var i = 0; i < ca.length; i++) {
-            var c = ca[i];
+    let getCookie = function (cname) {
+        let name = cname + '=';
+        let decodedCookie = decodeURIComponent(document.cookie);
+        let ca = decodedCookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
             while (c.charAt(0) == ' ') {
                 c = c.substring(1);
             }
@@ -1775,19 +1483,9 @@
         return '';
     };
 
-    /*var map = function (v, i1, i2, o1, o2) {
-        return o1 + (o2 - o1) * ((v - i1) / (i2 - i1));
-    };*/
-
-    var w = function (a) {
-        var b = !!a && "length" in a && a.length
-            , c = q.type(a);
-        return "function" !== c && !(null != a && a === a.window) && ("array" === c || 0 === b || "number" == typeof b && b > 0 && b - 1 in a)
-    };
-
-    var includeHTML = function (cb) {
-        var elemt, file, xhttp;
-        for (var i = 0; i < getElements('*').length; i++) {
+    let includeHTML = function (cb) {
+        let elemt, file, xhttp;
+        for (let i = 0; i < getElements('*').length; i++) {
             elemt = getElements('*')[i];
             file = elemt.getAttribute('include-html');
             if (file) {
@@ -1809,28 +1507,79 @@
         if (cb) cb();
     };
 
-    var getHttp = function (url) {
+    let getHttp = function (url, callback, onload, onerror) {
+        onload = onload || function () {};
+
         if (url) {
-            var xhttp = new XMLHttpRequest(), response;
-            xhttp.onreadystatechange = function () {
+            let xhttp = new window$1.XMLHttpRequest(), response;
+            on(xhttp, 'readystatechange', function () {
                 if (this.readyState == 4) {
-                    if (this.status == 200) { response = this.responseText; }
-                    if (this.status == 403) { response = 'Access Denied.'; }
-                    if (this.status == 404) { response = 'Page not found.'; }
+                    response = this.responseText;
+                    if (callback) callback(response);
+                    return response;
                 }
-            }
+            });
+            on(xhttp, 'progress', onload);
+            on(xhttp, 'error', onerror);
             xhttp.open('GET', url, true);
             xhttp.send();
-            return response;
         } else {
             log.warn('getHttp need a url to perfrom it XMLHttpRequest');
-            return 'Needs a url to perfrom it XMLHttpRequest';
         }
     };
 
-    var slideShow = function (elt, ms, func) {
+    let ajax = function () {
+        let obj = {}, xhttp = new window$1.XMLHttpRequest(), response, load = function () {}, error = function () {};
+        if (arguments.length == 2) {
+            obj = arguments[1];
+            obj.url = arguments[0];
+        } else {
+            obj = arguments[0]
+        }
+        load = obj.load || load;
+        error = obj.error || error;
+
+
+        on(xhttp, 'readystate', function () {
+            regResponse(this);
+            if (4 === this.readyState) obj.success(response);
+            console.log('gdfghj', this, response)
+            return response;
+        });
+        on(xhttp, 'progress', load);
+        on(xhttp, 'error', error);
+
+        function regResponse(x) {
+            response = {
+                abort: function () {},
+                always: function () {},
+                catch: function () {},
+                done: function () {},
+                fail: function () {},
+                pipe: function () {},
+                progress: function () {},
+                promise: function () {},
+                readyState: x.readyState,
+                responseText: x.responseText,
+                state: x.state,
+                statusCode: function () {},
+                then: function () {}
+            };
+        }
+
+        try {
+            setTimeout(function () {
+                xhttp.open(obj.type, obj.url, obj.async, obj.username, obj.password);
+                xhttp.send();
+            });
+        } catch (e) {
+            log.error(e);
+        }
+    }
+
+    let slideShow = function (elt, ms, func) {
         elt = typeof elt == 'string' ? getElemt(elt) : elt;
-        var ss, x = elt;
+        let ss, x = elt;
         ss = {};
         ss.current = 1;
         ss.x = x;
@@ -1859,15 +1608,15 @@
             ss.start();
         };
         ss.display = function (n) {
-            for (var i = 0; i < ss.x.length; i++) { css(ss.x[i], 'display: none'); }
+            for (let i = 0; i < ss.x.length; i++) { css(ss.x[i], 'display: none'); }
             css(ss.x[n - 1], 'display: block');
         }
         ss.start();
         return ss;
     };
 
-    var slideImage = function (elt, ms, func) {
-        var ss, x = elt;
+    let slideImage = function (elt, ms, func) {
+        let ss, x = elt;
         ss = {};
         ss.current = 1;
         ss.x = x;
@@ -1896,26 +1645,26 @@
             ss.start();
         };
         ss.display = function (n) {
-            for (var i = 0; i < ss.x.length; i++) { css(ss.x[i], 'display: none'); }
+            for (let i = 0; i < ss.x.length; i++) { css(ss.x[i], 'display: none'); }
             styleElemt(ss.x[n - 1], 'display: block');
         }
         ss.start();
         return ss;
     };
 
-    var filterHTML = function (elemt, sel, val) {
+    let filterHTML = function (elemt, sel, val) {
         elemt = typeof elemt == 'string' ? getElemt(elemt) : elemt;
-        var hit;
+        let hit;
         elemt = typeof elemt == 'string' ? getElements(elemt) : elemt;
-        for (var i = 0; i < elemt.length; i++) {
+        for (let i = 0; i < elemt.length; i++) {
             sel = typeof sel == 'string' ? getElements(sel) : sel;
-            for (var a = 0; a < sel.length; a++) {
+            for (let a = 0; a < sel.length; a++) {
                 hit = 0;
                 if (sel[a].innerText.toLowerCase().indexOf(val.toLowerCase) > -1) {
                     hit = 1;
                 }
-                var elt = getElemt(sel + ' *');
-                for (var b = 0; b < elt.length; i++) {
+                let elt = getElemt(sel + ' *');
+                for (let b = 0; b < elt.length; i++) {
                     if (elt[b].innerText.toLowerCase().indexOf(val.toLowerCase) > -1) {
                         hit = 1;
                     }
@@ -1929,18 +1678,18 @@
         }
     };
 
-    var sortHTML = function (elemt, sel, val) {
+    let sortHTML = function (elemt, sel, val) {
         elemt = typeof elemt == 'string' ? getElemt(elemt) : elemt;
-        var cc, y, by, val1, val2;
+        let cc, y, by, val1, val2;
         elemt = typeof elemt == 'string' ? getElements(elemt) : elemt;
-        for (var i = 0; i < elemt.length; i++) {
-            for (var a = 0; a < 2; a++) {
+        for (let i = 0; i < elemt.length; i++) {
+            for (let a = 0; a < 2; a++) {
                 cc = 0;
                 y = 1;
                 while (y == 1) {
                     y = 0;
                     sel = typeof sel == 'string' ? elemt[i].querySelectorAll(sel) : sel;
-                    for (var b = 0; b < sel.length; i++) {
+                    for (let b = 0; b < sel.length; i++) {
                         by = 0;
                         if (val) {
                             val1 = sel[b].querySelector(val).innerText.toLowerCase();
@@ -1965,91 +1714,86 @@
         }
     };
 
-    var val = function (elt, val) {
+    let val = function (elt, val) {
         elt = typeof elt == 'string' ? getElemt(elt) : elt;
         if (!val) return elt.value;
         else elt.value = val;
     };
 
-    var text = function (elt, text) {
+    let text = function (elt, text) {
         elt = typeof elt == 'string' ? getElemt(elt) : elt;
         if (!text) return elt.innerText;
         else elt.innerText = text;
     };
 
-    var html = function (elt, html) {
+    let html = function (elt, html) {
         elt = typeof elt == 'string' ? getElemt(elt) : elt;
         if (!html) return elt.innerHTML;
         else elt.innerHTML = html;
     };
 
-    var append = function (elt, content) {
+    let append = function (elt, content) {
         elt = typeof elt == 'string' ? getElemt(elt) : elt;
         if (typeof content == 'string') {
             elt.appendChild(document.createTextNode(content));
         }
         else if (content) {
-            for (var i = 0; i < content.length; i++) {
+            for (let i = 0; i < content.length; i++) {
                 elt.appendChild(content[i]);
             }
         }
     };
 
-    var prepend = function (elt, content) {
+    let prepend = function (elt, content) {
         elt = typeof elt == 'string' ? getElemt(elt) : elt;
         if (typeof content == 'string') {
             elt.insertBefore(document.createTextNode(content), elt.childNodes[0]);
         } else if (content) {
-            for (var i = 0; i < content.length; i++) {
+            for (let i = 0; i < content.length; i++) {
                 elt.insertBefore(content[i], elt.childNodes[0]);
             }
         }
     };
 
-    var before = function (elt, content) {
+    let before = function (elt, content) {
         elt = typeof elt == 'string' ? getElemt(elt) : elt;
         if (typeof content == 'string') {
             elt.parentNode.insertBefore(document.createTextNode(content), elt);
         } else if (content) {
-            for (var i = 0; i < content.length; i++) {
+            for (let i = 0; i < content.length; i++) {
                 elt.parentNode.insertBefore(content[i], elt);
             }
         }
     };
 
-    var after = function (elt, content) {
+    let after = function (elt, content) {
         elt = typeof elt == 'string' ? getElemt(elt) : elt;
         if (typeof content == 'string') {
             if (elt.nextSibling) elt.parentNode.insertBefore(document.createTextNode(content), elt.nextSibling);
             else elt.parentNode.appendChild(document.createTextNode(content));
         } else if (content) {
-            for (var i = 0; i < content.length; i++) {
+            for (let i = 0; i < content.length; i++) {
                 if (elt.nextSibling) elt.parentNode.insertBefore(content[i], elt.nextSibling);
                 else elt.parentNode.appendChild(content[i]);
             }
         }
     };
 
-    var height = function (elt, val) {
+    let height = function (elt, val) {
         elt = typeof elt == 'string' ? getElemt(elt) : elt;
         if (val) css(elt, 'height: ' + val);
         else return Number(getStyleValue(elt, 'height').replaceAll('px', ''));
     };
 
-    var width = function (elt, val) {
+    let width = function (elt, val) {
         elt = typeof elt == 'string' ? getElemt(elt) : elt;
         if (val) css(elt[0], 'width: ' + val);
         else return getStyleValue(elt, 'width');
     };
 
-    /*var ready = function (a) {
-        (a === !0 ? --r.readyWait : r.isReady) || (r.isReady = !0,
-            a !== !0 && --r.readyWait > 0 || Q.resolveWith(d, [r]))
-    } */
-
-    var SVGRenderer = function () {
+    let SVGRenderer = function () {
         if (!(this instanceof SVGRenderer)) { return new SVGRenderer(); }
-        var _this = this, _svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg'),
+        let _this = this, _svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg'),
             _svgHeight, _svgWidth, _minX, _minY, _width, _height;
         _this.domElement = _svg;
 
@@ -2089,21 +1833,21 @@
         };
         
         _this.path = function (path, fill = '#000', attr) {
-            var _path = _this.svgElement('path');
+            let _path = _this.svgElement('path');
             _path.attr({'d': path, fill: fill});
             _path.attr(attr);
             _this.append(_path);
         };
         
         _this.rect = function (x, y, w, h, fill = '#000', attr) {
-            var _rect = _this.svgElement('rect');
+            let _rect = _this.svgElement('rect');
             _rect.attr({x: x, y: y, width: w, height: h, fill: fill});
             _rect.attr(attr);
             _this.append(_rect)
         };
         
         _this.circle = function (cx, cy, r, fill = '#000', attr) {
-            var _circle = _this.svgElement('circle');
+            let _circle = _this.svgElement('circle');
             _circle.attr({cx: cx, cy: cy, r: r, fill: fill});
             _circle.attr(attr)
             _this.append(_circle)
@@ -2142,7 +1886,7 @@
         };
 
         _this.svgElement = function (tag) {
-            var _svgElt = document.createElementNS('http://www.w3.org/2000/svg', tag);
+            let _svgElt = document.createElementNS('http://www.w3.org/2000/svg', tag);
             _svgElt.hide = function () {
                 hide(_svgElt);
             };
@@ -2179,10 +1923,10 @@
         return this;
     };
 
-    var CanvasRenderer = function () {
+    let CanvasRenderer = function () {
         if (!(this instanceof CanvasRenderer)) { return new CanvasRenderer(); }
-        var _canvas = document.createElementNS('http://www.w3.org/1999/xhtml', 'canvas'),
-            _canvasHeight, _canvasWidth, _pixelRatio = 1;
+        let _canvas = document.createElementNS('http://www.w3.org/1999/xhtml', 'canvas'),
+            _canvasHeight, _canvasWidth, _pixelRatio = 1, _this = this;
         this.ctx = _canvas.getContext('2d');
         this.domElement = _canvas;
         css(_canvas, 'display: block');
@@ -2233,8 +1977,8 @@
             return this.ctx;
         };
 
-        this.drawImage = function (source, x, y, width, height) {
-            this.ctx.drawImage(source, x, y, width, height)
+        this.drawImage = function (source, x, y, w, h) {
+            this.ctx.drawImage(source, x, y, w, h)
         }
 
         this.dataUrl = function (type, quality) {
@@ -2264,114 +2008,50 @@
             this.ctx.fillRect(x, y, width, height);
         };
 
+        this.path = function () {
+            this.ctx.beginPath();
+
+        };
+
         this.clear = function () {
             this.ctx.clearRect(0, 0, _canvasWidth, _canvasHeight);
         };
 
         this.kill = function () {
             remove(_canvas);
-        }
-        return this;
-    };
-
-    var imgRenderer = function () {
-        if (!(this instanceof imgRenderer)) { return new imgRenderer(); }
-        var _img = document.createElementNS('http://www.w3.org/1999/xhtml', 'img'),
-            _imgHeight, _imgWidth, _pixelRatio = 1;
-        this.domElement = _img;
-        css(_img, 'display: block');
-
-        this.setSize = function (width, height, updateStyle) {
-            _imgWidth = Math.floor(width * _pixelRatio);
-            _imgHeight = Math.floor(height * _pixelRatio);
-
-            _img.height = _imgHeight;
-            _img.width = _imgWidth;
-
-            if (updateStyle != false) {
-                css(_img, 'height: ' + toCssPx(_imgHeight));
-                css(_img, 'width: ' + toCssPx(_imgWidth));
-            }
         };
-
-        this.resize = function (updateStyle) {
-            on(window, 'resize', function () {
-                _img.height = _imgHeight;
-                _img.width = _imgWidth;
-
-                if (updateStyle != false) {
-                    css(_img, 'height: ' + toCssPx(_imgHeight));
-                    css(_img, 'width: ' + toCssPx(_imgWidth));
-                }
-            });
-        };
-
-        this.setPixelRatio = function (val) {
-            if (val === undefined) return;
-            _pixelRatio = val;
-            this.setSize(_imgWidth, _imgHeight, false);
-        };
-
-        this.getSize = function () {
-            return {
-                width: _imgWidth,
-                height: _imgHeight
-            }
-        };
-
-        this.getPixelRation = function () {
-            return _pixelRatio;
-        };
-
-        this.getContext = function (context, attr) {
-            _img.getContext(context, attr);
-        };
-
-        this.drawImage = function (source) {
-            attr(_img, 'src', source);
-        };
-
-        this.src = this.drawImage;
-
-        this.dataUrl = function (type, quality) {
-            return _img.toDataURL(type, quality);
-        };
-
-        this.kill = function () {
-            remove(_img);
-        }
-
-        this.hide = function () {
-            hide(_img);
+        _this.hide = function () {
+            hide(_canvas);
         };
 
         this.show = function () {
-            show(_img);
+            show(_canvas);
         };
 
         this.toggleShow = function () {
-            toggleShow(_img);
+            toggleShow(_canvas);
+        };
+
+        this.attr = function (attribute, value) {
+            attr(_canvas, attribute, value);
         };
 
         this.addClass = function (className) {
-            addClass(_img, className);
+            addClass(_canvas, className);
         };
 
-        this.attr = function (attr, value) {
-            attr(_img, attr, value);
-        };
-
-        this.removeAttr = function (attr) {
-            removeAttr(_img, attr);
+        this.removeAttr = function (attribute) {
+            removeAttr(_canvas, attribute);
         };
 
         this.css = function (style) {
-            css(_img, style);
+            css(_canvas, style);
         };
+
         return this;
     };
     
-    var Polynomial = function Polynomial () {
+    let Polynomial = function Polynomial () {
         this.degree = 0;
         
     }
@@ -2381,196 +2061,401 @@
     }
     
     let Storage = function Storage(name) {
-        var indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
+        let indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
         if (indexedDB === undefined) {
             console.warn('Storage: IndexedDB not available.');
             return {
-                init: function() {},         get: function() {},         set: function() {},         clear: function() {},     };
+                init: function() {},
+                get: function() {},
+                set: function() {},
+                clear: function() {}
+            };
         }
-        var version = 1;
-        var database;
+        let version = 1;
+        let database;
         return {
             init: function(callback) {
-                var request = indexedDB.open(name, version);
+                let request = indexedDB.open(name, version);
                 request.onupgradeneeded = function(event) {
-                    var db = event.target.result;
+                    let db = event.target.result;
                     if (db.objectStoreNames.contains('states') === false) {
                         db.createObjectStore('states');
                     }
-                }
-                ;
+                };
                 request.onsuccess = function(event) {
                     database = event.target.result;
                     callback();
-                }
-                ;
+                };
                 request.onerror = function(event) {
                     console.error('IndexedDB', event);
-                }
-                ;
+                };
             },
 
             get: function(callback) {
-                var transaction = database.transaction(['states'], 'readwrite');
-                var objectStore = transaction.objectStore('states');
-                var request = objectStore.get(0);
+                let transaction = database.transaction(['states'], 'readwrite');
+                let objectStore = transaction.objectStore('states');
+                let request = objectStore.get(0);
                 request.onsuccess = function(event) {
                     callback(event.target.result);
-                }
-                ;
+                };
             },
 
             set: function(data) {
-                var start = performance.now();
-                var transaction = database.transaction(['states'], 'readwrite');
-                var objectStore = transaction.objectStore('states');
-                var request = objectStore.put(data, 0);
+                let start = performance.now();
+                let transaction = database.transaction(['states'], 'readwrite');
+                let objectStore = transaction.objectStore('states');
+                let request = objectStore.put(data, 0);
                 request.onsuccess = function() {
                     log(logTime(), 'Saved state to IndexedDB. ' + (performance.now() - start).toFixed(2) + 'ms');
-                }
-                ;
+                };
             },
 
             clear: function() {
                 if (database === undefined)
                     return;
-                var transaction = database.transaction(['states'], 'readwrite');
-                var objectStore = transaction.objectStore('states');
-                var request = objectStore.clear();
+                let transaction = database.transaction(['states'], 'readwrite');
+                let objectStore = transaction.objectStore('states');
+                let request = objectStore.clear();
                 request.onsuccess = function() {
                     log(logTime(), 'Cleared IndexedDB.');
                 }
             }
         };
-    }
+    };
+
+    let isArrayLike = function (obj) {
+        let b = !!obj && 'length' in obj && obj.length,
+            c = q.type(obj);
+        return c !== 'function' && !(obj != null && obj === obj.window) && (c === 'array' || b === 0 || (typeof b === 'number' && b > 0 && (b - 1) in obj));
+    };
 
     q.add = q.fn.add = function () {
-        var a, b, c, d, e, f, g = arguments[0] || {}, h = 1, i = arguments.length, j = !1; for (typeof g == 'boolean' && (j = g, g = arguments[h] || {}, h++), typeof g == 'object' || q.isFunction(g) || (g = {}), h === i && (g = this, h--); h < i; h++) {
-            if (null != (a = arguments[h])) {
-                for (b in a) {
-                    c = g[b], d = a[b], g !== d && (j && d && (q.isPlainObject(d) || (e = q.isArray(d))) ? (e ? (e = !1, f = c && q.isArray(c) ? c : []) : f = c && q.isPlainObject(c) ? c : {}, g[b] = q.add(j, f, d)) : void 0 !== d && (g[b] = d));
+        let options, name, src, copy, copyIsArray, clone, target = arguments[0] || {}, i = 1, length = arguments.length, deep = false;
+
+        if (typeof target === 'boolean') {
+            deep = target;
+            target = arguments[i] || {};
+            i++;
+        }
+
+        if (typeof target !== 'object' && !q.isFunction(target)) {
+            target = {};
+        }
+
+        if (i === length) {
+            target = this;
+            i--;
+        }
+
+        for (; i < length; i++) {
+            if ((options = arguments[i]) != null) {
+                for (name in options) {
+                    src = target[name];
+                    copy = options[name];
+
+                    if (target === copy) {
+                        continue;
+                    }
+
+                    if (deep && copy && (q.isPlainObject(copy) || (copyIsArray = q.isArray(copy)))) {
+                        if (copyIsArray) {
+                            copyIsArray = false;
+                            clone = src && q.isArray(src) ? src : [];
+                        } else {
+                            clone = src && q.isPlainObject(src) ? src : {};
+                        }
+
+                        target[name] = q.add(deep, clone, copy);
+                    } else if (copy !== undefined) {
+                        target[name] = copy;
+                    }
+                }
+            }
+        }
+
+        return target;
+    };
+
+    q.add({
+        isFunction: function (obj) {
+            return typeof obj === 'function';
+        },
+        isArray: Array.isArray,
+        isPlainObject: function (obj) {
+            return toString.call(obj) === '[object Object]';
+        },
+        each: function (obj, callback) {
+            let length, i = 0;
+
+            if (isArrayLike(obj)) {
+                length = obj.length;
+                for (; i < length; i++) {
+                    if (callback.call(obj[i], i, obj[i]) === false) {
+                        break;
+                    }
+                }
+            } else {
+                for (i in obj) {
+                    if (callback.call(obj[i], i, obj[i]) === false) {
+                        break;
+                    }
                 }
             }
 
-        }
-        return g;
-    }
-
-    q.add({
-        isFunction: function (a) {
-            return typeof a === 'function';
+            return obj;
         },
-        makeArray: function (a, b) {
-            var c = b || [];
-            return null != a && (w(Object(a)) ? q.merge(c, "string" == typeof a ? [a] : a) : h.call(c, a)),
-                c
-        },
-        each: function (a, b) {
-            var c, d = 0;
-            if (w(a)) {
-                for (c = a.length; d < c; d++)
-                    if (b.call(a[d], d, a[d]) === !1)
-                        break
-            } else
-                for (d in a)
-                    if (b.call(a[d], d, a[d]) === !1)
-                        break;
-            return a
-        },
-        type: function (a) {
-            return null == a ? a + "" : "object" == typeof a || "function" == typeof a ? j[k.call(a)] || "object" : typeof a
-        },
-        merge: function (a, b) {
-            for (var c = +b.length, d = 0, e = a.length; d < c; d++)
-                a[e++] = b[d];
-            return a.length = e,
-                a
-        },
-    });
+        map: function (elems, callback) {
+            let length, value, i = 0,
+                ret = [];
 
-    q.fn.add({
-        find: function (a) {
-            var b, c, d = this.length, e = this;
-            if ("string" != typeof a)
-                return this.pushStack(r(a).filter(function () {
-                    for (b = 0; b < d; b++)
-                        if (q.contains(e[b], this))
-                            return !0
-                }));
-            for (c = this.pushStack([]),
-                b = 0; b < d; b++)
-                Selector(a, e[b], c);
-            return d > 1 ? q.uniqueSort(c) : c
-        }
-    });
+            if (isArrayLike(elems)) {
+                length = elems.length;
+                for (; i < length; i++) {
+                    value = callback(elems[i], i);
 
-    var E, F = /^(?:\s*(<[\w\W]+>)[^>]*|#([\w-]+))$/, G = q.fn.init = function (a, b) {
+                    if (value != null) {
+                        ret.push(value);
+                    }
+                }
+            } else {
+                for (i in elems) {
+                    value = callback(elems[i], i);
 
-        var e, f;
-        if (!a)
-            return this;
-
-        if (c = c || E, typeof a == 'string') {
-            if (e = '<' === a[0] && '>' === a[a.length - 1] && a.length >= 3 ? [null, a, null] : F.exec(a), !e || !e[1] && b)
-                return !b || b.equery ? q(window$1.document).find(a) : this.constructor(b).find(a);
-            if (e[1]) {
-                if (b = b instanceof q ? b[0] : b, q.merge(this, q.parseHTML(e[1], b && b.nodeType ? b.ownerDocument || b : d, !0)), B.test(e[1]) && q.isPlainObject(b))
-                    for (e in b)
-                        q.isFunction(this[e]) ? this[e](b[e]) : this.attr(e, b[e]);
-                return this
+                    if (value != null) {
+                        ret.push(value);
+                    }
+                }
             }
-            return f = d.getElementById(e[2]),
-                f && (this[0] = f,
-                    this.length = 1),
-                this
+
+            return ret;
+        },
+        type: function (obj) {
+            if (obj == null) {
+                return obj + '';
+            }
+            return typeof obj === 'object' || typeof obj === 'function' ?
+                toString.call(obj) || 'object' :
+                typeof obj;
+        },
+        merge: function (first, second) {
+            let len = +second.length,
+                j = 0,
+                i = first.length;
+
+            for (; j < len; j++) {
+                first[i++] = second[j];
+            }
+
+            first.length = i;
+
+            return first;
         }
-        return a.nodeType ? (this[0] = a, this.length = 1, this) : q.isFunction(a) ? void 0 !== E.ready ? E.ready(a) : a() : q.makeArray(a, this)
+    });
+
+    q.fn.add({
+        find: function (selector) {
+            let i, c, _this = this;
+            if (typeof selector != 'string') {
+                return this.pushStack(q(selector).filter(function () {
+                    for (i = 0; i < _this.length; i++) {
+                        if (q.contains(_this[i], this)) return !0
+                    }
+                }));
+            }
+            for (c = this.pushStack([]), i = 0; i < _this.length; i++) Selector(selector, _this[i], c);
+            return _this.length > 1 ? q.uniqueSort(c) : c
+        }
+    });
+
+    let init = q.fn.init = function (selector, context) {
+        if (!selector) {
+            return this;
+        }
+
+        if (typeof selector === 'string') {
+            let match = document.querySelectorAll(selector);
+            Array.prototype.push.apply(this, match);
+            return this;
+        }
+
+        if (selector.nodeType) {
+            this[0] = selector;
+            this.length = 1;
+            return this;
+        }
+
+        if (q.isFunction(selector)) {
+            return document.readyState !== 'loading' ? selector(q) : on(document, 'DOMContentLoaded', selector.bind(q));
+        }
+
+        return q.makeArray(selector, this);
     };
 
+    init.prototype = q.fn;
 
-    E = q(d);
-    G.prototype = q.fn;
+    q.fn.ready = function (fn) {
+        on(document, 'DOMContentLoaded', fn);
+        return this;
+    };
 
-    q.fn.ready = function (a) {
-        return Q.then(a)["catch"](function (a) {
-            r.readyException(a)
-        }),
-            this
+    q.makeArray = function (arr, results) {
+        let ret = results || [];
+
+        if (arr != null) {
+            if (isArrayLike(Object(arr))) {
+                q.merge(ret, typeof arr === 'string' ? [arr] : arr);
+            } else {
+                push.call(ret, arr);
+            }
+        }
+
+        return ret;
+    };
+
+    q.Callbacks = function (options) {
+        options = typeof options === 'string' ? (function (opt) { let arr = {};return q.each(opt.match(/[^\x20\t\r\n\f]+/g) || [], function () { arr[arguments[1]] != 0 }), arr })(options)  : q.add({}, options);
+
+        let list = [], queue = [], firing, memory, fired, locked;
+        let fire = function () {
+            locked = options.once;
+            fired = firing = true;
+            for (; queue.length; memory = queue.shift()) {
+                while (++firingIndex < list.length) {
+                    if (list[firingIndex].apply(memory[0], memory[1]) === false && options.stopOnFalse) {
+                        firingIndex = list.length;
+                        memory = false;
+                    }
+                }
+            }
+            if (!options.memory) {
+                memory = false;
+            }
+            firing = false;
+            if (locked) {
+                list = memory ? [] : '';
+            }
+        };
+        let self = {
+            add: function () {
+                if (list) {
+                    if (memory && !firing) {
+                        firingIndex = list.length - 1;
+                        queue.push(memory);
+                    }
+
+                    (function add(args) {
+                        q.each(args, function (_, arg) {
+                            if (q.isFunction(arg)) {
+                                if (!options.unique || !self.has(arg)) {
+                                    list.push(arg);
+                                }
+                            } else if (arg && arg.length && typeof arg !== 'string') {
+                                add(arg);
+                            }
+                        });
+                    })(arguments);
+
+                    if (memory && !firing) {
+                        fire();
+                    }
+                }
+                return this;
+            },
+            remove: function () {
+                q.each(arguments, function (_, arg) {
+                    let index;
+                    while ((index = q.inArray(arg, list, index)) > -1) {
+                        list.splice(index, 1);
+                        if (index <= firingIndex) {
+                            firingIndex--;
+                        }
+                    }
+                });
+                return this;
+            },
+            has: function (fn) {
+                return fn ? q.inArray(fn, list) > -1 : list.length > 0;
+            },
+            empty: function () {
+                if (list) {
+                    list = [];
+                }
+                return this;
+            },
+            disable: function () {
+                locked = queue = [];
+                list = memory = '';
+                return this;
+            },
+            disabled: function () {
+                return !list;
+            },
+            lock: function () {
+                locked = queue = [];
+                if (!memory && !firing) {
+                    list = memory = '';
+                }
+                return this;
+            },
+            locked: function () {
+                return !!locked;
+            },
+            fireWith: function (context, args) {
+                if (!locked) {
+                    args = args || [];
+                    args = [context, args.slice ? args.slice() : args];
+                    queue.push(args);
+                    if (!firing) {
+                        fire();
+                    }
+                }
+                return this;
+            },
+            fire: function () {
+                self.fireWith(this, arguments);
+                return this;
+            },
+            fired: function () {
+                return !!fired;
+            }
+        };
+
+        return self;
     };
 
     q.fn.add({
-        drawBox: function (color) { for (var i = 0; i < this.length; i++) drawBox(color, this[i]) },
-        newLine: function () { for (var i = 0; i < this.length; i++) newLine(this[i]) },
-        clearBox: function () { for (var i = 0; i < this.length; i++) clearBox(this[i]) },
-        dragElement: function (x, y, resize) { for (var i = 0; i < this.length; i++) dragElement(this[i], x, y, resize) },
-        resize: function (x, y) { for (var i = 0; i < this.length; i++) resize(this[i], x, y) },
-        getStyleValue: function (style) { for (var i = 0; i < this.length; i++) return getStyleValue(this[i], style) },
-        magnify: function (zoom) { for (var i = 0; i < this.length; i++) magnify(this[i], zoom) },
-        remove: function () { for (var i = 0; i < this.length; i++) remove(this[i]) },
-        hide: function () { for (var i = 0; i < this.length; i++) hide(this[i]) },
-        show: function () { for (var i = 0; i < this.length; i++)  show(this[i]) },
-        toggleShow: function () { for (var i = 0; i < this.length; i++) toggleShow(this[i]) },
-        hasClass: function (classToCheck) { for (var i = 0; i < this.length; i++) return hasClass(this[i], classToCheck) },
-        addClass: function (className) { for (var i = 0; i < this.length; i++) addClass(this[i], className) },
-        removeClass: function (className) { for (var i = 0; i < this.length; i++) removeClass(this[i], className) },
-        toggleClass: function (className) { for (var i = 0; i < this.length; i++) toggleClass(this[i], className) },
-        attr: function (attribute, value) { for (var i = 0; i < this.length; i++) return attr(this[i], attribute, value) },
-        removeAttr: function (attribute) { for (var i = 0; i < this.length; i++) removeAttr(this[i], attribute) },
-        css: function (style, value) { for (var i = 0; i < this.length; i++) css(this[i], style, value) },
-        addChild: function (child) { for (var i = 0; i < this.length; i++) addChild(this[i], child) },
-        appendChild: function (child) { for (var i = 0; i < this.length; i++) appendChild(this[i], child) },
-        removeChild: function (child) { for (var i = 0; i < this.length; i++) removeChild(this[i], child) },
-        removeChildren: function () { for (var i = 0; i < this.length; i++) removeChildren(this[i]) },
-        getBoundingClientRect: function () { for (var i = 0; i < this.length; i++) return getBoundingClientRect(this[i]) },
-        findPosition: function () { for (var i = 0; i < this.length; i++) return findPosition(this[i]) },
-        getPointerPosition: function (event) { for (var i = 0; i < this.length; i++) return getPointerPosition(this[i], event) },
-        clearElemt: function () { for (var i = 0; i < this.length; i++) clearElemt(this[i]) },
-        appendContent: function (content) { for (var i = 0; i < this.length; i++) appendContent(this[i], content) },
-        insertContent: function (content) { for (var i = 0; i < this.length; i++) insertContent(this[i], content) },
-        select: function (data) { for (var i = 0; i < this.length; i++) return select(this[i], data) },
-        input: function (data) { for (var i = 0; i < this.length; i++) return input(this[i], data) },
-        table: function () { for (var i = 0; i < this.length; i++) return table(this[i], data) },
-        spinner: function (height, width) { for (var i = 0; i < this.length; i++) return spinner(this[i]) }
+        drawBox: function (color) { for (let i = 0; i < this.length; i++) drawBox(color, this[i]) },
+        newLine: function () { for (let i = 0; i < this.length; i++) newLine(this[i]) },
+        clearBox: function () { for (let i = 0; i < this.length; i++) clearBox(this[i]) },
+        dragElement: function (x, y, resize) { for (let i = 0; i < this.length; i++) dragElement(this[i], x, y, resize) },
+        resize: function (x, y) { for (let i = 0; i < this.length; i++) resize(this[i], x, y) },
+        getStyleValue: function (style) { for (let i = 0; i < this.length; i++) return getStyleValue(this[i], style) },
+        magnify: function (zoom) { for (let i = 0; i < this.length; i++) magnify(this[i], zoom) },
+        remove: function () { for (let i = 0; i < this.length; i++) remove(this[i]) },
+        hide: function () { for (let i = 0; i < this.length; i++) hide(this[i]) },
+        show: function () { for (let i = 0; i < this.length; i++)  show(this[i]) },
+        toggleShow: function () { for (let i = 0; i < this.length; i++) toggleShow(this[i]) },
+        hasClass: function (classToCheck) { for (let i = 0; i < this.length; i++) return hasClass(this[i], classToCheck) },
+        addClass: function (className) { for (let i = 0; i < this.length; i++) addClass(this[i], className) },
+        removeClass: function (className) { for (let i = 0; i < this.length; i++) removeClass(this[i], className) },
+        toggleClass: function (className) { for (let i = 0; i < this.length; i++) toggleClass(this[i], className) },
+        attr: function (attribute, value) { for (let i = 0; i < this.length; i++) return attr(this[i], attribute, value) },
+        removeAttr: function (attribute) { for (let i = 0; i < this.length; i++) removeAttr(this[i], attribute) },
+        css: function (style, value) { for (let i = 0; i < this.length; i++) css(this[i], style, value) },
+        addChild: function (child) { for (let i = 0; i < this.length; i++) addChild(this[i], child) },
+        appendChild: function (child) { for (let i = 0; i < this.length; i++) appendChild(this[i], child) },
+        removeChild: function (child) { for (let i = 0; i < this.length; i++) removeChild(this[i], child) },
+        removeChildren: function () { for (let i = 0; i < this.length; i++) removeChildren(this[i]) },
+        getBoundingClientRect: function () { for (let i = 0; i < this.length; i++) return getBoundingClientRect(this[i]) },
+        findPosition: function () { for (let i = 0; i < this.length; i++) return findPosition(this[i]) },
+        getPointerPosition: function (event) { for (let i = 0; i < this.length; i++) return getPointerPosition(this[i], event) },
+        clearElemt: function () { for (let i = 0; i < this.length; i++) clearElemt(this[i]) },
+        appendContent: function (content) { for (let i = 0; i < this.length; i++) appendContent(this[i], content) },
+        insertContent: function (content) { for (let i = 0; i < this.length; i++) insertContent(this[i], content) },
+        select: function (data) { for (let i = 0; i < this.length; i++) return select(this[i], data) },
+        input: function (data) { for (let i = 0; i < this.length; i++) return input(this[i], data) },
+        table: function () { for (let i = 0; i < this.length; i++) return table(this[i], data) },
+        spinner: function (height, width) { for (let i = 0; i < this.length; i++) return spinner(this[i]) }
     });
 
     q.add({
@@ -2581,286 +2466,166 @@
         getCookie: function (cname) { getCookie(cname) },
         isSingleLeftClick: function () { return isSingleLeftClick() },
         includeHTML: function (cb) { includeHTML(cb) },
-        getHttp: function (url) { getHttp(url) },
+        getHttp: function (url, cb) { return getHttp(url, cb) },
         newComment: function (txt, type) { newComment(txt, type) },
         elemt: function (tag, content, className, attributes, style) { return elemt(tag, content, className, attributes, style) },
-        createLogger: createLogger
+        createLogger: createLogger,
+        ajax: ajax
     });
 
     q.fn.add({
-        slideShow: function (ms, func) { for (var i = 0; i < this.length; i++) slideShow(this[i], ms, func) },
-        slideImage: function (ms, func) { for (var i = 0; i < this.length; i++) slideImage(this[i], ms, func) },
-        filterHTML: function (sel, val) { for (var i = 0; i < this.length; i++) filterHTML(this[i], sel, val) },
-        sortHTML: function (sel, value) { for (var i = 0; i < this.length; i++) sortHTML(this[i], sel, value) }
+        slideShow: function (ms, func) { for (let i = 0; i < this.length; i++) slideShow(this[i], ms, func) },
+        slideImage: function (ms, func) { for (let i = 0; i < this.length; i++) slideImage(this[i], ms, func) },
+        filterHTML: function (sel, val) { for (let i = 0; i < this.length; i++) filterHTML(this[i], sel, val) },
+        sortHTML: function (sel, value) { for (let i = 0; i < this.length; i++) sortHTML(this[i], sel, value) }
     });
 
     q.fn.add({
-        on: function (type, func) { for (var i = 0; i < this.length; i++) on(this[i], type, func) },
-        off: function (type) { for (var i = 0; i < this.length; i++) off(this[i], type) },
-        click: function (func) { for (var i = 0; i < this.length; i++) on(this[i], 'click', func) },
-        dblclick: function (func) { for (var i = 0; i < this.length; i++) on(this[i], 'dblclick', func) },
-        hover: function (func) { for (var i = 0; i < this.length; i++) on(this[i], 'hover', func) },
-        blur: function (func) { for (var i = 0; i < this.length; i++) on(this[i], 'blur', func) },
-        change: function (func) { for (var i = 0; i < this.length; i++) on(this[i], 'change', func) },
-        canplay: function (func) { for (var i = 0; i < this.length; i++) on(this[i], 'canplay', func) },
-        copy: function (func) { for (var i = 0; i < this.length; i++) on(this[i], 'copy', func) },
-        cut: function (func) { for (var i = 0; i < this.length; i++) on(this[i], 'cut', func) },
-        drag: function (func) { for (var i = 0; i < this.length; i++) on(this[i], 'drag', func) },
-        dragend: function (func) { for (var i = 0; i < this.length; i++) on(this[i], 'dragend', func) },
-        dragenter: function (func) { for (var i = 0; i < this.length; i++) on(this[i], 'dragenter', func) },
-        dragleave: function (func) { for (var i = 0; i < this.length; i++) on(this[i], 'dragleave', func) },
-        dragover: function (func) { for (var i = 0; i < this.length; i++) on(this[i], 'dragover', func) },
-        dragstart: function (func) { for (var i = 0; i < this.length; i++) on(this[i], 'dragstart', func) },
-        drop: function (func) { for (var i = 0; i < this.length; i++) on(this[i], 'drop', func) },
-        empited: function (func) { for (var i = 0; i < this.length; i++) on(this[i], 'empited', func) },
-        error: function (func) { for (var i = 0; i < this.length; i++) on(this[i], 'error', func) },
-        focus: function (func) { for (var i = 0; i < this.length; i++) on(this[i], 'focus', func) },
-        keypress: function (func) { for (var i = 0; i < this.length; i++) on(this[i], 'keypress', func) },
-        keydown: function (func) { for (var i = 0; i < this.length; i++) on(this[i], 'keydown', func) },
-        keyup: function (func) { for (var i = 0; i < this.length; i++) on(this[i], 'keyup', func) },
-        load: function (func) { for (var i = 0; i < this.length; i++) on(this[i], 'load', func) },
-        mousedown: function (func) { for (var i = 0; i < this.length; i++) on(this[i], 'mousedown', func) },
-        mouseenter: function (func) { for (var i = 0; i < this.length; i++) on(this[i], 'mouseenter', func) },
-        mouseleave: function (func) { for (var i = 0; i < this.length; i++) on(this[i], 'mouseenter', func) },
-        mousemove: function (func) { for (var i = 0; i < this.length; i++) on(this[i], 'mousemove', func) },
-        mousewheel: function (func) { for (var i = 0; i < this.length; i++) on(this[i], 'mousewheel', func) },
-        paste: function (func) { for (var i = 0; i < this.length; i++) on(this[i], 'paste', func) },
-        reset: function (func) { for (var i = 0; i < this.length; i++) on(this[i], 'reset', func) },
-        resize: function (func) { for (var i = 0; i < this.length; i++) on(this[i], 'resize', func) },
-        scroll: function (func) { for (var i = 0; i < this.length; i++) on(this[i], 'scroll', func) },
-        search: function (func) { for (var i = 0; i < this.length; i++) on(this[i], 'search', func) }
+        on: function (type, func) { for (let i = 0; i < this.length; i++) on(this[i], type, func) },
+        off: function (type) { for (let i = 0; i < this.length; i++) off(this[i], type) },
+        click: function (func) { for (let i = 0; i < this.length; i++) on(this[i], 'click', func) },
+        dblclick: function (func) { for (let i = 0; i < this.length; i++) on(this[i], 'dblclick', func) },
+        hover: function (func) { for (let i = 0; i < this.length; i++) on(this[i], 'hover', func) },
+        blur: function (func) { for (let i = 0; i < this.length; i++) on(this[i], 'blur', func) },
+        change: function (func) { for (let i = 0; i < this.length; i++) on(this[i], 'change', func) },
+        canplay: function (func) { for (let i = 0; i < this.length; i++) on(this[i], 'canplay', func) },
+        copy: function (func) { for (let i = 0; i < this.length; i++) on(this[i], 'copy', func) },
+        cut: function (func) { for (let i = 0; i < this.length; i++) on(this[i], 'cut', func) },
+        drag: function (func) { for (let i = 0; i < this.length; i++) on(this[i], 'drag', func) },
+        dragend: function (func) { for (let i = 0; i < this.length; i++) on(this[i], 'dragend', func) },
+        dragenter: function (func) { for (let i = 0; i < this.length; i++) on(this[i], 'dragenter', func) },
+        dragleave: function (func) { for (let i = 0; i < this.length; i++) on(this[i], 'dragleave', func) },
+        dragover: function (func) { for (let i = 0; i < this.length; i++) on(this[i], 'dragover', func) },
+        dragstart: function (func) { for (let i = 0; i < this.length; i++) on(this[i], 'dragstart', func) },
+        drop: function (func) { for (let i = 0; i < this.length; i++) on(this[i], 'drop', func) },
+        empited: function (func) { for (let i = 0; i < this.length; i++) on(this[i], 'empited', func) },
+        error: function (func) { for (let i = 0; i < this.length; i++) on(this[i], 'error', func) },
+        focus: function (func) { for (let i = 0; i < this.length; i++) on(this[i], 'focus', func) },
+        keypress: function (func) { for (let i = 0; i < this.length; i++) on(this[i], 'keypress', func) },
+        keydown: function (func) { for (let i = 0; i < this.length; i++) on(this[i], 'keydown', func) },
+        keyup: function (func) { for (let i = 0; i < this.length; i++) on(this[i], 'keyup', func) },
+        load: function (func) { for (let i = 0; i < this.length; i++) on(this[i], 'load', func) },
+        mousedown: function (func) { for (let i = 0; i < this.length; i++) on(this[i], 'mousedown', func) },
+        mouseenter: function (func) { for (let i = 0; i < this.length; i++) on(this[i], 'mouseenter', func) },
+        mouseleave: function (func) { for (let i = 0; i < this.length; i++) on(this[i], 'mouseenter', func) },
+        mousemove: function (func) { for (let i = 0; i < this.length; i++) on(this[i], 'mousemove', func) },
+        mousewheel: function (func) { for (let i = 0; i < this.length; i++) on(this[i], 'mousewheel', func) },
+        paste: function (func) { for (let i = 0; i < this.length; i++) on(this[i], 'paste', func) },
+        reset: function (func) { for (let i = 0; i < this.length; i++) on(this[i], 'reset', func) },
+        resize: function (func) { for (let i = 0; i < this.length; i++) on(this[i], 'resize', func) },
+        scroll: function (func) { for (let i = 0; i < this.length; i++) on(this[i], 'scroll', func) },
+        search: function (func) { for (let i = 0; i < this.length; i++) on(this[i], 'search', func) }
     });
 
     q.fn.add({
-        val: function (content) { for (var i = 0; i < this.length; i++) return val(this[i], content) },
-        text: function (content) { for (var i = 0; i < this.length; i++) return text(this[i], content) },
-        html: function (content) { for (var i = 0; i < this.length; i++) return html(this[i], content) },
-        append: function (elt) { for (var i = 0; i < this.length; i++) return append(this[i], elt) },
-        prepend: function (elt) { for (var i = 0; i < this.length; i++) return prepend(this[i], elt) },
-        before: function (elt) { for (var i = 0; i < this.length; i++) return before(this[i], elt) },
-        after: function (elt) { for (var i = 0; i < this.length; i++) return after(this[i], elt) },
-        height: function (value) { for (var i = 0; i < this.length; i++) return height(this[i], value) },
-        width: function (value) { for (var i = 0; i < this.length; i++) return width(this[i], value) }
+        val: function (content) { for (let i = 0; i < this.length; i++) return val(this[i], content) },
+        text: function (content) { for (let i = 0; i < this.length; i++) return text(this[i], content) },
+        html: function (content) { for (let i = 0; i < this.length; i++) return html(this[i], content) },
+        append: function (elt) { for (let i = 0; i < this.length; i++) return append(this[i], elt) },
+        prepend: function (elt) { for (let i = 0; i < this.length; i++) return prepend(this[i], elt) },
+        before: function (elt) { for (let i = 0; i < this.length; i++) return before(this[i], elt) },
+        after: function (elt) { for (let i = 0; i < this.length; i++) return after(this[i], elt) },
+        height: function (value) { for (let i = 0; i < this.length; i++) return height(this[i], value) },
+        width: function (value) { for (let i = 0; i < this.length; i++) return width(this[i], value) }
     });
 
     q.add({
         svg: SVGRenderer,
         canvas: CanvasRenderer,
-        img: imgRenderer,
+        poly: Polynomial,
         Storage: Storage
     });
 
-    var K = /[^\x20\t\r\n\f]+/g;
-    function L(a) {
-        var b = {};
-        return q.each(a.match(K) || [], function (a, c) {
-            b[c] = !0
-        }),
-            b
-    }
-
-    q.Callbacks = function (a) {
-        a = "string" == typeof a ? L(a) : q.add({}, a);
-        var b, c, d, e, f = [], g = [], h = -1, i = function () {
-            for (e = a.once,
-                d = b = !0; g.length; h = -1) {
-                c = g.shift();
-                while (++h < f.length)
-                    f[h].apply(c[0], c[1]) === !1 && a.stopOnFalse && (h = f.length,
-                        c = !1)
-            }
-            a.memory || (c = !1),
-                b = !1,
-                e && (f = c ? [] : "")
-        }, j = {
-            add: function () {
-                return f && (c && !b && (h = f.length - 1,
-                    g.push(c)),
-                    function d(b) {
-                        q.each(b, function (b, c) {
-                            q.isFunction(c) ? a.unique && j.has(c) || f.push(c) : c && c.length && "string" !== q.type(c) && d(c)
-                        })
-                    }(arguments),
-                    c && !b && i()),
-                    this
-            },
-            remove: function () {
-                return q.each(arguments, function (a, b) {
-                    var c;
-                    while ((c = q.inArray(b, f, c)) > -1)
-                        f.splice(c, 1),
-                            c <= h && h--
-                }),
-                    this
-            },
-            has: function (a) {
-                return a ? q.inArray(a, f) > -1 : f.length > 0
-            },
-            empty: function () {
-                return f && (f = []),
-                    this
-            },
-            disable: function () {
-                return e = g = [],
-                    f = c = "",
-                    this
-            },
-            disabled: function () {
-                return !f
-            },
-            lock: function () {
-                return e = g = [],
-                    c || b || (f = c = ""),
-                    this
-            },
-            locked: function () {
-                return !!e
-            },
-            fireWith: function (a, c) {
-                return e || (c = c || [],
-                    c = [a, c.slice ? c.slice() : c],
-                    g.push(c),
-                    b || i()),
-                    this
-            },
-            fire: function () {
-                return j.fireWith(this, arguments),
-                    this
-            },
-            fired: function () {
-                return !!d
-            }
-        };
-        return j
-    }
-
     q.add({
         Deferred: function (b) {
-            var c = [["notify", "progress", q.Callbacks("memory"), q.Callbacks("memory"), 2], ["resolve", "done", q.Callbacks("once memory"), q.Callbacks("once memory"), 0, "resolved"], ["reject", "fail", q.Callbacks("once memory"), q.Callbacks("once memory"), 1, "rejected"]]
-                , d = "pending"
-                , e = {
-                    state: function () {
-                        return d
-                    },
-                    always: function () {
-                        return f.done(arguments).fail(arguments),
-                            this
-                    },
-                    "catch": function (a) {
-                        return e.then(null, a)
-                    },
-                    pipe: function () {
-                        var a = arguments;
-                        return q.Deferred(function (b) {
-                            q.each(c, function (c, d) {
-                                var e = q.isFunction(a[d[4]]) && a[d[4]];
-                                f[d[1]](function () {
-                                    var a = e && e.apply(this, arguments);
-                                    a && q.isFunction(a.promise) ? a.promise().progress(b.notify).done(b.resolve).fail(b.reject) : b[d[0] + "With"](this, e ? [a] : arguments)
-                                })
-                            }),
-                                a = null
-                        }).promise()
-                    },
-                    then: function (b, d, e) {
-                        var f = 0;
-                        function g(b, c, d, e) {
-                            return function () {
-                                var h = this
-                                    , i = arguments
-                                    , j = function () {
-                                        var a, j;
-                                        if (!(b < f)) {
-                                            if (a = d.apply(h, i),
-                                                a === c.promise())
-                                                throw new TypeError("Thenable self-resolution");
-                                            j = a && ("object" == typeof a || "function" == typeof a) && a.then,
-                                                q.isFunction(j) ? e ? j.call(a, g(f, c, M, e), g(f, c, N, e)) : (f++,
-                                                    j.call(a, g(f, c, M, e), g(f, c, N, e), g(f, c, M, c.notifyWith))) : (d !== M && (h = void 0,
-                                                        i = [a]),
-                                                        (e || c.resolveWith)(h, i))
-                                        }
-                                    }
-                                    , k = e ? j : function () {
-                                        try {
-                                            j()
-                                        } catch (a) {
-                                            q.Deferred.exceptionHook && q.Deferred.exceptionHook(a, k.stackTrace),
-                                                b + 1 >= f && (d !== N && (h = void 0,
-                                                    i = [a]),
-                                                    c.rejectWith(h, i))
-                                        }
-                                    }
-                                    ;
-                                b ? k() : (q.Deferred.getStackHook && (k.stackTrace = q.Deferred.getStackHook()),
-                                    a.setTimeout(k))
+            let c = [['notify', 'progress', q.Callbacks('memory'), q.Callbacks('memory'), 2], ['resolve', 'done', q.Callbacks('once memory'), q.Callbacks('once memory'), 0, 'resolved'], ['reject', 'fail', q.Callbacks('once memory'), q.Callbacks('once memory'), 1, 'rejected']] , d = 'pending'
+            let e = {
+                state: function () { return },
+                always: function () { return f.done(arguments).fail(arguments), this },
+                catch: function (a) { return e.then(null, a) },
+                pipe: function () {
+                    let a = arguments;
+                    return q.Deferred(function (b) {
+                        q.each(c, function (c, d) {
+                            let e = q.isFunction(a[d[4]]) && a[d[4]];
+                            f[d[1]](function () {
+                                let a = e && e.apply(this, arguments);
+                                a && q.isFunction(a.promise) ? a.promise().progress(b.notify).done(b.resolve).fail(b.reject) : b[d[0] + 'With'](this, e ? [a] : arguments)
+                            })
+                        }),
+                        a = null
+                    }).promise()
+                },
+                then: function (b, d, e) {
+                    let f = 0;
+                    function g(b, c, d, e) {
+                        return function () {
+                            let h = this, i = arguments
+                            let j = function () {
+                                let a, j;
+                                if (!(b < f)) {
+                                    if (a = d.apply(h, i), a === c.promise()) throw new TypeError('Thenable self-resolution');
+                                    j = a && (typeof a == 'object' || typeof a == 'function') && a.then, q.isFunction(j) ? e ? j.call(a, g(f, c, M, e), g(f, c, N, e)) : (f++, j.call(a, g(f, c, M, e), g(f, c, N, e), g(f, c, M, c.notifyWith))) : (d !== M && (h = void 0, i = [a]), (e || c.resolveWith)(h, i))
+                                }
                             }
+                            let k = e ? j : function () {
+                                try { j() }
+                                catch (a) {
+                                    q.Deferred.exceptionHook && q.Deferred.exceptionHook(a, k.stackTrace), b + 1 >= f && (d !== N && (h = void 0, i = [a]), c.rejectWith(h, i))
+                                }
+                            };
+                            b ? k() : (q.Deferred.getStackHook && (k.stackTrace = q.Deferred.getStackHook()), a.setTimeout(k))
                         }
-                        return q.Deferred(function (a) {
-                            c[0][3].add(g(0, a, q.isFunction(e) ? e : M, a.notifyWith)),
-                                c[1][3].add(g(0, a, q.isFunction(b) ? b : M)),
-                                c[2][3].add(g(0, a, q.isFunction(d) ? d : N))
-                        }).promise()
-                    },
-                    promise: function (a) {
-                        return null != a ? q.add(a, e) : e
                     }
+                    return q.Deferred(function (a) {
+                        c[0][3].add(g(0, a, q.isFunction(e) ? e : M, a.notifyWith)), c[1][3].add(g(0, a, q.isFunction(b) ? b : M)), c[2][3].add(g(0, a, q.isFunction(d) ? d : N))
+                    }).promise()
+                },
+                promise: function (a) {
+                    return null != a ? q.add(a, e) : e
                 }
-                , f = {};
+            }
+            let f = {};
             return q.each(c, function (a, b) {
-                var g = b[2]
-                    , h = b[5];
+                let g = b[2] , h = b[5];
                 e[b[1]] = g.add,
                     h && g.add(function () {
                         d = h
                     }, c[3 - a][2].disable, c[0][2].lock),
                     g.add(b[3].fire),
                     f[b[0]] = function () {
-                        return f[b[0] + "With"](this === f ? void 0 : this, arguments),
+                        return f[b[0] + 'With'](this === f ? void 0 : this, arguments),
                             this
                     }
                     ,
-                    f[b[0] + "With"] = g.fireWith
-            }),
-                e.promise(f),
-                b && b.call(f, f),
-                f
+                    f[b[0] + 'With'] = g.fireWith
+            }), e.promise(f), b && b.call(f, f), f
         },
         when: function (a) {
-            var b = arguments.length
-                , c = b
-                , d = Array(c)
-                , e = f.call(arguments)
-                , g = q.Deferred()
-                , h = function (a) {
-                    return function (c) {
-                        d[a] = this,
-                            e[a] = arguments.length > 1 ? f.call(arguments) : c,
-                            --b || g.resolveWith(d, e)
-                    }
-                };
-            if (b <= 1 && (O(a, g.done(h(c)).resolve, g.reject),
-                "pending" === g.state() || q.isFunction(e[c] && e[c].then)))
-                return g.then();
-            while (c--)
-                O(e[c], h(c), g.reject);
+            let b = arguments.length, c = b, d = Array(c), e = f.call(arguments), g = q.Deferred();
+            let h = function (a) {
+                return function (c) {
+                    d[a] = this, e[a] = arguments.length > 1 ? f.call(arguments) : c, --b || g.resolveWith(d, e)
+                }
+            };
+            if (b <= 1 && (O(a, g.done(h(c)).resolve, g.reject), 'pending' === g.state() || q.isFunction(e[c] && e[c].then))) return g.then();
+            while (c--) O(e[c], h(c), g.reject);
             return g.promise()
         }
     });
-    var P = /^(Eval|Internal|Range|Reference|Syntax|Type|URI)Error$/;
-    q.Deferred.exceptionHook = function (b, c) {
-        a.console && a.console.warn && b && P.test(b.name) && a.console.warn("jQuery.Deferred exception: " + b.message, b.stack, c)
-    }
-        ,
-        q.readyException = function (b) {
-            a.setTimeout(function () {
-                throw b
-            })
-        }
-        ;
-    var Q = q.Deferred();
 
-    var Selector = function (a) {
+
+    let P = /^(Eval|Internal|Range|Reference|Syntax|Type|URI)Error$/;
+    q.Deferred.exceptionHook = function (b, c) {
+        a.console && a.console.warn && b && P.test(b.name) && a.console.warn('EQuery.Deferred exception: ' + b.message, b.stack, c)
+    },
+    q.readyException = function (b) {
+        a.setTimeout(function () {
+            throw b
+        })
+    };
+
+    let Selector = function (a) {
         var b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u = "sizzle" + 1 * new Date, v = a.document, w = 0, x = 0, y = ha(), z = ha(), A = ha(), B = function (a, b) {
             return a === b && (l = !0),
                 0
@@ -3782,13 +3547,13 @@
     }(window);
 
     q.find = Selector,
-        q.expr = Selector.selectors,
-        q.expr[":"] = q.expr.pseudos,
-        q.uniqueSort = q.unique = Selector.uniqueSort,
-        q.text = Selector.getText,
-        q.isXMLDoc = Selector.isXML,
-        q.contains = Selector.contains,
-        q.escapeSelector = Selector.escape;
+    q.expr = Selector.selectors,
+    q.expr[':'] = q.expr.pseudos,
+    q.uniqueSort = q.unique = Selector.uniqueSort,
+    q.text = Selector.getText,
+    q.isXMLDoc = Selector.isXML,
+    q.contains = Selector.contains,
+    q.escapeSelector = Selector.escape;
 
     return (window$1.EQuery = q), q;
 

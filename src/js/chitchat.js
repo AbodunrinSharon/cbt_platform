@@ -1,6 +1,6 @@
 (function(window) {
     const document = window.document;
-    const host = window.location.protocol + '//' + window.location.host + '/'; //'https://enemetronics.com.ng/';
+    const host = 'https://enemetronics.com.ng/';
     const EQuery = window.EQuery;
     const signals = window.signals;
 

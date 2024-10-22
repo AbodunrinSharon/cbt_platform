@@ -1,15 +1,15 @@
 * {margin: 0;padding: 0;box-sizing: border-box;font-family: 'Poppins', sans-serif;}
 :root {--blue: #287bff;--white: #fff;--grey: #f5f5f5;--black: #222;--black2: #999;}
 body {min-height: 100vh;overflow-x: hidden;}
-#container {position: relative;width: 100%;}
-#navigation {width: 300px;height: 100%;background-color: var(--blue);border-left: 10px solid var(--blue)}
-#navigation ul {position: absolute;top: 0;left: 0;width: 100%;}
-#navigation ul li {position: relative;list-style: none;width: 100%;border-top-left-radius: 30px;border-bottom-left-radius: 30px;}
-#navigation ul li:hover {background-color: var(--white)}
-#navigation ul li:first-child {margin-bottom: 40px;pointer-events: none}
-#navigation ul li a {position: relative;display: flex;width: 100%;color: var(--white);text-decoration: none;}
-#navigation ul li:hover a {color: var(--blue)}
-#navigation ul li a .icon {position: relative;display: block;min-width: 60px;height: 70px;line-height: 60px;text-align: center;}
-#navigation ul li a .icon .fa {font-size: 1.75em}
-#navigation ul li a .title {position: relative;display: block;padding: 0px 10px;height: 60px;line-height: 60px;text-align: start;}
-#navigation ul li:hover a:before {content: '';position: absolute;top: -50px;right: 0;width: 50px;height: 50px;background-color: var(--white)}
+#dashboars-container {position: relative;width: 100%;}
+#dashboars-navigation {width: 300px;height: 100%;background-color: var(--blue);border-left: 10px solid var(--blue)}
+#dashboars-navigation ul {position: absolute;top: 0;left: 0;width: 100%;}
+#dashboars-navigation ul li {position: relative;list-style: none;width: 100%;border-top-left-radius: 30px;border-bottom-left-radius: 30px;}
+#dashboars-navigation ul li:hover {background-color: var(--white)}
+#dashboars-navigation ul li:first-child {margin-bottom: 40px;pointer-events: none}
+#dashboars-navigation ul li a {position: relative;display: flex;width: 100%;color: var(--white);text-decoration: none;}
+#dashboars-navigation ul li:hover a {color: var(--blue)}
+#dashboars-navigation ul li a .icon {position: relative;display: block;min-width: 60px;height: 70px;line-height: 60px;text-align: center;}
+#dashboars-navigation ul li a .icon .fa {font-size: 1.75em}
+#dashboars-navigation ul li a .title {position: relative;display: block;padding: 0px 10px;height: 60px;line-height: 60px;text-align: start;}
+#dashboars-navigation ul li:hover a:before {content: '';position: absolute;top: -50px;right: 0;width: 50px;height: 50px;background-color: var(--white)}

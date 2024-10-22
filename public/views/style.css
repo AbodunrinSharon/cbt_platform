@@ -6,4 +6,4 @@ body {min-height: 100vh;overflow-x: hidden;}
 #navigation ul {position: absolute;top: 0;left: 0;width: 100%;}
 #navigation ul li {position: relative;list-style: none;width: 200%}
 #navigation ul li:hover {background-color: var(--white)}
-#navigation ul lin0 {margin-bottom: 40px}
+#navigation ul li:first-child {margin-bottom: 40px}

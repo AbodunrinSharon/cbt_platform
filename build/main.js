@@ -1,5 +1,26 @@
-// ChatApp Main Activity
-const VERSION = '1.0.2';
+// CBT Platform Activity
+const express = require('express');
+const { createServer } = require('node:http');
+const { join } = require('node:path');
+//const { Server } = require('socket.io');
+
+const app = express();
+const server = createServer(app);
+//const io = new Server(server);
+
+let userList = [], isAvalible;
+
+app.use(express.static('public'))
+
+app.get('/', (req, res) => {
+    res.sendFile(join(__dirname, 'public/index.html'));
+});
+
+server.listen(3000, () => {
+  console.log('server running at http://localhost:3000');
+});
+
+/*const VERSION = '1.0.0';
 const { app, BrowserWindow, dialog, ipcMain, shell } = require('electron');
 const path = require('node:path');
 const fs = require('node:fs');
@@ -177,4 +198,4 @@ else if (args.indexURL) loadURL(path.resolve(app.getAppPath(), args.indexUrl));
 
 exports.loadURL = loadURL;
 exports.loadFile = loadFile;
-
+*/

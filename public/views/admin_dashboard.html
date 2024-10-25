@@ -8,9 +8,11 @@
   <link rel="stylesheet" type="text/css" href="../css/equery.css">
   <link rel="stylesheet" type="text/css" href="admin_dashboard.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <style>.material-icons {font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24}</style>
 </head>
 <body>
   <div id="dashboard-container">
+    <!-- Dashboard Navigation -->
     <div id="dashboard-navigation">
       <ul class="nav-list">
         <li>
@@ -51,9 +53,11 @@
         </li>
       </ul>
     </div>
+    <!-- Dashboard Main -->
     <div id="dashboard-main">
       <div id="dashboard-topbar">
         <div class="toggle-nav"><i class="material-icons">menu</i></div>
+        <!-- Search bar -->
         <div id="search">
           <div class="form-content">
             <div class="form-fake-box">
@@ -63,18 +67,87 @@
                     </div>
                 </div>
                 <div class="input-box">
-                    <input class="gb_sfi" name="q" type="text" aria-hashpop="false" aria-autocomplete="both" spellcheck="false" autocapitalize="off" title="Search" value="" placeholder="Search">
+                    <input id="search-box" name="q" type="text" aria-hashpop="false" aria-autocomplete="both" spellcheck="false" autocapitalize="off" title="Search" value="" placeholder="Search">
                 </div>
             </div>
           </div>
         </div>
-        <div class="user">
-          <img src="user.jpg">
+        <!-- User Profile -->
+        <div id="user-id-btn" class="container ew-r5">
+          <a id="user-id-anchor" href="javascript:void(0)">
+            <div id="user-id-container">
+              <img id="user-id-img" src="user.png">
+            </div>
+          </a>
+        </div>
+        <div id="user-info" class="ew_0a ew_E ew_ka ew_gla ew-g7">
+          <div class="ew_9a">
+            <div class="ew_a">
+              <img class="ew_Ha ew-eb" src="user.png" title="Account"/>
+              <div class="ew_ib ew_eb">
+                <a class="ew_jb ew_Lf ew_eb ew_Qf" href="javascript:void(0)">
+                  <svg class="ew_kb" enable-background="new 0 0 24 24" focusable="false" height="26" viewBox="0 0 24 24" width="18" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" data-iml="1639952092333"><path d="M20 5h-3.17L15 3H9L7.17 5H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 14H4V7h16v12zM12 9c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"></path></svg>
+                </a>
+              </div>
+            </div>
+            <div class="ew_bb">
+            <div class="ew_lb ew_mb">${adminUser.firstname} + ${adminUser.lastname}</div>
+              <div class="ew_nb">${adminUser.email}</div>
+              <a class="ew_rb ew_Mf ew_Je ew_3c" href="#" target="_blank">Edit Account</a>
+            </div>
+          </div>
+          <div class="ew_Jf ew_Bb">
+            <a class="ew_Cb ew_Nf ew_Vf ew_Je ew_3c" target="_top">Sign out</a>
+          </div>
+        </div>
+      </div>
+      <!-- Cards -->
+      <div id="dashboard-cardBox" class="e-row e-row-padding">
+
+        <div class="card">
+          <div>
+            <div class="numbers">${dashboard.cardNumber[0]}</div>
+            <div class="cardName">${dashboard.cardName[0]}</div>
+          </div>
+          <div class="iconBx">
+            <i class="material-icons">eye</i>
+          </div>
+        </div>
+
+        <div class="card">
+          <div>
+            <div class="numbers">${dashboard.cardNumber[1]}</div>
+            <div class="cardName">${dashboard.cardName[1]}</div>
+          </div>
+          <div class="iconBx">
+            <i class="material-icons">eye</i>
+          </div>
+        </div>
+
+        <div class="card">
+          <div>
+            <div class="numbers">${dashboard.cardNumber[2]}</div>
+            <div class="cardName">${dashboard.cardName[2]}</div>
+          </div>
+          <div class="iconBx">
+            <i class="material-icons">eye</i>
+          </div>
+        </div>
+
+        <div class="card">
+          <div>
+            <div class="numbers">${dashboard.cardNumber[2]}</div>
+            <div class="cardName">${dashboard.cardName[2]}</div>
+          </div>
+          <div class="iconBx">
+            <i class="material-icons">eye</i>
+          </div>
         </div>
       </div>
     </div>
   </div>
   <script type="text/javascript" src="../js/equery.js"></script>
+  <script type="text/javascript" src="../js/signals.js"></script>
   <script type="text/javascript" src="admin_dashboard.js"></script>
 
 </body>

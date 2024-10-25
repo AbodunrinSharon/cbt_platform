@@ -209,50 +209,75 @@
         if (width > 768) {
             isMobile = false;
             navState = 1;
+            EQuery(display.nav).addClass('default');
             EQuery(display.nav).removeClass('minimized');
             EQuery(display.nav).removeClass('hidden');
-            EQuery(display.main).removeClass('extended');
-            EQuery(display.main).removeClass('full');
+            
+            for (let i = 0, arr = [display.main, display.topNav, display.topShadow];i < arr.length;i++) {
+                EQuery(arr[i]).addClass('default');
+                EQuery(arr[i]).removeClass('extended');
+                EQuery(arr[i]).removeClass('full');
+            }
         } else if (width > 600) {
             isMobile = true;
             navState = 0;
+            EQuery(display.nav).removeClass('default');
             EQuery(display.nav).addClass('minimized');
             EQuery(display.nav).removeClass('hidden');
-            EQuery(display.main).addClass('extended');
-            EQuery(display.main).removeClass('full');
+
+            for (let i = 0, arr = [display.main, display.topNav, display.topShadow];i < arr.length;i++) {
+                EQuery(arr[i]).removeClass('default');
+                EQuery(arr[i]).addClass('extended');
+                EQuery(arr[i]).removeClass('full');
+            }
         } else {
             isMobile = true;
             navState = -1;
+            EQuery(display.nav).removeClass('default');
             EQuery(display.nav).removeClass('minimized');
             EQuery(display.nav).addClass('hidden');
-            EQuery(display.main).removeClass('extended');
-            EQuery(display.main).addClass('full');
+
+            for (let i = 0, arr = [display.main, display.topNav, display.topShadow];i < arr.length;i++) {
+                EQuery(arr[i]).removeClass('default');
+                EQuery(arr[i]).removeClass('extended');
+                EQuery(arr[i]).addClass('full');
+            }
         }
 
         if (navState == 1) {
             EQuery(display.nav).addClass('default');
             EQuery(display.nav).removeClass('minimized');
+            EQuery(display.nav).removeClass('hidden');
 
-            if (mobile || isMobile) EQuery(display.main).addClass('default');
-            else EQuery(display.main).removeClass('default');
-            
-            EQuery(display.main).removeClass('extended');
-            EQuery(display.main).removeClass('full');
+            for (let i = 0, arr = [display.main, display.topNav, display.topShadow];i < arr.length;i++) {
+                if (mobile || isMobile) EQuery(arr[i]).addClass('default');
+                else EQuery(arr[i]).removeClass('default');
+
+                EQuery(arr[i]).removeClass('extended');
+                EQuery(arr[i]).removeClass('full');
+            }
         } else if (navState == 0) {
             EQuery(display.nav).removeClass('default');
             EQuery(display.nav).addClass('minimized');
             EQuery(display.nav).removeClass('hidden');
-            EQuery(display.main).removeClass('default');
-            EQuery(display.main).addClass('extended');
-            EQuery(display.main).removeClass('full');
+
+            for (let i = 0, arr = [display.main, display.topNav, display.topShadow];i < arr.length;i++) {
+                EQuery(arr[i]).removeClass('default');
+                EQuery(arr[i]).addClass('extended');
+                EQuery(arr[i]).removeClass('full');
+            }
         } else {
             EQuery(display.nav).removeClass('default');
             EQuery(display.nav).removeClass('minimized');
             EQuery(display.nav).addClass('hidden');
-            EQuery(display.main).removeClass('default');
-            EQuery(display.main).removeClass('extended');
-            EQuery(display.main).addClass('full');
+
+            for (let i = 0, arr = [display.main, display.topNav, display.topShadow];i < arr.length;i++) {
+                EQuery(arr[i]).removeClass('default');
+                EQuery(arr[i]).removeClass('extended');
+                EQuery(arr[i]).addClass('full');
+            }
         }
+        console.log(navState)
         
         /*
         if (offline) {
@@ -308,27 +333,34 @@
                 EQuery(display.nav).removeClass('minimized');
                 EQuery(display.nav).removeClass('hidden');
 
-                if (mobile || isMobile) EQuery(display.main).addClass('default');
-                else EQuery(display.main).removeClass('default');
+                for (let i = 0, arr = [display.main, display.topNav, display.topShadow];i < arr.length;i++) {
+                    if (mobile || isMobile) EQuery(arr[i]).addClass('default');
+                    else EQuery(arr[i]).removeClass('default');
 
-                EQuery(display.main).removeClass('extended');
-                EQuery(display.main).removeClass('full');
+                    EQuery(arr[i]).removeClass('extended');
+                    EQuery(arr[i]).removeClass('full');
+                }
             } else if (navState == 0) {
                 EQuery(display.nav).removeClass('default');
                 EQuery(display.nav).addClass('minimized');
                 EQuery(display.nav).removeClass('hidden');
-                EQuery(display.main).removeClass('default');
-                EQuery(display.main).addClass('extended');
-                EQuery(display.main).removeClass('full');
+
+                for (let i = 0, arr = [display.main, display.topNav, display.topShadow];i < arr.length;i++) {
+                    EQuery(arr[i]).removeClass('default');
+                    EQuery(arr[i]).addClass('extended');
+                    EQuery(arr[i]).removeClass('full');
+                }
             } else {
                 EQuery(display.nav).removeClass('default');
                 EQuery(display.nav).removeClass('minimized');
                 EQuery(display.nav).addClass('hidden');
-                EQuery(display.main).removeClass('default');
-                EQuery(display.main).removeClass('extended');
-                EQuery(display.main).addClass('full');
+
+                for (let i = 0, arr = [display.main, display.topNav, display.topShadow];i < arr.length;i++) {
+                    EQuery(arr[i]).removeClass('default');
+                    EQuery(arr[i]).removeClass('extended');
+                    EQuery(arr[i]).addClass('full');
+                }
             }
-            console.log(navState)
         });
 
         EQuery(display.filterInput).focus(function () {
@@ -392,6 +424,8 @@
     function Display() {
         this.nav = EQuery('#dashboard-navigation')[0];
         this.filterInput = EQuery('#search-box')[0];
+        this.topShadow = EQuery('.container-shadow')[0];
+        this.topNav = EQuery('#dashboard-topbar')[0];
         this.main = EQuery('#dashboard-main')[0];
     }
 

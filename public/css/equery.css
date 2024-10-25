@@ -733,7 +733,7 @@ span.qsw {float: left;padding-top: 16px;}
   0% {transform: translateY(100%);}
   100% {transform: translateY(0px);}
 }
-@media (min-width: 850px) {
+@media (min-width: 700px) {
   .e-col.m1 {width: 8.33333%}
   .e-col.m2 {width: 16.66666%}
   .e-col.m3, .e-quarter {width: 24.99999%}

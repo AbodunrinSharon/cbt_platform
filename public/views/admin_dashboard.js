@@ -390,11 +390,12 @@
         });
         EQuery(window).click(function (e) {
             let elements = EQuery('#user-info, #user-id-btn, #user-info *, #user-id-btn *');
+            let arr = [];
             for (let i = 0;i < elements.length;i++) {
-                if (e.target !== elements[i]) {
-                    EQuery('#user-info').hide();
-                }
-            };
+                arr.push(e.target == elements[i]);
+                console.log(e.target, elements[i])
+            };console.log(arr)
+            if (arr.indexOf(true) == -1) { EQuery('#user-info').hide(); }
         });
         
         EQuery(window).on('resize', function () {

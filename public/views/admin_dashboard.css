@@ -79,8 +79,6 @@ input[type="submit"] {background-color: #f8f9fa;border: 1px solid #f8f9fa;border
 .ew_3c:hover {background-color: var(--blue);color: var(--white);cursor: pointer;user-select: none;transition: .3s}
 .ew-g7 {position: fixed;top: 60px;right: 8px;z-index: 99;}
 
-.dashboard-view {}
-
 /* Cards */
 #dashboard-cardBox .e-card {position: relative;height: 130px !important;background-color: var(--white);}
 #dashboard-cardBox .e-card:hover {background-color: var(--blue);color: var(--white);transition: .3s;cursor: pointer;}

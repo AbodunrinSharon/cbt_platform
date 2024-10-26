@@ -277,7 +277,6 @@
                 EQuery(arr[i]).addClass('full');
             }
         }
-        console.log(navState)
         
         /*
         if (offline) {
@@ -396,6 +395,14 @@
             };
             if (arr.indexOf(true) == -1) { EQuery('#user-info').hide(); }
         });
+
+        EQuery(display.main).on(['scroll'], function () {
+            if (display.main.scrollTop > 0) {
+              EQuery(topShadow).addClass('has-shadow');
+            } else {
+              EQuery(topShadow).removeClass('has-shadow');
+            }
+          });
         
         EQuery(window).on('resize', function () {
             updateDisplay(display)

@@ -393,8 +393,7 @@
             let arr = [];
             for (let i = 0;i < elements.length;i++) {
                 arr.push(e.target == elements[i]);
-                console.log(e.target, elements[i])
-            };console.log(arr)
+            };
             if (arr.indexOf(true) == -1) { EQuery('#user-info').hide(); }
         });
         

@@ -13,7 +13,7 @@ pre {white-space: break-spaces;}
 p, pre {width: 100%;}
 audio:not([controls]) {display: none;height: 0}
 [hidden], template {display: none;}
-a {display: block;background-color: transparent;color: inherit;text-decoration: double;height: 100%;}
+a {display: block;background-color: transparent;color: inherit;text-decoration: double;height: 100%;-webkit-tap-highlight-color: #0000;}
 a:active, a:hover {outline-width: 0}
 abbr[title] {border-bottom: none;text-decoration: underline;text-decoration: underline dotted}
 b {font-weight: bold;}

@@ -46,7 +46,7 @@ h6 {font-size: 16px}
 h1,h2,h3,h4,h5,h6 {font-family: Verdana ,Arial,sans-serif;font-weight: 400;margin: 10px 0;}
 hr {box-sizing: content-box;height: 0;overflow: visible}
 hr {border: 0;border-top: 1px solid #eee;margin: 20px 0;}
-button, input, select, textarea {font: inherit;margin: 0}
+button, input, select, textarea {font: inherit;margin: 0;-webkit-tap-highlight-color: transparent;}
 input, textarea {font-family: monospace;}
 optgroup {font-weight: bold}
 button, input {overflow: visible}

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        body{
+            background-color: rgb(201, 222, 255);
+        }
+        nav{
+            color: white;
+            padding: 15px;
+            font-size: 20px;
+            background-color: rgb(50, 160, 50);
+        }
+        .topbar{
+            margin: 10px auto;
+            padding: 5px;
+            display: flex;
+            width: 90%;
+            justify-content: space-between;
+        }
+        .topbar p{
+            font-size: 30px;
+            color: white;
+            background-color: red;
+            border: 1px solid black;
+            padding: 5px;
+        }
+        .topbar button{
+            border-radius: 10px;
+            padding: 5px;
+            font-size: 20px;
+            color: white;
+            background-color: rgb(255, 92, 92);
+            border: 1px solid white;
+        }
+        .main{
+            position: relative;
+            margin: auto;
+            background-color: rgb(255, 255, 255);
+            padding: 25px;
+            width: 600px;
+            border-radius: 20px;
+        }
+        header{
+            margin: 10px;
+            text-align: center;
+            font-size: 30px;
+            border-radius: 20px;
+            border-bottom: 3px solid rgb(50, 160, 50);
+            border-right: 3px solid rgb(50, 160, 50);
+        }
+        img{
+            display: none;
+        }
+        .currentquestion{
+            display: flex;
+        }
+        .currentquestion p{
+            font-size: 20px;
+            margin: 20px;
+        }
+        .options{
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .options button{
+            font-size: 20px;
+            padding: 5px;
+            border-radius: 15px;
+            border-top-color: white;
+            border-left-color: white;
+            border-right-color: black;
+            border-bottom-color: black;
+            color: rgb(255, 255, 255);
+            background-color: rgb(40, 123, 255);
+        }
+        .navigation{
+            border: none;
+            top: 50%;
+            position: absolute;
+            padding: 10px;
+            font-size: 25px;
+            border-radius: 30px;
+            color: white;
+            background-color: rgb(50, 160, 50);
+        }
+        .right{
+            right: -0;
+        }
+        .left{
+            left: -0;
+        }
+        .questions{
+            position: absolute;
+            bottom: 0;
+            background-color: rgb(40, 123, 555);
+            margin: 10px auto;
+            padding: 10px;
+            width: 100%;
+        }
+        .questions button{
+            font-size: 20px;
+            padding: 5px;
+            background-color: rgb(50, 160, 50);
+            color: white;
+            border: none;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test</title>
+</head>
+<body>
+    <nav>Test Platform</nav>
+    <div class="topbar">
+        <p>5:00</p>
+        <button>submit</button>
+    </div>
+    <div class="main">
+        <header>Question 1</header>
+        <button class="navigation left"><</button>
+        <div class="questionBox">
+            <div class="currentquestion">
+                <img src="#" width="50px" alt="image for questions with image">
+                <p>Which of these is matter?</p>
+            </div>
+            <div class="options">
+                <button>Option 1</button>
+                <button>Option 2</button>
+                <button>Option 3</button>
+                <button>Option 4</button>
+            </div>
+        </div>
+        <button class="navigation right">></button>
+    </div>
+    <div class="questions">
+        <button>1</button>
+        <button>2</button>
+        <button>3</button>
+        <button>4</button>
+        <button>5</button>
+    </div>
+</body>
+</html>

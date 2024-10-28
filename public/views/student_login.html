@@ -1,1 +1,171 @@
 <!-- Code for student login form -->
+<!-- I touched it -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Login</title>
+    <script src="https://kit.fontawesome.com/3dc644d183.js" crossorigin="anonymous"></script>
+    <style>
+
+        /* icons */
+        .fa-id-card, .fa-user{
+            margin-left: 120px;
+            font-size: 28px;
+            color: #287bff;
+        }
+
+        body{
+            /* background-image: url(https://w0.peakpx.com/wallpaper/554/273/HD-wallpaper-blue-abstract-background-neon-blue-background-abstraction-creative-blue-backgrounds-thumbnail.jpg);
+            background-size: 150%;
+            background-position: center;
+            background-repeat: no-repeat; */
+            font-family: Georgia;
+            width: 100vw;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-div{
+            position: absolute;
+            display: block;
+            background-color: #287bff;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 15px;
+        }
+
+        h1, img, i{
+            display: inline-block;
+        }
+
+        h1{
+            font-size: medium;
+            display: inline;
+            text-transform: capitalize;
+            position: relative;
+            left: 230px;
+            top: -50px;
+            font-size: 25px;
+        }
+
+        img{
+            height: 100px;
+            width: 100px;
+            border-radius: 50%;
+            display: inline;
+        }
+
+        form{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 1px solid #287bff;
+            display: grid;
+            align-items: center;
+            align-self: center;
+            align-content: center;
+            justify-content: center;
+            justify-self: center;
+            justify-items: baseline;
+            height: 470px;
+            width: 500px;
+            margin: 90px 0 30px 40px;
+            color: black;
+            border-radius: 5%;
+            filter: blur(0.009px);
+
+        }
+
+        h2{
+            font-weight: 300;
+            font-size: 29px;
+            text-align: center;
+            text-decoration: wavy;
+            padding: 10px;
+            
+        }
+        label{
+            font-size: larger;
+            position: relative;
+        }
+        
+        input{
+            background-color: transparent;
+            border-bottom: 1px solid #287bff;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            width: 250px;
+            height: 20px;
+            margin: 15px 0 50px 0;
+            letter-spacing: normal;
+            cursor: pointer;
+            outline: none;
+            color: #287bff;
+            font-weight:700;
+            transition: .5s;
+        }
+
+        input:focus{
+            border: 1px solid #287bff;
+            border-radius: 5px;
+        }
+
+        button{
+            padding: 10px;
+            width: 100px;
+            font-size: larger;
+            border-radius: 5px;
+            border: 1px solid #287bff;
+            background: transparent;
+            position: relative;
+            left: 300px;
+            bottom: -15px;
+        }
+
+        p{
+            text-align: center;
+            font-size: 17px;
+            color: #34a134;
+            position: relative;
+            
+        }
+
+        .p_2{
+            text-align: center;
+            font-size: 17px;
+            color: red;
+            position: relative; 
+            bottom: -40px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="nav-div">
+        <img src="futa_logo.jpeg">
+        <h1>fedral university of technology akure</h1>
+        <img src="user.png" style="position: relative; left: 360px;">
+    </div>
+    <form method="post"> <!-- put this later on method="post"--> 
+        <h2>CSC 102 TEST<br>20 QUESTIONS 15 MINUTES</h2>
+        <div class="form-div">
+            <label for="candidate_name" class="candidate_name">Name:</label><br>
+            <input name="candidate_name" id="candidate_name" type="text" required> <i class="fas fa-user"></i><br>
+
+            <label for="candidate_matric_no" class="candidate_matric_no">Matric Number:</label><br>
+            <input name="candidate_matric_no" id="candidate_matric_no" required><i class="fas fa-id-card"></i>
+        </div>
+        <button type="submit">Next</button> <!-- Put this later on type="submit"-->
+    </form>
+
+    <p class="p_2">Exam Malpractice equals <b>Expulsion!!!</b></p><br>
+    <p>Good Luck!!</p>
+</body>
+</html>
+  

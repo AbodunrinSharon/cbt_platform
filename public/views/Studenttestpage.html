@@ -1,44 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <link rel="stylesheet" type="text/css" href="../css/equery.css">
-    <script type="text/javascript" src="../js/equery.js"></script>
     <style>
-        * {
+        *{
             padding: 0;
             margin: 0;
             box-sizing: border-box;
         }
-
-        body {
+        body{
             background-color: rgb(201, 222, 255);
         }
-
-        nav {
+        nav{
             color: white;
             padding: 15px;
             font-size: 20px;
             background-color: rgb(50, 160, 50);
         }
-
-        .topbar {
+        .topbar{
             margin: 10px auto;
             padding: 5px;
             display: flex;
             width: 90%;
             justify-content: space-between;
         }
-
-        .topbar p {
+        .topbar p{
             font-size: 30px;
             color: white;
             background-color: red;
             border: 1px solid black;
             padding: 5px;
         }
-
-        .topbar button {
+        .topbar button{
             border-radius: 10px;
             padding: 5px;
             font-size: 20px;
@@ -46,17 +38,16 @@
             background-color: rgb(255, 92, 92);
             border: 1px solid white;
         }
-
-        .main {
+        .main{
             position: relative;
             margin: auto;
             background-color: rgb(255, 255, 255);
-            padding: 25px;
+            padding: 20px;
+            padding-bottom: 40px;
             width: 600px;
             border-radius: 20px;
         }
-
-        header {
+        header{
             margin: 10px;
             text-align: center;
             font-size: 30px;
@@ -64,27 +55,22 @@
             border-bottom: 3px solid rgb(50, 160, 50);
             border-right: 3px solid rgb(50, 160, 50);
         }
-
-        img {
+        img{
             display: none;
         }
-
-        .currentquestion {
+        .currentquestion{
             display: flex;
         }
-
-        .currentquestion p {
+        .currentquestion p{
             font-size: 20px;
             margin: 20px;
         }
-
-        .options {
+        .options{
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 10px;
         }
-
-        .options button {
+        .options button{
             font-size: 20px;
             padding: 5px;
             border-radius: 15px;
@@ -95,27 +81,23 @@
             color: rgb(255, 255, 255);
             background-color: rgb(40, 123, 255);
         }
-
-        .navigation {
+        .navigation{
             border: none;
-            top: 50%;
             position: absolute;
-            padding: 10px;
-            font-size: 25px;
+            padding: 5px 10px;
+            font-size: 20px;
             border-radius: 30px;
             color: white;
             background-color: rgb(50, 160, 50);
+            bottom: 0;
         }
-
-        .right {
-            right: -0;
+        .right{
+            right: 0;
         }
-
-        .left {
-            left: -0;
+        .left{
+            left: 0;
         }
-
-        .questions {
+        .questions{
             position: absolute;
             bottom: 0;
             background-color: rgb(40, 123, 555);
@@ -123,20 +105,23 @@
             padding: 10px;
             width: 100%;
         }
-
-        .questions button {
+        .questions button{
             font-size: 20px;
             padding: 5px;
             background-color: rgb(50, 160, 50);
             color: white;
             border: none;
         }
+        @media screen and (width < 700px) {
+            .main{
+            width: 90%;
+        }
+        }
     </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Test</title>
 </head>
-
 <body>
     <nav>Test Platform</nav>
     <div class="topbar">
@@ -145,25 +130,20 @@
     </div>
     <div class="main">
         <header>Question 1</header>
-        <button class="navigation left">&lt;</button>
+        <button class="navigation left">< Previous</button>
         <div class="questionBox">
-            <div class="currentquestion">
-                <img src="#" width="50px" alt="image for questions with image">
-                <p>Which of these is matter?</p><!-- I dont know -->
-            </div>
-            <div class="options">
-                <!-- I touched this ;) -->
-                <div><input type="radio"> Option 1</div>
-                <div><input type="radio"> Option 2</div>
-                <div><input type="radio"> Option 3</div>
-                <div><input type="radio"> Option 4</div>
-                <!--button>Option 1</button>
-                <button>Option 2</button>
-                <button>Option 3</button>
-                <button>Option 4</button-->
-            </div>
+        <div class="currentquestion">
+            <img src="#" width="50px" alt="image for questions with image">
+            <p>This is the current question</p>
         </div>
-        <button class="navigation right">&gt;</button>
+        <div class="options">
+            <button>Option 1</button>
+            <button>Option 2</button>
+            <button>Option 3</button>
+            <button>Option 4</button>
+        </div>
+        <button class="navigation right">Next ></button>
+        </div>
     </div>
     <div class="questions">
         <button>1</button>
@@ -173,5 +153,4 @@
         <button>5</button>
     </div>
 </body>
-
 </html>

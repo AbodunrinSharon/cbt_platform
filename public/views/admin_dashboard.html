@@ -7,46 +7,52 @@
   <title>Admin Dashboard</title>
   <link rel="stylesheet" type="text/css" href="../css/equery.css">
   <link rel="stylesheet" type="text/css" href="admin_dashboard.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-  <style>.material-symbols-outlined {font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24}</style>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24
+    }
+  </style>
 </head>
+
 <body>
   <div id="dashboard-container">
     <!-- Dashboard Navigation -->
     <div id="dashboard-navigation">
       <ul class="nav-list">
         <li>
-          <a id="nav-btn logo-btn" href="#">
+          <a id="nav-btn logo-btn">
             <span class="icon"><i class="material-symbols-outlined">admin_panel_settings</i></span>
             <span class="title">Admin Dashboard</span>
           </a>
         </li>
-        <li>
-          <a id="nav-btn home-btn" href="#">
+        <li data-route="dashboard">
+          <a id="nav-btn home-btn">
             <span class="icon"><i class="material-symbols-outlined">home</i></span>
             <span class="title">Dashboard</span>
           </a>
         </li>
-        <li>
-          <a id="nav-btn home-btn" href="#">
+        <li data-route="courses">
+          <a id="nav-btn home-btn">
             <span class="icon"><i class="material-symbols-outlined">school</i></span>
             <span class="title">Courses</span>
           </a>
         </li>
-        <li>
-          <a id="nav-btn home-btn" href="#">
+        <li data-route="students">
+          <a id="nav-btn home-btn">
             <span class="icon"><i class="material-symbols-outlined">group</i></span>
             <span class="title">Students</span>
           </a>
         </li>
-        <li>
-          <a id="nav-btn home-btn" href="#">
+        <li data-route="settings">
+          <a id="nav-btn home-btn">
             <span class="icon"><i class="material-symbols-outlined">settings</i></span>
             <span class="title">Settings</span>
           </a>
         </li>
-        <li>
-          <a id="nav-btn home-btn" href="#">
+        <li data-route="logout">
+          <a id="nav-btn home-btn">
             <span class="icon"><i class="material-symbols-outlined">logout</i></span>
             <span class="title">Logout</span>
           </a>
@@ -61,20 +67,25 @@
         <div id="search">
           <div class="form-content">
             <div class="form-fake-box">
-                <div class="search-icon">
-                    <div class="search-margin">
-                        <svg focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path></svg>
-                    </div>
+              <div class="search-icon">
+                <div class="search-margin">
+                  <svg focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path
+                      d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z">
+                    </path>
+                  </svg>
                 </div>
-                <div class="input-box">
-                    <input id="search-box" name="q" type="text" aria-hashpop="false" aria-autocomplete="both" spellcheck="false" autocapitalize="off" title="Search" value="" placeholder="Search">
-                </div>
+              </div>
+              <div class="input-box">
+                <input id="search-box" name="q" type="text" aria-hashpop="false" aria-autocomplete="both"
+                  spellcheck="false" autocapitalize="off" title="Search" value="" placeholder="Search">
+              </div>
             </div>
           </div>
         </div>
         <!-- User Profile -->
-        <div id="user-id-btn" class="container ew-r5">
-          <a id="user-id-anchor" href="javascript:void(0)">
+        <div id="user-id-btn" class="ew-r5">
+          <a id="user-id-anchor">
             <div id="user-id-container">
               <img id="user-id-img" src="user.png">
             </div>
@@ -83,17 +94,20 @@
         <div id="user-info" class="ew_0a ew_E ew_ka ew_gla ew-g7">
           <div class="ew_9a">
             <div class="ew_a">
-              <img class="ew_Ha ew-eb" src="user.png" title="Account"/>
+              <img class="ew_Ha ew-eb" src="user.png" title="Account" />
               <div class="ew_ib ew_eb">
-                <a class="ew_jb ew_Lf ew_eb ew_Qf" href="javascript:void(0)">
-                  <svg class="ew_kb" enable-background="new 0 0 24 24" focusable="false" height="26" viewBox="0 0 24 24" width="18" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" data-iml="1639952092333"><path d="M20 5h-3.17L15 3H9L7.17 5H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 14H4V7h16v12zM12 9c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"></path></svg>
+                <a class="ew_jb ew_Lf ew_eb ew_Qf">
+                  <svg class="ew_kb" enable-background="new 0 0 24 24" focusable="false" height="26" viewBox="0 0 24 24" width="18" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" data-iml="1639952092333">
+                    <path d="M20 5h-3.17L15 3H9L7.17 5H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 14H4V7h16v12zM12 9c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z">
+                    </path>
+                  </svg>
                 </a>
               </div>
             </div>
             <div class="ew_bb">
-            <div class="ew_lb ew_mb">${adminUser.firstname} + ${adminUser.lastname}</div>
+              <div class="ew_lb ew_mb">${adminUser.firstname} + ${adminUser.lastname}</div>
               <div class="ew_nb">${adminUser.email}</div>
-              <a class="ew_rb ew_Mf ew_Je ew_3c" href="#" target="_blank">Edit Account</a>
+              <a class="ew_rb ew_Mf ew_Je ew_3c" target="_blank">Edit Account</a>
             </div>
           </div>
           <div class="ew_Jf ew_Bb">
@@ -102,8 +116,8 @@
         </div>
       </div>
       <div class="container-shadow"></div>
-      <div style="padding-top: 60px">
-        <div id="dashboard-view1" class="dashboard-view">
+      <div id="dashboard-views" style="padding-top: 60px">
+        <div id="dashboard" class="dashboard-view">
           <!-- Cards -->
           <div id="dashboard-cardBox" class="e-row e-row-padding">
 
@@ -161,20 +175,34 @@
           </div>
         </div>
 
-        <div id="dashboard-view2">
+        <div id="courses" class="dashboard-view">
 
         </div>
 
-        <div id="dashboard-view3">
+        <div id="students" class="dashboard-view">
 
         </div>
 
-        <div id="dashboard-view4">
+        <div id="settings" class="dashboard-view">
 
         </div>
 
-        <div id="dashboard-view5">
-
+        <div id="logout" class="dashboard-view">
+          <section class="dashboard-section">
+            <div class="header">
+              <h2>Logout</h2>
+            </div>
+            <div class="info-sections">
+              <div class="info-section">
+                <div class="secondary">
+                  <div class="section-row">
+                    <div class="row-gap padded-text">Confirm to logout</div>
+                    <button class="dashboard-button">Logout</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
         </div>
       </div>
     </div>

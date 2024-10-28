@@ -154,8 +154,16 @@
     }
 
     const imgTypes = ['png', 'jpg', 'jpeg', 'ico', 'webm'];
-    const _log = window.createLogger('[ChatApp]');
+    const _log = window.createLogger('[Admin_Dashboard]');
     const start = performance.now();
+
+    const route = {
+        'dashboard': {},
+        'courses': {},
+        'student': {},
+        'settings': {},
+        'logout': {},
+    }
 
     const userAgent = navigator.userAgent;
     const platform = navigator.platform;
@@ -196,11 +204,12 @@
     let navState = 1;
 
     function extractQuery() {
-        const p = window.location.search.indexOf('?q=');
-        if (p !== - 1) {
-            return decodeURI(window.location.search.substr(3));
-        }
-        return '';
+        let arr = {};
+        let query = new URLSearchParams(window.location.search);
+        query.forEach((v, k) => {
+            arr[k] = v;
+        });
+        return arr;
     }
 
     function updateDisplay(display) {
@@ -310,6 +319,10 @@
         EQuery('#dashboard-navigation li').click(function () {
             EQuery('#dashboard-navigation li').removeClass('active');
             EQuery(this).addClass('active');
+            let v = EQuery(this).attr('data-route');
+            let w = v + remainderQuery('route');
+            window.history.replaceState({}, '', '?route=' + w + window.location.hash);
+            routeDashboard(display);
         });
 
         EQuery('.toggle-nav').click(function () {
@@ -382,11 +395,10 @@
             updateFilter(display);
         });
 
-        EQuery('#user-id-btn').css('color', '#f2f2f2');
-        EQuery('.ew_0a.ew_E.ew_ka.ew_gla').hide();
         EQuery('#user-id-btn').on('click', function () {
-            EQuery('.ew_0a.ew_E.ew_ka.ew_gla').toggleShow();
+            EQuery('.ew_0a.ew_E.ew_ka.ew_gla').show();
         });
+
         EQuery(window).click(function (e) {
             let elements = EQuery('#user-info, #user-id-btn, #user-info *, #user-id-btn *');
             let arr = [];
@@ -409,13 +421,24 @@
         });
     }
 
+    function remainderQuery(d) {
+        let query = extractQuery();
+        let s = '';
+        delete query[d];
+        for (let key in query) {
+            s += `&${key}=${query[key]}`;
+        }
+        return s;
+    }
+
     function updateFilter(display) {
         let v = display.filterInput.value.trim();
-        v = v.replace( /\s+/gi, ' ' );
-        if ( v !== '' ) {
-            window.history.replaceState({}, '', '?q=' + v + window.location.hash );
+        v = v.replace(/\s+/gi, ' ');
+        let w = v + remainderQuery('q');
+        if (v !== '') {
+            window.history.replaceState({}, '', '?q=' + w + window.location.hash);
         } else {
-            window.history.replaceState({}, '', window.location.pathname + window.location.hash );
+            window.history.replaceState({}, '', '?q=' + remainderQuery('q') + window.location.hash);
         }
         const exp = new RegExp(v, 'gi');
         /*for ( const key in files ) {
@@ -427,8 +450,40 @@
         layoutList( files );*/
     }
 
+    function routeDashboard(display) {
+        let receivedRoute = extractQuery().route;
+        if (receivedRoute !== undefined) {
+            let routes = receivedRoute.split('/');
+            if (routes[0] !== '') {
+                EQuery(display.navBtn[routes[0]]).addClass('active');
+                EQuery('.dashboard-view').removeClass('active')
+                EQuery(display.views[routes[0]]).addClass('active');
+            }
+            else {
+                window.history.replaceState({}, '', '?route=dashboard/' + remainderQuery('route') + window.location.hash);
+                window.location.reload();
+            }
+        } else {
+            window.history.replaceState({}, '', '?route=dashboard/' + remainderQuery('route') + window.location.hash);
+            window.location.reload();
+        }
+    }
 
     function Display() {
+        this.views = { 
+            'dashboard': EQuery('#dashboard-views #dashboard'),
+            'courses': EQuery('#dashboard-views #courses'),
+            'students': EQuery('#dashboard-views #students'),
+            'settings': EQuery('#dashboard-views #settings'),
+            'logout': EQuery('#dashboard-views #logout'),
+        };
+        this.navBtn = {
+            'dashboard': EQuery('#dashboard-navigation li')[1],
+            'courses': EQuery('#dashboard-navigation li')[2],
+            'students': EQuery('#dashboard-navigation li')[3],
+            'settings': EQuery('#dashboard-navigation li')[4],
+            'logout': EQuery('#dashboard-navigation li')[5],
+        }
         this.nav = EQuery('#dashboard-navigation')[0];
         this.filterInput = EQuery('#search-box')[0];
         this.topShadow = EQuery('.container-shadow')[0];
@@ -437,14 +492,14 @@
     }
 
     EQuery(document).ready(function () {
-
-        let display = new Display();
-        display.filterInput.value = extractQuery();
+        let display = window.display = new Display();
+        display.filterInput.value = extractQuery().q || '';
         if (display.filterInput.value !== '') {
             EQuery(display.nav).addClass('searchFocused');
         }
         //updateFilter(files, tags);
-        updateDisplay(display)
+        routeDashboard(display);
+        updateDisplay(display);
         addEventListeners(display);
     });
 })(this);

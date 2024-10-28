@@ -1,4 +1,5 @@
 <!-- Code for student login form -->
+<!-- I touched it -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,6 +31,7 @@
             position: absolute;
             display: block;
             background-color: #287bff;
+            top: 0;
             left: 0;
             right: 0;
             padding: 15px;
@@ -57,6 +59,10 @@
         }
 
         form{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             border: 1px solid #287bff;
             display: grid;
             align-items: center;
@@ -155,7 +161,7 @@
             <label for="candidate_matric_no" class="candidate_matric_no">Matric Number:</label><br>
             <input name="candidate_matric_no" id="candidate_matric_no" required><i class="fas fa-id-card"></i>
         </div>
-        <button method="post">Next</button> <!-- Put this later on type="submit"-->
+        <button type="submit">Next</button> <!-- Put this later on type="submit"-->
     </form>
 
     <p class="p_2">Exam Malpractice equals <b>Expulsion!!!</b></p><br>

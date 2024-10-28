@@ -125,7 +125,7 @@ input[type="submit"] {background-color: #f8f9fa;border: 1px solid #f8f9fa;border
 @media (max-width: 768px) {
     #dashboard-navigation {width: 60px;border-width: 3px;}
     #dashboard-main {left: 60px;width: calc(100vw - 60px)}
-    .dashboard-secttion {padding: 8px}
+    .dashboard-section {padding: 8px}
 }
 
 @media (max-width: 649px) {

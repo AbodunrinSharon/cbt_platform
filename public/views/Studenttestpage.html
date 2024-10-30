@@ -46,6 +46,7 @@
             padding-bottom: 40px;
             width: 600px;
             border-radius: 20px;
+            box-shadow: 0 10px 30px;
         }
         header{
             margin: 10px;
@@ -56,9 +57,13 @@
             border-right: 3px solid rgb(50, 160, 50);
         }
         img{
-            display: none;
+            border: 1px dashed black;
+            width: 40%;
+            height: 100px;
+            background-color: rgb(209, 209, 209);
         }
         .currentquestion{
+            margin: 10px;
             display: flex;
         }
         .currentquestion p{
@@ -86,16 +91,19 @@
             position: absolute;
             padding: 5px 10px;
             font-size: 20px;
-            border-radius: 30px;
+            border-radius: 5px;
             color: white;
             background-color: rgb(50, 160, 50);
             bottom: 0;
+            width: 150px;
         }
         .right{
             right: 0;
+            border-bottom-right-radius: 20px;
         }
         .left{
             left: 0;
+            border-bottom-left-radius: 20px;
         }
         .questions{
             position: absolute;
@@ -134,7 +142,7 @@
         <div class="questionBox">
         <div class="currentquestion">
             <img src="#" width="50px" alt="image for questions with image">
-            <p>This is the current question</p>
+            <p>This is the question</p>
         </div>
         <div class="options">
             <button>Option 1</button>

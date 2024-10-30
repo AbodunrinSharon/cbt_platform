@@ -132,6 +132,6 @@ input[type="submit"] {background-color: #f8f9fa;border: 1px solid #f8f9fa;border
     #dashboard-main {left: 0px;width: 100vw}
 }
 
-@media (max-width: 480px) {
+@media (max-width: 720px) {
     .dashboard-section {padding: 8px}
 }

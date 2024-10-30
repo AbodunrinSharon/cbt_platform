@@ -6,14 +6,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Login</title>
+    <link rel="stylesheet" type="text/css" href="../css/equery.css">
     <script src="https://kit.fontawesome.com/3dc644d183.js" crossorigin="anonymous"></script>
     <style>
 
         /* icons */
         .fa-id-card, .fa-user{
-            margin-left: 120px;
             font-size: 28px;
             color: #287bff;
+            line-height: 1.7;
         }
 
         body{
@@ -21,7 +22,6 @@
             background-size: 150%;
             background-position: center;
             background-repeat: no-repeat; */
-            font-family: Georgia;
             width: 100vw;
             margin: 0;
             padding: 0;
@@ -29,12 +29,14 @@
 
         .nav-div{
             position: absolute;
-            display: block;
+            display: flex;
             background-color: #287bff;
             top: 0;
             left: 0;
             right: 0;
             padding: 15px;
+            align-items: center;
+            justify-content: space-between;
         }
 
         h1, img, i{
@@ -42,18 +44,15 @@
         }
 
         h1{
-            font-size: medium;
+            font-family: "Segoe UI", Tahoma, sans-serif;
             display: inline;
             text-transform: capitalize;
-            position: relative;
-            left: 230px;
-            top: -50px;
             font-size: 25px;
         }
 
         img{
-            height: 100px;
-            width: 100px;
+            height: 50px;
+            width: 50px;
             border-radius: 50%;
             display: inline;
         }
@@ -66,46 +65,40 @@
             border: 1px solid #287bff;
             display: grid;
             align-items: center;
-            align-self: center;
-            align-content: center;
             justify-content: center;
-            justify-self: center;
-            justify-items: baseline;
-            height: 470px;
-            width: 500px;
-            margin: 90px 0 30px 40px;
+            height: 350px;
+            width: 448px;
             color: black;
             border-radius: 5%;
             filter: blur(0.009px);
-
+            justify-items: center;
         }
 
         h2{
             font-weight: 300;
-            font-size: 29px;
+            font-size: 18px;
             text-align: center;
             text-decoration: wavy;
             padding: 10px;
-            
         }
-        label{
-            font-size: larger;
-            position: relative;
-        }
+
+        div.input {
+    display: flex;
+    border-bottom: 1px solid #00f;
+    margin-bottom: 12px;
+}
         
         input{
             background-color: transparent;
-            border-bottom: 1px solid #287bff;
-            border-top: none;
-            border-left: none;
-            border-right: none;
-            width: 250px;
-            height: 20px;
-            margin: 15px 0 50px 0;
+            border: none !important;
+            width: 280px !important;
+            padding: 2px !important;
+            margin: 8px 0;
             letter-spacing: normal;
-            cursor: pointer;
+            cursor: text;
             outline: none;
-            color: #287bff;
+            color: #3a3a3a;
+            font-size: 14px;
             font-weight:700;
             transition: .5s;
         }
@@ -136,30 +129,31 @@
         }
 
         .p_2{
+            display: flex;
             text-align: center;
             font-size: 17px;
             color: red;
-            position: relative; 
-            bottom: -40px;
-            text-align: center;
+            position: absolute;
+            bottom: 0;
+            align-items: center;
+            justify-content: center;
         }
     </style>
 </head>
 <body>
-
     <div class="nav-div">
         <img src="futa_logo.jpeg">
         <h1>fedral university of technology akure</h1>
-        <img src="user.png" style="position: relative; left: 360px;">
+        <img src="user.png">
     </div>
     <form method="post"> <!-- put this later on method="post"--> 
         <h2>CSC 102 TEST<br>20 QUESTIONS 15 MINUTES</h2>
         <div class="form-div">
             <label for="candidate_name" class="candidate_name">Name:</label><br>
-            <input name="candidate_name" id="candidate_name" type="text" required> <i class="fas fa-user"></i><br>
+            <div class="input"><input name="candidate_name" id="candidate_name" type="text" required> <i class="fas fa-user"></i></div>
 
             <label for="candidate_matric_no" class="candidate_matric_no">Matric Number:</label><br>
-            <input name="candidate_matric_no" id="candidate_matric_no" required><i class="fas fa-id-card"></i>
+            <div class="input"><input name="candidate_matric_no" id="candidate_matric_no" required><i class="fas fa-id-card"></i></div>
         </div>
         <button type="submit">Next</button> <!-- Put this later on type="submit"-->
     </form>

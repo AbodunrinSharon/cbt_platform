@@ -97,8 +97,11 @@
               <img class="ew_Ha ew-eb" src="user.png" title="Account" />
               <div class="ew_ib ew_eb">
                 <a class="ew_jb ew_Lf ew_eb ew_Qf">
-                  <svg class="ew_kb" enable-background="new 0 0 24 24" focusable="false" height="26" viewBox="0 0 24 24" width="18" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" data-iml="1639952092333">
-                    <path d="M20 5h-3.17L15 3H9L7.17 5H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 14H4V7h16v12zM12 9c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z">
+                  <svg class="ew_kb" enable-background="new 0 0 24 24" focusable="false" height="26" viewBox="0 0 24 24"
+                    width="18" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
+                    xlink="http://www.w3.org/1999/xlink" data-iml="1639952092333">
+                    <path
+                      d="M20 5h-3.17L15 3H9L7.17 5H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 14H4V7h16v12zM12 9c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z">
                     </path>
                   </svg>
                 </a>
@@ -107,13 +110,89 @@
             <div class="ew_bb">
               <div class="ew_lb ew_mb">${adminUser.firstname} + ${adminUser.lastname}</div>
               <div class="ew_nb">${adminUser.email}</div>
-              <a class="ew_rb ew_Mf ew_Je ew_3c" target="_blank">Edit Account</a>
+              <a id="edit-acc-btn" class="ew_rb ew_Mf ew_Je ew_3c" data-route="settings/account" target="_top">Edit
+                Account</a>
             </div>
           </div>
           <div class="ew_Jf ew_Bb">
-            <a class="ew_Cb ew_Nf ew_Vf ew_Je ew_3c" target="_top">Sign out</a>
+            <a id="logout-btn" class="ew_Cb ew_Nf ew_Vf ew_Je ew_3c" data-route="logout" target="_top">Sign out</a>
           </div>
         </div>
+
+        <div class="paper-menu css-11mxjog" tabindex="-1" style="padding: 0px;opacity: 1; transform: none; transition: opacity 313ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, transform 208ms cubic-bezier(0.4, 0, 0.2, 1) 0ms; top: 70px; right: 12px; transform-origin: 230px 0px;">
+          <ul class="paper-menu-list css-1700y75" role="menu" tabindex="-1">
+            <div class="top-list css-hpgf8j" tabindex="0">
+              <li tabindex="-1" role="menuitem">
+                <div class="paper-menu-avatar css-1pp6dsm">
+                  <img src="user.png" class="avatar-img">
+                </div>
+                <div class="paper-menu-root css-j7qwjs">
+                  <p class="paper-tyopgraphy css-p49szc">${adminUser.firstname} ${adminUser.lastname}</p>
+                  <span class="paper-tyopgraphycss-gw8709">${adminUser.lastname}</span>
+                </div>
+                <span class="paper-ripple css-w0pj6f"></span>
+              </li>
+            </div>
+            <hr class="paper-divider css-yz56e6">
+            <div class="bottom-list css-hpgf8j">
+              <li tabindex="-1" role="menuitem">
+                <div class="paper-menu-item css-1rsa9ga">
+                  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24">
+                    <path fill="currentColor" d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10a10 10 0 0 0 10-10A10 10 0 0 0 12 2M7.07 18.28c.43-.9 3.05-1.78 4.93-1.78s4.5.88 4.93 1.78A7.9 7.9 0 0 1 12 20c-1.86 0-3.57-.64-4.93-1.72m11.29-1.45c-1.43-1.74-4.9-2.33-6.36-2.33s-4.93.59-6.36 2.33A7.93 7.93 0 0 1 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8c0 1.82-.62 3.5-1.64 4.83M12 6c-1.94 0-3.5 1.56-3.5 3.5S10.06 13 12 13s3.5-1.56 3.5-3.5S13.94 6 12 6m0 5a1.5 1.5 0 0 1-1.5-1.5A1.5 1.5 0 0 1 12 8a1.5 1.5 0 0 1 1.5 1.5A1.5 1.5 0 0 1 12 11"></path>
+                  </svg>
+                </div>
+                <p class="paper-typography-label css-19ct21l">View Profile</p>
+                <span class="paper-ripple css-w0pj6f"></span>
+              </li>
+              <li tabindex="-1" role="menuitem">
+                <div class="paper-menu-item css-1rsa9ga">
+                  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24">
+                    <path fill="currentColor" d="M10 4a4 4 0 0 0-4 4a4 4 0 0 0 4 4a4 4 0 0 0 4-4a4 4 0 0 0-4-4m0 2a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2a2 2 0 0 1 2-2m7 6q-.24 0-.24.24l-.26 1.26c-.22.18-.54.34-.78.5l-1.28-.5c-.08 0-.24 0-.32.1l-.96 1.76c-.08.08-.08.24.08.32l1.04.82v1l-1.04.82c-.08.08-.16.24-.08.32l.96 1.76c.08.1.24.1.32.1l1.28-.5c.24.16.56.32.78.5l.26 1.26q0 .24.24.24h2c.08 0 .24-.08.24-.24l.16-1.26c.32-.18.64-.34.88-.5l1.22.5c.14 0 .3 0 .3-.1l1.04-1.76c.08-.08 0-.24-.08-.32l-1.04-.82v-1l1.04-.82c.08-.08.16-.24.08-.32L21.8 13.6c0-.1-.16-.1-.3-.1l-1.22.5c-.24-.16-.56-.32-.88-.5l-.16-1.26c0-.16-.16-.24-.24-.24zm-7 1c-2.67 0-8 1.33-8 4v3h9.67c-.28-.59-.48-1.23-.58-1.9H3.9V17c0-.64 3.13-2.1 6.1-2.1c.43 0 .87.04 1.3.1c.2-.64.47-1.24.82-1.79c-.78-.13-1.52-.21-2.12-.21m8.04 2.5c.8 0 1.46.66 1.46 1.54c0 .8-.66 1.46-1.46 1.46c-.88 0-1.54-.66-1.54-1.46c0-.88.66-1.54 1.54-1.54"></path>
+                  </svg>
+                </div>
+                <p class="paper-menu-item MuiTypography-body2 css-19ct21l">Account Settings</p>
+                <span class="paper-ripple css-w0pj6f"></span>
+              </li>
+              <li tabindex="-1" role="menuitem">
+                <div class="paper-menu-item css-1rsa9ga">
+                  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24">
+                    <path fill="currentColor" d="M10 21h4c0 1.1-.9 2-2 2s-2-.9-2-2m11-2v1H3v-1l2-2v-6c0-3.1 2-5.8 5-6.7V4c0-1.1.9-2 2-2s2 .9 2 2v.3c3 .9 5 3.6 5 6.7v6zm-4-8c0-2.8-2.2-5-5-5s-5 2.2-5 5v7h10z"></path>
+                  </svg>
+                </div>
+                <p class="paper-typography-label css-19ct21l">Notifications</p>
+                <span class="paper-ripple css-w0pj6f"></span>
+              </li>
+              <li tabindex="-1" role="menuitem">
+                <div class="paper-menu-item css-1rsa9ga">
+                  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24">
+                    <path fill="currentColor" d="M4 6H2v14a2 2 0 0 0 2 2h14v-2H4zm14.5 8.25c0-1.5-3-2.25-4.5-2.25s-4.5.75-4.5 2.25V15h9M14 10.25c1.24 0 2.25-1.01 2.25-2.25S15.24 5.75 14 5.75S11.75 6.76 11.75 8s1.01 2.25 2.25 2.25M20 2H8c-1.1 0-2 .9-2 2v12a2 2 0 0 0 2 2h12c1.11 0 2-.89 2-2V4a2 2 0 0 0-2-2m0 14H8V4h12z"></path>
+                  </svg>
+                </div>
+                <p class="paper-typography-label css-19ct21l">Switch Account</p><span
+                  class="paper-ripple css-w0pj6f"></span>
+              </li>
+              <li tabindex="-1" role="menuitem">
+                <div class="paper-menu-item css-1rsa9ga">
+                  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24">
+                    <path fill="currentColor" d="M11 18h2v-2h-2zm1-16A10 10 0 0 0 2 12a10 10 0 0 0 10 10a10 10 0 0 0 10-10A10 10 0 0 0 12 2m0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8s8 3.59 8 8s-3.59 8-8 8m0-14a4 4 0 0 0-4 4h2a2 2 0 0 1 2-2a2 2 0 0 1 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5a4 4 0 0 0-4-4"></path>
+                  </svg>
+                </div>
+                <p class="paper-typography-label css-19ct21l">Help Center</p>
+                <span class="paper-ripple css-w0pj6f"></span>
+              </li>
+              <li tabindex="-1" role="menuitem">
+                <div class="paper-menu-item css-1rsa9ga">
+                  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24">
+                    <path fill="currentColor" d="m17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5M4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4z"></path>
+                  </svg>
+                </div>
+                <p class="paper-typography-label css-19ct21l">Logout</p>
+                <span class="paper-ripple css-w0pj6f"></span>
+              </li>
+            </div>
+          </ul>
+        </div>
+
       </div>
       <div class="container-shadow"></div>
       <div id="dashboard-views" style="padding-top: 60px">
@@ -122,55 +201,63 @@
           <div id="dashboard-cardBox" class="e-row e-row-padding">
 
             <div class="e-col e-margin-bottom l3 m6">
-              <div class="e-card e-round-22">
-                <div>
-                  <div class="numbers">${dashboard.cardNumber[0]}</div>
-                  <div class="cardName">${dashboard.cardName[0]}</div>
-                  <div class="cardInfo"><i class="material-symbols-outlined">info</i> ${dashboard.cardInfo[0]}</div>
+              <a data-route="students/total-students">
+                <div class="e-card e-round-22">
+                  <div>
+                    <div class="numbers">${dashboard.cardNumber[0]}</div>
+                    <div class="cardName">${dashboard.cardName[0]}</div>
+                    <div class="cardInfo"><i class="material-symbols-outlined">info</i> ${dashboard.cardInfo[0]}</div>
+                  </div>
+                  <div class="iconBx">
+                    <i class="material-symbols-outlined">visibility</i>
+                  </div>
                 </div>
-                <div class="iconBx">
-                  <i class="material-symbols-outlined">visibility</i>
-                </div>
-              </div>
+              </a>
             </div>
 
             <div class="e-col e-margin-bottom l3 m6">
-              <div class="e-card e-round-22">
-                <div>
-                  <div class="numbers">${dashboard.cardNumber[1]}</div>
-                  <div class="cardName">${dashboard.cardName[1]}</div>
-                  <div class="cardInfo"><i class="material-symbols-outlined">info</i> ${dashboard.cardInfo[1]}</div>
+              <a data-route="courses/questions">
+                <div class="e-card e-round-22">
+                  <div>
+                    <div class="numbers">${dashboard.cardNumber[1]}</div>
+                    <div class="cardName">${dashboard.cardName[1]}</div>
+                    <div class="cardInfo"><i class="material-symbols-outlined">info</i> ${dashboard.cardInfo[1]}</div>
+                  </div>
+                  <div class="iconBx">
+                    <i class="material-symbols-outlined">quiz</i>
+                  </div>
                 </div>
-                <div class="iconBx">
-                  <i class="material-symbols-outlined">quiz</i>
-                </div>
-              </div>
+              </a>
             </div>
 
             <div class="e-col e-margin-bottom l3 m6">
-              <div class="e-card e-round-22">
-                <div>
-                  <div class="numbers">${dashboard.cardNumber[2]}</div>
-                  <div class="cardName">${dashboard.cardName[2]}</div>
-                  <div class="cardInfo"><i class="material-symbols-outlined">info</i> ${dashboard.cardInfo[2]}</div>
+              <a data-route="courses/countdown">
+                <div class="e-card e-round-22">
+                  <div>
+                    <div class="numbers">${dashboard.cardNumber[2]}</div>
+                    <div class="cardName">${dashboard.cardName[2]}</div>
+                    <div class="cardInfo"><i class="material-symbols-outlined">info</i> ${dashboard.cardInfo[2]}</div>
+                  </div>
+                  <div class="iconBx">
+                    <i class="material-symbols-outlined">schedule</i>
+                  </div>
                 </div>
-                <div class="iconBx">
-                  <i class="material-symbols-outlined">schedule</i>
-                </div>
-              </div>
+              </a>
             </div>
 
             <div class="e-col e-margin-bottom l3 m6">
-              <div class="e-card e-round-22">
-                <div>
-                  <div class="numbers">${dashboard.cardNumber[3]}</div>
-                  <div class="cardName">${dashboard.cardName[3]}</div>
-                  <div class="cardInfo"><i class="material-symbols-outlined">info</i> ${dashboard.cardInfo[3]}</div>
+              <a data-route="students/done-tests">
+                <div class="e-card e-round-22">
+                  <div>
+                    <div class="numbers">${dashboard.cardNumber[3]}</div>
+                    <div class="cardName">${dashboard.cardName[3]}</div>
+                    <div class="cardInfo"><i class="material-symbols-outlined">info</i> ${dashboard.cardInfo[3]}</div>
+                  </div>
+                  <div class="iconBx">
+                    <i class="material-symbols-outlined">done_all</i>
+                  </div>
                 </div>
-                <div class="iconBx">
-                  <i class="material-symbols-outlined">done_all</i>
-                </div>
-              </div>
+              </a>
             </div>
           </div>
         </div>
@@ -184,7 +271,21 @@
         </div>
 
         <div id="settings" class="dashboard-view">
-
+          <section class="dashboard-section">
+            <div class="header">
+              <h2>Account</h2>
+            </div>
+            <div class="info-sections">
+              <div class="info-section">
+                <div class="secondary">
+                  <div class="section-row">
+                    <div class="row-gap padded-text">Confirm to logout</div>
+                    <button class="dashboard-button">Logout</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
         </div>
 
         <div id="logout" class="dashboard-view">

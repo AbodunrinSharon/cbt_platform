@@ -1,0 +1,61 @@
+{
+    "configurations": [
+        {
+            "name": "Debug on Browser",
+            "type": "cordova",
+            "request": "launch",
+            "platform": "browser",
+            "target": "chrome",
+            "simulatePort": 8000,
+            "livereload": true,
+            "cwd": "${workspaceFolder}",
+            "sourceMaps": true
+        },
+        {
+            "name": "Attach to running iOS on simulator - experimental",
+            "type": "cordova",
+            "request": "attach",
+            "platform": "ios",
+            "target": "emulator",
+            "port": 9220,
+            "sourceMaps": true,
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "name": "Attach to running Android on emulator",
+            "type": "cordova",
+            "request": "attach",
+            "platform": "android",
+            "target": "emulator",
+            "port": 9222,
+            "sourceMaps": true,
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "name": "Launch Chrome",
+            "request": "launch",
+            "type": "chrome",
+            "url": "http://localhost/chatapp/",
+            "webRoot": "${workspaceFolder}"
+        },
+        {
+            "name": "Electron Main",
+            "cwd": "${workspaceFolder}",
+            "program": "${workspaceFolder}/build/main.js",
+            "request": "launch",
+            "runtimeExecutable": "C:\\Users\\SHARON\\AppData\\Roaming\\Electron Fiddle\\electron-bin\\current\\electron.exe",
+            "args": ["--hostUrl=http://localhost:8080/", "--wsPort=8000", "--indexPath=${workspaceFolder}\\index.html", "--dev"],
+            "skipFiles": ["%username%\\node_modules\\**", "C:\\Program Files\\nodejs\\node_modules"],
+            "type": "node"
+        },
+        {
+            "name": "Run Server",
+            "cwd": "${workspaceFolder}",
+            "program": "${workspaceFolder}/build/server.js",
+            "request": "launch",
+            "args": ["--wsPort=8000"],
+            "skipFiles": ["%username%\\node_modules\\**", "C:\\Program Files\\nodejs\\node_modules"],
+            "type": "node"
+        }
+    ]
+}

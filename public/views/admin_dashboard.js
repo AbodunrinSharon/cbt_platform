@@ -316,28 +316,33 @@
     function addEventListeners(display) {
         EQuery('.ew_Cb.ew_Nf.ew_Vf.ew_Je.ew_3c').attr('href', '?route=settings/account');EQuery('.ew_jb.ew_Lf.ew_eb.ew_Qf').click(function () { window.location = '?route=settgins/account' });
         
-        EQuery('#dashboard-navigation li').click(function () {
-            EQuery('#dashboard-navigation li').removeClass('active');
+        EQuery('li[data-route]').click(function (e) {
+            e.stopPropagation();
+            e.preventDefault();
             EQuery(this).addClass('active');
-            let v = EQuery(this).attr('data-route');
-            let w = v + remainderQuery('route');
-            window.history.replaceState({}, '', '?route=' + w + window.location.hash);
+            linkRoute(display, this);
+        });
+
+        EQuery('a[data-route]').click(function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+            let routeLink = linkRoute(display, this);
+            if (routeLink !== undefined) {
+                let routes = routeLink.split('/');
+                if (routes[0] !== '') {
+                    console.log(routes);
+                }
+            }
             routeDashboard(display);
         });
 
         EQuery('.toggle-nav').click(function () {
             if (isMobile) {
-                if (navState == 1 || navState == 0) {
-                    navState = -1;
-                }  else {
-                    navState = 1;
-                }
+                if (navState == 1 || navState == 0) {navState = -1}
+                else {navState = 1;}
             } else {
-                if (navState == 1 || navState == -1) {
-                    navState = 0;
-                } else {
-                    navState = 1;
-                }
+                if (navState == 1 || navState == -1) {navState = 0;}
+                else {navState = 1;}
             }
 
             if (navState == 1) {
@@ -400,7 +405,7 @@
         });
 
         EQuery(window).click(function (e) {
-            let elements = EQuery('#user-info, #user-id-btn, #user-info *, #user-id-btn *');
+            let elements = EQuery('#user-info, #user-id-btn, #user-info *:not(a), #user-id-btn *');
             let arr = [];
             for (let i = 0;i < elements.length;i++) {
                 arr.push(e.target == elements[i]);
@@ -448,6 +453,15 @@
             }
         }
         layoutList( files );*/
+    }
+
+    function linkRoute(display, elt) {
+        EQuery('#dashboard-navigation li').removeClass('active');
+        let v = EQuery(elt).attr('data-route');
+        let w = v + remainderQuery('route');
+        window.history.replaceState({}, '', '?route=' + w + window.location.hash);
+        routeDashboard(display)
+        return v;
     }
 
     function routeDashboard(display) {

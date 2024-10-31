@@ -1,0 +1,13 @@
+{
+   "short_name":"CBT",
+   "name":"CBT Platform",
+   "background_color":"#1b1822",
+   "theme_color":"#1b1822",
+   "display":"standalone",
+   "orientation":"any",
+   "start_url":"http://localhost:8080/chatapp",
+   "scope":"http://localhost:8080/chatapp",
+   "icons":[
+      {"src":"/icons/icon125.png","sizes":"125x125","type":"image/png"}
+   ]
+}

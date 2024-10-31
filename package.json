@@ -1,5 +1,38 @@
 {
-    "scripts": {
-        "start": "node build/main.js"
+  "author": "BLAZE",
+  "build": {
+    "files": [
+      "build/*",
+      "package.json"
+    ],
+    "productName": "ChatApp",
+    "win": {
+      "target": [
+        "nsis"
+      ]
     }
+  },
+  "dependencies": {
+    "concurrently": "^9.0.1",
+    "express": "^4.21.0",
+    "minimist": "^1.2.8",
+    "socket.io": "^4.8.0",
+    "tape": "^5.9.0",
+    "ws": "^8.18.0"
+  },
+  "description": "",
+  "devDependencies": {
+    "electron": "^27.0.2"
+  },
+  "icon": "favicon.png",
+  "license": "CC0-1.0",
+  "main": "./build/main.js",
+  "name": "cbt_platform",
+  "scripts": {
+    "dev": "vite --mode development ./",
+    "electron": "electron ./build/main.js  --wsPort 8000",
+    "server": "node ./build/server.js --wsPort 8000",
+    "start": "concurrently \"npm run electron\" \"npm run server\""
+  },
+  "version": "1.0.2"
 }

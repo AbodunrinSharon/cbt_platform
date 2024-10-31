@@ -1,26 +1,5 @@
 // CBT Platform Activity
-const express = require('express');
-const { createServer } = require('node:http');
-const { join } = require('node:path');
-//const { Server } = require('socket.io');
-
-const app = express();
-const server = createServer(app);
-//const io = new Server(server);
-
-let userList = [], isAvalible;
-
-app.use(express.static('public'))
-
-app.get('/', (req, res) => {
-    res.sendFile(join(__dirname, 'public/index.html'));
-});
-
-server.listen(3000, () => {
-  console.log('server running at http://localhost:3000');
-});
-
-/*const VERSION = '1.0.0';
+const VERSION = '1.0.0';
 const { app, BrowserWindow, dialog, ipcMain, shell } = require('electron');
 const path = require('node:path');
 const fs = require('node:fs');
@@ -34,13 +13,13 @@ log.printLog((msg) => {
   logEntry.push(`${typeof msg == 'string' ? msg : msg.join(' ')}\n`);
 });
 
-log(`Starting ChatApp Main v${VERSION}`);
+log(`Starting CBT Main v${VERSION}`);
 const server = require('./server.js');
 const absoluteElectronPath = process.execPath;
 const relativeElectronPath = path.relative(process.cwd(), absoluteElectronPath);
 const electronPath = absoluteElectronPath.length < relativeElectronPath.length ? absoluteElectronPath : relativeElectronPath;
 let mainWindow = null;
-let rendererLog = log.createLogger('[ChatApp]');
+let rendererLog = log.createLogger('[CBT]');
 
 if (args.hostPort) server.init(args.hostPort);
 
@@ -198,4 +177,3 @@ else if (args.indexURL) loadURL(path.resolve(app.getAppPath(), args.indexUrl));
 
 exports.loadURL = loadURL;
 exports.loadFile = loadFile;
-*/

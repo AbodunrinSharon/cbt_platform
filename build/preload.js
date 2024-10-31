@@ -5,4 +5,3 @@ contextBridge.exposeInMainWorld('bridge', {
   getVersion: () => ipcRenderer.invoke('getVersion'),
   sendData : (data) => ipcRenderer.send('send-data', data)
 });
-

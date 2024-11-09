@@ -8,13 +8,14 @@
             box-sizing: border-box;
         }
         body{
-            background-color: rgb(201, 222, 255);
+            height: 100vh;
+            background-image: linear-gradient(to bottom, white, rgb(201, 222, 255));
         }
         nav{
             color: white;
             padding: 15px;
             font-size: 20px;
-            background-color: rgb(50, 160, 50);
+            background-color: rgb(50, 123, 50);
         }
         .topbar{
             margin: 10px auto;
@@ -24,7 +25,9 @@
             justify-content: space-between;
         }
         .topbar p{
+            width: 100px;
             font-size: 30px;
+            text-align: center;
             color: white;
             background-color: red;
             border: 1px solid black;
@@ -35,8 +38,8 @@
             padding: 5px;
             font-size: 20px;
             color: white;
-            background-color: rgb(255, 92, 92);
-            border: 1px solid white;
+            background-color: rgb(255, 123, 0);
+            border: 1px solid rgb(255, 120, 120);
         }
         .main{
             position: relative;
@@ -45,8 +48,18 @@
             padding: 20px;
             padding-bottom: 40px;
             width: 600px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px;
+            border-radius: 10px;
+            box-shadow: 1px 1px 5px;
+        }
+        .flag{
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            font-size: 15px;
+            padding: 5px;
+            color: white;
+            border-radius: 5px;
+            background-color: rgb(0, 123, 0);
         }
         header{
             margin: 10px;
@@ -73,7 +86,7 @@
         .options{
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 10px;
+            gap: 20px;
         }
         .options button{
             font-size: 20px;
@@ -86,24 +99,29 @@
             color: rgb(255, 255, 255);
             background-color: rgb(40, 123, 255);
         }
+        .options button :hover{
+            background-color: rgb(26, 79, 163);
+        }
         .navigation{
+            margin: 5px auto;
+            width: 600px;
+        }
+        .right, .left{
+            width: 200px;
+            padding: 10px 15px;
             border: none;
-            position: absolute;
-            padding: 5px 10px;
-            font-size: 20px;
-            border-radius: 5px;
+            font-size: 15px;
             color: white;
-            background-color: rgb(50, 160, 50);
-            bottom: 0;
-            width: 150px;
+            border-radius: 1px;
+            background-color: rgb(50, 123, 50);
         }
         .right{
-            right: 0;
-            border-bottom-right-radius: 20px;
+            float: inline-end;
+            text-align: right;
         }
         .left{
-            left: 0;
-            border-bottom-left-radius: 20px;
+            float: inline-start;
+            text-align: left;
         }
         .questions{
             position: absolute;
@@ -114,9 +132,10 @@
             width: 100%;
         }
         .questions button{
+            width: 40px;
             font-size: 20px;
             padding: 5px;
-            background-color: rgb(50, 160, 50);
+            background-color: rgb(50, 123, 50);
             color: white;
             border: none;
         }
@@ -134,24 +153,27 @@
     <nav>Test Platform</nav>
     <div class="topbar">
         <p>5:00</p>
-        <button>submit</button>
+        <button>Submit</button>
     </div>
     <div class="main">
+        <p class="flag">Flag</p> <!-- The icon of a flag is to be used -->
         <header>Question 1</header>
-        <button class="navigation left">< Previous</button>
         <div class="questionBox">
-        <div class="currentquestion">
-            <img src="#" width="50px" alt="image for questions with image">
-            <p>This is the question</p>
+            <div class="currentquestion">
+                <img src="#" width="50px" alt="image for questions with image">
+                <p>This is the question</p>
+            </div>
+            <div class="options">
+                <button>Option 1</button>
+                <button>Option 2</button>
+                <button>Option 3</button>
+                <button>Option 4</button>
+            </div>
         </div>
-        <div class="options">
-            <button>Option 1</button>
-            <button>Option 2</button>
-            <button>Option 3</button>
-            <button>Option 4</button>
-        </div>
-        <button class="navigation right">Next ></button>
-        </div>
+    </div>
+    <div class="navigation">
+        <button class="right">Next >></button>
+        <button class="left"><< Previous</button>
     </div>
     <div class="questions">
         <button>1</button>

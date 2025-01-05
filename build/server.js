@@ -31,68 +31,18 @@ function init(port) {
     });
 
     app.get('/', join('../public/index.html'));
-    app.use('/css', express.static('../public/css'))
-    app.use('/js', express.static)
+    app.use('/css', express.static('../public/css'));
+    app.use('/js', express.static('../public/js'));
+    app.use('/views', express.static('../public/views'));
 
     io.on('connection', (socket) => {
-        log('A user joined');
+        log('A client joined');
         io.emit('version', VERSION);
-        socket.on('user_conn', (json) => {
-            isAvalible = true;
-            for (let i = 0;i < userList.length;i++) {
-                if (json.id == userList[i].id) {
-                    if (userList[i].online == true) {
-                        io.emit('info', 'User is already logged in');
-                        isAvalible = false;
-                    } else {
-                        io.emit('user_list', userList);
-                        isAvalible = false;
-                    }
-                    break;  
-                }
-            }
-            if (isAvalible) {
-                userList.push({id: json.id, online: true, status: 'active'});
-                io.emit('user_list', userList);
-            }
-            userList.forEach(user => {
-                user.online = false;
-                user.status = 'offline';
-            });
-            io.emit('check', 'online');
-        });
-
-        socket.on('request_users', () => {
-            io.emit('user_list', userList)
-        })
-
-        socket.on('online_response', (id) => {
-            if (userList.length == 0) {
-                io.emit('user_list', []);
-            } else {
-                userList.forEach(user => {
-                    if (user.id == id) {
-                        user.online = true;
-                        user.status = 'active';
-                    }
-                });
-                io.emit('user_list', userList);
-            }
-        });
-
-        socket.on('message', json => {
-            io.emit('message', json);
-        });
-
         socket.on('disconnect', () => {
-            log('A user left');
-            userList.forEach(user => {
-                user.online = false;
-                user.status = 'offline';
-            });
-            io.emit('check', 'online');
-
+            log('A client left');
         });
+
+        /* Server logic and operations here */
     });
 
     server.listen(port, () => {

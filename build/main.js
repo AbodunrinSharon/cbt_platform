@@ -1,26 +1,5 @@
 // CBT Platform Activity
-const express = require('express');
-const { createServer } = require('node:http');
-const { join } = require('node:path');
-//const { Server } = require('socket.io');
-
-const app = express();
-const server = createServer(app);
-//const io = new Server(server);
-
-let userList = [], isAvalible;
-
-app.use(express.static('public'))
-
-app.get('/', (req, res) => {
-    res.sendFile(join(__dirname, 'public/index.html'));
-});
-
-server.listen(3000, () => {
-  console.log('server running at http://localhost:3000');
-});
-
-/*const VERSION = '1.0.0';
+const VERSION = '1.0.0';
 const { app, BrowserWindow, dialog, ipcMain, shell } = require('electron');
 const path = require('node:path');
 const fs = require('node:fs');
@@ -34,15 +13,23 @@ log.printLog((msg) => {
   logEntry.push(`${typeof msg == 'string' ? msg : msg.join(' ')}\n`);
 });
 
-log(`Starting ChatApp Main v${VERSION}`);
+log(`Starting CBT Main v${VERSION}`);
 const server = require('./server.js');
 const absoluteElectronPath = process.execPath;
 const relativeElectronPath = path.relative(process.cwd(), absoluteElectronPath);
 const electronPath = absoluteElectronPath.length < relativeElectronPath.length ? absoluteElectronPath : relativeElectronPath;
 let mainWindow = null;
-let rendererLog = log.createLogger('[ChatApp]');
+let rendererLog = log.createLogger('[CBT Main]');
 
-if (args.hostPort) server.init(args.hostPort);
+let canEdit, isEditing;
+
+const startServer = function () {
+  server.init(args.hostPort);
+}
+
+const stopServer = function () {
+  if (server.isRunning) server.stop();
+}
 
 function decorateURL(url) {
   const parsedUrl = new URL(url);
@@ -57,8 +44,8 @@ function logMessage() {
 }
 
 function _quit() {
-  log(`Closing and terminating\n ChatApp v${VERSION}`);
-  if (args.hostPort) server.stop();
+  log(`Closing and terminating\n CBT Main v${VERSION}`);
+  stopServer();
   logMessage();
   for (let i = 0;i < logEntry.length;i++) {
     fs.appendFile(logFile, logEntry[i], err => {if (err) log.error('Error writing to log File')});
@@ -114,8 +101,10 @@ async function createWindow () {
 }
 
 app.on('window-all-closed', function () {
-  if (process.platform !== 'darwin') app.quit();
-  _quit();
+  if (confirmQuit()) {
+    if (process.platform !== 'darwin') app.quit();
+    _quit();
+  }
 });
 
 function isTrustedSender(webContents) {
@@ -127,6 +116,18 @@ function isTrustedSender(webContents) {
   }
   catch {
       return false;
+  }
+}
+
+function confirmQuit() {
+  if (server.isRunning) {
+    return confirm('The server is still running, terminate?');
+  } else {
+    if (isEditing) {
+      return confirm('You have unsaved changes, closing will discard these changes.');
+    } else{
+      return true;
+    }
   }
 }
 
@@ -149,6 +150,9 @@ function ipcHandlers() {
         }
         break;
 
+      case 'start_server':
+        startServer();
+        break;
       default:
         break
     }
@@ -198,4 +202,3 @@ else if (args.indexURL) loadURL(path.resolve(app.getAppPath(), args.indexUrl));
 
 exports.loadURL = loadURL;
 exports.loadFile = loadFile;
-*/

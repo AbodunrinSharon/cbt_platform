@@ -1,3 +1,8 @@
+const express = require('express');
+const { createServer } = require('node:http');
+const { join } = require('node:path');
+const { Server } = require('socket.io');
+
 // CBT Platform Activity
 const VERSION = '1.0.0';
 const { app, BrowserWindow, dialog, ipcMain, shell } = require('electron');
@@ -52,7 +57,7 @@ async function createWindow () {
     height: 560,
     minWidth: 672,
     minHeight: 363,
-    icon: 'favicon.png',
+    //icon: 'favicon.png',
     titleBarStyle: 'hidden',
     titleBarOverlay: {
       color: '#0000',
@@ -74,20 +79,20 @@ async function createWindow () {
   mainWindow = new BrowserWindow(options);
   mainWindow.on('ready-to-show', () => mainWindow.show());
   mainWindow.webContents.setWindowOpenHandler(details => {
-      shell.openExternal(decorateURL(details.url));
-      return { action: 'deny' };
+    shell.openExternal(decorateURL(details.url));
+    return { action: 'deny' };
   });
   mainWindow.webContents.session.setPermissionRequestHandler((webContents, permission, done) => {
-      const parsedUrl = new URL(webContents.getURL());
-      const options = {
-          title: 'Permission Request',
-          message: `Allow '${parsedUrl.origin}' to access '${permission}'?`,
-          buttons: ['OK', 'Cancel'],
-          cancelId: 1
-      };
-      dialog.showMessageBox(mainWindow, options).then(({ response }) => {
-          done(response === 0);
-      });
+    const parsedUrl = new URL(webContents.getURL());
+    const options = {
+      title: 'Permission Request',
+      message: `Allow '${parsedUrl.origin}' to access '${permission}'?`,
+      buttons: ['OK', 'Cancel'],
+      cancelId: 1
+    };
+    dialog.showMessageBox(mainWindow, options).then(({ response }) => {
+      done(response === 0);
+    });
   });
   return mainWindow;
 }
@@ -99,13 +104,13 @@ app.on('window-all-closed', function () {
 
 function isTrustedSender(webContents) {
   if (webContents !== (mainWindow && mainWindow.webContents)) {
-      return false;
+    return false;
   }
   try {
-      return url.fileURLToPath(webContents.getURL()) === indexPath;
+    return url.fileURLToPath(webContents.getURL()) === indexPath;
   }
   catch {
-      return false;
+    return false;
   }
 }
 
@@ -139,19 +144,17 @@ function ipcHandlers() {
 }
 
 const loadURL = async (appUrl) => {
-  await app.whenReady();
-  try{
-    mainWindow = await createWindow();
+  try {
+    mainWindow =  await createWindow();
     await mainWindow.loadURL(appUrl);
     ipcHandlers();
-
     log(`Loaded URL: ${appUrl}`);
     mainWindow.show();
     if (args.dev) {mainWindow.webContents.openDevTools();log('DevTools opened')}
     mainWindow.focus();
   } catch (e) {
-    if (args.hostPort) server.stop();
-    log.error('Error loading URL:');
+    if (args.hostPort) server.stop()
+    log.error('Error loading URL')
     log.error(e);
   }
 };

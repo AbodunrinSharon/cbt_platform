@@ -137,9 +137,8 @@
     const document = window.document;
     const EQuery = window.EQuery;
     const signals = window.signals;
-    const isElectron = window.location.protocol == 'file:';
-    const AndroidInterface = window.AndroidInterface || {showToast: function() {}, sendMessageToActivity: function () {}};
-    const VERSION = '1.0.2';
+    const isElectron = window.isElectron = window.electronBridge !== undefined;
+    const VERSION = '1.0.0';
 
     if (document == undefined) {
         throw new Error('A document is required to run');
@@ -286,6 +285,13 @@
                 EQuery(arr[i]).addClass('full');
             }
         }
+
+        if (isElectron) {
+            EQuery(display.titleSplit).css('height: 32px');
+            EQuery(display.titleSplit).addClass('visible');
+            EQuery(display.main).addClass('has-corner');
+            EQuery(display.mainSplit).css('height: calc(100% - 32px);top: 32px;')
+        }
         
         /*
         if (offline) {
@@ -401,20 +407,20 @@
         });
 
         EQuery('#user-id-btn').on('click', function () {
-            EQuery('.ew_0a.ew_E.ew_ka.ew_gla').show();
+            EQuery('.paper-menu.css-11mxjog').show();
         });
 
         EQuery(window).click(function (e) {
-            let elements = EQuery('#user-info, #user-id-btn, #user-info *:not(a), #user-id-btn *');
+            let elements = EQuery('.paper-menu.css-11mxjog, #user-id-btn, .paper-menu,css-11mxjog *:not(a), #user-id-btn *');
             let arr = [];
             for (let i = 0;i < elements.length;i++) {
                 arr.push(e.target == elements[i]);
             };
-            if (arr.indexOf(true) == -1) { EQuery('#user-info').hide(); }
+            if (arr.indexOf(true) == -1) { EQuery('.paper-menu.css-11mxjog').hide(); }
         });
 
-        EQuery(display.main).on(['scroll'], function () {
-            if (display.main.scrollTop > 0) {
+        EQuery(display.view).on(['scroll'], function () {
+            if (display.view.scrollTop > 0) {
               EQuery(topShadow).addClass('has-shadow');
             } else {
               EQuery(topShadow).removeClass('has-shadow');
@@ -497,12 +503,15 @@
             'students': EQuery('#dashboard-navigation li')[3],
             'settings': EQuery('#dashboard-navigation li')[4],
             'logout': EQuery('#dashboard-navigation li')[5],
-        }
+        };
         this.nav = EQuery('#dashboard-navigation')[0];
         this.filterInput = EQuery('#search-box')[0];
+        this.view = EQuery('#dashboard-views')[0];
         this.topShadow = EQuery('.container-shadow')[0];
         this.topNav = EQuery('#dashboard-topbar')[0];
         this.main = EQuery('#dashboard-main')[0];
+        this.mainSplit = EQuery('#main-split')[0];
+        this.titleSplit = EQuery('#title-split')[0];
     }
 
     EQuery(document).ready(function () {

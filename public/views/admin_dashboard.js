@@ -48,8 +48,8 @@
 
         logByType = LogByTypeFactory(name, log);
 
-        log.createLogger = function (subname) {
-            return createLogger(name + ': ' + subname);
+        log.createLogger = function (subName) {
+            return createLogger(name + ': ' + subName);
         };
 
 
@@ -167,14 +167,7 @@
     const userAgent = navigator.userAgent;
     const platform = navigator.platform;
 
-    const gecko = /gecko\/\d/i.test(userAgent);
-    const ie_upto10 = /MSIE \d/.test(userAgent);
-    const ie_11up = /Trident\/(?:[7-9]|\d{2,})\..*rv:(\d+)/.exec(userAgent);
     const edge = /Edge\/(\d+)/.exec(userAgent);
-    const ie = ie_upto10 || ie_11up || edge;
-    const ie_version = ie && (ie_upto10 ? document.documentMode || 6 : +(edge || ie_11up)[1]);
-    const webkit = !edge && /WebKit\//.test(userAgent);
-    const qtwebkit = webkit && /Qt\/\d+\.\d+/.test(userAgent);
     const presto = /Opera\//.test(userAgent);
 
     const ios = !edge && /AppleWebKit/.test(userAgent) && /isMobile\/\w+/.test(userAgent);
@@ -320,7 +313,7 @@
 
 
     function addEventListeners(display) {
-        EQuery('.ew_Cb.ew_Nf.ew_Vf.ew_Je.ew_3c').attr('href', '?route=settings/account');EQuery('.ew_jb.ew_Lf.ew_eb.ew_Qf').click(function () { window.location = '?route=settgins/account' });
+        EQuery('.ew_Cb.ew_Nf.ew_Vf.ew_Je.ew_3c').attr('href', '?route=settings/account');EQuery('.ew_jb.ew_Lf.ew_eb.ew_Qf').click(function () { window.location = '?route=settings/account' });
         
         EQuery('li[data-route]').click(function (e) {
             e.stopPropagation();
@@ -421,9 +414,9 @@
 
         EQuery(display.view).on(['scroll'], function () {
             if (display.view.scrollTop > 0) {
-              EQuery(topShadow).addClass('has-shadow');
+              EQuery(display.topShadow).addClass('has-shadow');
             } else {
-              EQuery(topShadow).removeClass('has-shadow');
+              EQuery(display.topShadow).removeClass('has-shadow');
             }
           });
         
@@ -512,6 +505,10 @@
         this.main = EQuery('#dashboard-main')[0];
         this.mainSplit = EQuery('#main-split')[0];
         this.titleSplit = EQuery('#title-split')[0];
+
+        if(isElectron) {
+            EQuery(this.topShadow).css('top: 82px');
+        }
     }
 
     EQuery(document).ready(function () {

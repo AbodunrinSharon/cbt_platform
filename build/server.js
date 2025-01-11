@@ -17,8 +17,6 @@ const io = new Server(server, {
 });
 const VERSION = '1.0.2';
 
-let userList = [], isAvailable;
-
 if (args.wsPort && !args.hostPort) init(args.wsPort);
 
 function init(port) {
@@ -36,8 +34,6 @@ function init(port) {
     app.get('/', (req, res) => {
         res.sendFile(join(__dirname, '../public/index.html'));
     });
-
-    
 
     io.on('connection', (socket) => {
         log('A client joined');

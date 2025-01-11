@@ -1,22 +1,26 @@
 <!-- Code for student login form -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Login</title>
     <link rel="stylesheet" type="text/css" href="../css/equery.css">
+    <link rel="stylesheet" type="text/css" href="../css/form.css">
+    <script src="../js/equery.js"></script>
+    <script src="../js/student_login.js"></script>
     <script src="https://kit.fontawesome.com/3dc644d183.js" crossorigin="anonymous"></script>
-    <style>
-
+    <!--style>
         /* icons */
-        .fa-id-card, .fa-user{
+        .fa-id-card,
+        .fa-user {
             font-size: 28px;
             color: #287bff;
             line-height: 1.7;
         }
 
-        body{
+        body {
             background-image: url(https://w0.peakpx.com/wallpaper/554/273/HD-wallpaper-blue-abstract-background-neon-blue-background-abstraction-creative-blue-backgrounds-thumbnail.jpg);
             background-size: cover;
             background-position: center;
@@ -26,7 +30,7 @@
             padding: 0;
         }
 
-        .nav-div{
+        .nav-div {
             position: absolute;
             display: flex;
             background-color: #287bff;
@@ -38,25 +42,27 @@
             justify-content: space-between;
         }
 
-        h1, img, i{
+        h1,
+        img,
+        i {
             display: inline-block;
         }
 
-        h1{
+        h1 {
             font-family: "Segoe UI", Tahoma, sans-serif;
             display: inline;
             text-transform: capitalize;
             font-size: 25px;
         }
 
-        img{
+        img {
             height: 50px;
             width: 50px;
             border-radius: 50%;
             display: inline;
         }
 
-        form{
+        form {
             position: absolute;
             top: 50%;
             left: 50%;
@@ -74,7 +80,7 @@
             justify-items: center;
         }
 
-        h2{
+        h2 {
             font-weight: 300;
             font-size: 18px;
             text-align: center;
@@ -88,8 +94,8 @@
             border-bottom: 1px solid #00f;
             margin-bottom: 12px;
         }
-        
-        input{
+
+        input {
             background-color: transparent;
             border: none !important;
             width: 280px !important;
@@ -100,16 +106,16 @@
             outline: none;
             color: #3a3a3a;
             font-size: 14px;
-            font-weight:700;
+            font-weight: 700;
             transition: .5s;
         }
 
-        input:focus{
+        input:focus {
             border: 1px solid #287bff;
             border-radius: 5px;
         }
 
-        button{
+        button {
             padding: 10px;
             width: 100px;
             font-size: larger;
@@ -127,7 +133,7 @@
             
         } */
 
-        .p_2{
+        .p_2 {
             display: flex;
             text-align: center;
             font-size: 17px;
@@ -140,20 +146,21 @@
 
         /* media quaries -----------------*/
         @media (max-width: 720px) {
-            
-            .fa-id-card, .fa-user{
+
+            .fa-id-card,
+            .fa-user {
                 margin-left: 70px;
                 font-size: 20px;
                 color: #287bff;
             }
-            
-            body{
+
+            body {
                 background-size: cover;
                 background-position: right top;
                 background-repeat: no-repeat;
             }
 
-            .nav-div{
+            .nav-div {
                 display: flex;
                 background-color: #287bff;
                 padding: 8px;
@@ -161,19 +168,22 @@
                 left: 0;
                 right: 0;
             }
-            h1{
+
+            h1 {
                 font-size: smaller;
             }
-            img{
+
+            img {
                 height: 50px;
                 width: 50px;
                 border-radius: 50%;
                 display: inline;
             }
-            .img_2{
+
+            .img_2 {
                 left: 80px;
             }
-            
+
             /*form {
                 border: 1px solid #287bff;
                 display: grid;
@@ -188,7 +198,7 @@
                 justify-items: center;
                 margin: 20px 0;
             }*/
-            
+
             /*
             This had to be removed 
             input{
@@ -219,27 +229,58 @@
             }
             */
         }
-    </style>
+    </style-->
 </head>
+
 <body>
-    <div class="nav-div">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbkQDhjt-tOsEI4e-32zDfxyJwwmlrunsE7rWYJG77MCoGZJ_USh1-XSQ&s=10.png">
-        <h1>fedral university of technology akure</h1>
-        <img src="user.png">
-    </div>
-    <form method="post"> <!-- put this later on method="post"--> 
-        <h2>CSC 102 TEST<br>20 QUESTIONS 15 MINUTES</h2>
-        <div class="form-div">
-            <label for="candidate_name" class="candidate_name">Name:</label><br>
-            <div class="input"><input name="candidate_name" id="candidate_name" type="text" required> <i class="fas fa-user"></i></div>
-
-            <label for="candidate_matric_no" class="candidate_matric_no">Matric Number:</label><br>
-            <div class="input"><input name="candidate_matric_no" id="candidate_matric_no" required><i class="fas fa-id-card"></i></div>
-            <button type="submit">Login</button>
+    <noscript><div class="modal e-tomato e-text-black" style="display: block"><div class="modal-content e-round-22 e-shadow"><div class="container">Please contact an your admin</div></div></div></noscript>
+	<div class="e-top e-mob-card nav-div">
+        <div class="e-row e-row-padding">
+            <div class="top-header-flex">
+                <div class="logo-container" style="margin-right: 2px">
+                    <img src="../assets/futaLogo.png">
+                </div>
+                <div class="logo-name-container">
+                    <a href="/">
+                        <img src="../assets/futaname.png">
+                    </a>
+                </div>
+            </div>
         </div>
-    </form>
-
-    <p class="p_2">Exam Malpractice equals <b>Expulsion!!!</b></p><br>
+    </div>
+    <main class="e-main e-light-grey" style="margin-top: 50px !important;">
+        <div id="login-container" class="clearfix">
+            <div class="e-white e-round-16 e-col e-shadow e-center e-round-16">
+                <form class="regForm" method="post">
+                    <h1>Login</h1>
+                    <div>
+                        <p class="error e-text-red e-text-center e-bold"></p>
+                        <div class="tab" style="display: block;">
+                            <label>
+                                <b>Login</b>
+                            </label>
+                            <input name="studentId" type="text" placeholder="Student ID No">
+                            <input name="surname" type="text" placeholder="Surname" pattern="(?=.*[a-z])(?=.*[A-Z])">
+                        </div>
+                    </div>
+                </form>
+                <div class="container" style="overflow: auto;">
+                    <button class="btn btn-padding-large btn-green e-mob-right">Submit</button>
+                </div>
+                <div class="container" style="background-color: rgb(241, 241, 241); border-radius: 0px 0px 15px 15px;"></div>
+            </div>
+        </div>
+    </main>
+    <footer class="e-dark-grey e-border-top e-border-black" style="border-top: 1px solid">
+        <div class="e-row">
+            <div class="e-col s10">
+                <p class="e-text-center" style="margin: 1em 0 !important">Exam Malpractice equals <b>Expulsion!!!</b></p>
+            </div>
+            <div class="e-col s2">
+                <p class="e-opacity e-small">Powered by EQuery</p>
+            </div>
+        </div>
+    </footer>
 </body>
+
 </html>
-  

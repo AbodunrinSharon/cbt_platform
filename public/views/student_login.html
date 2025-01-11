@@ -1,5 +1,4 @@
 <!-- Code for student login form -->
-<!-- I touched it -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,10 +17,10 @@
         }
 
         body{
-            /* background-image: url(https://w0.peakpx.com/wallpaper/554/273/HD-wallpaper-blue-abstract-background-neon-blue-background-abstraction-creative-blue-backgrounds-thumbnail.jpg);
-            background-size: 150%;
+            background-image: url(https://w0.peakpx.com/wallpaper/554/273/HD-wallpaper-blue-abstract-background-neon-blue-background-abstraction-creative-blue-backgrounds-thumbnail.jpg);
+            background-size: cover;
             background-position: center;
-            background-repeat: no-repeat; */
+            background-repeat: no-repeat;
             width: 100vw;
             margin: 0;
             padding: 0;
@@ -62,6 +61,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
+            background-color: #f3f3f3;
             border: 1px solid #287bff;
             display: grid;
             align-items: center;
@@ -83,10 +83,11 @@
         }
 
         div.input {
-    display: flex;
-    border-bottom: 1px solid #00f;
-    margin-bottom: 12px;
-}
+            display: flex;
+            width: 100%;
+            border-bottom: 1px solid #00f;
+            margin-bottom: 12px;
+        }
         
         input{
             background-color: transparent;
@@ -114,19 +115,17 @@
             font-size: larger;
             border-radius: 5px;
             border: 1px solid #287bff;
+            float: right;
             background: transparent;
-            position: relative;
-            left: 300px;
-            bottom: -15px;
         }
 
-        p{
+        /* p{
             text-align: center;
             font-size: 17px;
             color: #34a134;
             position: relative;
             
-        }
+        } */
 
         .p_2{
             display: flex;
@@ -138,11 +137,93 @@
             align-items: center;
             justify-content: center;
         }
+
+        /* media quaries -----------------*/
+        @media (max-width: 720px) {
+            
+            .fa-id-card, .fa-user{
+                margin-left: 70px;
+                font-size: 20px;
+                color: #287bff;
+            }
+            
+            body{
+                background-size: cover;
+                background-position: right top;
+                background-repeat: no-repeat;
+            }
+
+            .nav-div{
+                display: flex;
+                background-color: #287bff;
+                padding: 8px;
+                top: 0;
+                left: 0;
+                right: 0;
+            }
+            h1{
+                font-size: smaller;
+            }
+            img{
+                height: 50px;
+                width: 50px;
+                border-radius: 50%;
+                display: inline;
+            }
+            .img_2{
+                left: 80px;
+            }
+            
+            /*form {
+                border: 1px solid #287bff;
+                display: grid;
+                align-items: center;
+                justify-content: center;
+                padding: 15px;
+                height: 350px;
+                width: 260px;
+                color: black;
+                border-radius: 5%;
+                filter: blur(0.009px);
+                justify-items: center;
+                margin: 20px 0;
+            }*/
+            
+            /*
+            This had to be removed 
+            input{
+                background-color: transparent;
+                width: 180px !important;
+                padding: 2px !important;
+                margin: 18px 0;
+                letter-spacing: normal;
+                cursor: text;
+                outline: none;
+                color: #3a3a3a;
+                font-size: 14px;
+                font-weight: 700;
+                transition: .5s;
+                border-radius: 5px;
+            }
+
+            button{
+                padding: 10px;
+                width: 60px;
+                font-size: small;
+                border-radius: 5px;
+                border: 1px solid #287bff;
+                background: transparent;
+                position: relative;
+                left: 90px;
+                bottom: -10px;
+            }
+            */
+        }
     </style>
 </head>
 <body>
     <div class="nav-div">
-        <img src="futa_logo.jpeg">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbkQDhjt-tOsEI4e-32zDfxyJwwmlrunsE7rWYJG77MCoGZJ_USh1-XSQ&s=10.png">
         <h1>fedral university of technology akure</h1>
         <img src="user.png">
     </div>
@@ -154,12 +235,11 @@
 
             <label for="candidate_matric_no" class="candidate_matric_no">Matric Number:</label><br>
             <div class="input"><input name="candidate_matric_no" id="candidate_matric_no" required><i class="fas fa-id-card"></i></div>
+            <button type="submit">Login</button>
         </div>
-        <button type="submit">Next</button> <!-- Put this later on type="submit"-->
     </form>
 
     <p class="p_2">Exam Malpractice equals <b>Expulsion!!!</b></p><br>
-    <p>Good Luck!!</p>
 </body>
 </html>
   

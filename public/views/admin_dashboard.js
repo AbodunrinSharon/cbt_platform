@@ -137,7 +137,19 @@
     const document = window.document;
     const EQuery = window.EQuery;
     const signals = window.signals;
-    const isElectron = window.isElectron = window.electronBridge !== undefined;
+    const isElectron = window.isElectron = window.bridge !== undefined;
+    
+    window.bridge = (window.bridge !== undefined ? window.bridge : {sendData: function () {}, getVersion: function () {
+        return new Promise(function () {
+            setTimeout(function () {
+            }, 1000);
+        });
+    }, getArgs: function () {
+        return new Promise(function () {
+            setTimeout(function () {
+            }, 1000);
+        });
+    }});
     const VERSION = '1.0.0';
 
     if (document == undefined) {
@@ -189,9 +201,6 @@
 
     window.offline = false;
     window.response = false;
-    let valid, port = 8000, currentTab = 0, tries = 10;
-    let isMobile = mobile || false;
-    let host = 'https://enemetronics.com.ng/';
 
     let navState = 1;
 
@@ -202,6 +211,14 @@
             arr[k] = v;
         });
         return arr;
+    }
+
+    function startServer() {
+        window.bridge.sendData({'type': 'start-server'});
+    }
+
+    function stopServer() {
+        window.bridge.sendData({'type': 'stop-server'});
     }
 
     function updateDisplay(display) {
@@ -311,7 +328,6 @@
         EQuery(display.mainSplitChat).find('div:last-child').css('min-width: ' + toCssPx(width));*/
     }
 
-
     function addEventListeners(display) {
         EQuery('.ew_Cb.ew_Nf.ew_Vf.ew_Je.ew_3c').attr('href', '?route=settings/account');EQuery('.ew_jb.ew_Lf.ew_eb.ew_Qf').click(function () { window.location = '?route=settings/account' });
         
@@ -321,6 +337,9 @@
             EQuery(this).addClass('active');
             linkRoute(display, this);
         });
+
+        EQuery('#start-server').click(startServer);
+        EQuery('#stop-server').click(stopServer);
 
         EQuery('a[data-route]').click(function (e) {
             e.stopPropagation();

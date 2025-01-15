@@ -44,7 +44,7 @@
             "program": "${workspaceFolder}/build/main.js",
             "request": "launch",
             "runtimeExecutable": "C:\\Users\\SHARON\\AppData\\Roaming\\Electron Fiddle\\electron-bin\\current\\electron.exe",
-            "args": ["--hostUrl=http://localhost:8080/", "--wsPort=8080", "--indexPath=${workspaceFolder}\\public\\views\\admin_dashboard.html", "--dev"],
+            "args": ["--hostPort=8080", "--indexPath=${workspaceFolder}\\public\\views\\admin_dashboard.html", "--dev"],
             "skipFiles": ["%username%\\node_modules\\**", "C:\\Program Files\\nodejs\\node_modules"],
             "type": "node"
         },

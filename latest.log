@@ -1,0 +1,10 @@
+[10:25:06] [Main-Worker]: Starting CBT Main v1.0.0
+[10:26:30] [Main-Worker]: ERROR: Error loading file
+[10:26:30] [Main-Worker]: ERROR: Error: ERR_ABORTED (-3) loading 'file:///C:/Users/SHARON/cookies_projects/cbt_platform/cbt_platform/public/views/admin_dashboard.html?route=dashboard/'
+[10:35:20] [Main-Worker]: Closing and terminating
+ CBT Main v1.0.0
+[10:25:06] [Main-Worker]: Starting CBT Main v1.0.0
+[10:26:30] [Main-Worker]: ERROR: Error loading file
+[10:35:20] [Main-Worker]: Closing and terminating
+ CBT Main v1.0.0
+[10:26:30] [Main-Worker]: ERROR: Error: ERR_ABORTED (-3) loading 'file:///C:/Users/SHARON/cookies_projects/cbt_platform/cbt_platform/public/views/admin_dashboard.html?route=dashboard/'

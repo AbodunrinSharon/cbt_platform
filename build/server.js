@@ -15,12 +15,12 @@ const io = new Server(server, {
         credentials: true
     }
 });
-const VERSION = '1.0.2';
-
+const VERSION = '1.0.0';
+let _isRunning = false;
 if (args.wsPort && !args.hostPort) init(args.wsPort);
 
 function init(port) {
-    log(`Starting Server Socket v${VERSION}`)
+    log(`Starting Server Socket v${VERSION}`);
     app.use((req, res, next) => {
         res.header('Access-Control-Allow-Origin', '*');
         res.header('Access-Control-Allow-Methods', 'GET,HEAD.OPTIONS.POST,PUT');
@@ -29,7 +29,6 @@ function init(port) {
     });
 
     app.use(express.static(join(__dirname, '../public/')));
-    console.log(join(__dirname, '../public/'));
 
     app.get('/', (req, res) => {
         res.sendFile(join(__dirname, '../public/index.html'));
@@ -47,12 +46,16 @@ function init(port) {
     server.listen(port, () => {
         log(`server running at http://localhost:${port}`);
     });
+    _isRunning = true;
 }
 
 function stop() {
     io.close();
+    server.close();
+    _isRunning = false;
     log('Stopping Server Socket');
 }
 
 exports.init = init;
 exports.stop = stop;
+exports.isRunning = function () { return _isRunning };

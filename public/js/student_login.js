@@ -1,4 +1,4 @@
-EQuery(function () {
+(function () {
     var userAgent = navigator.userAgent;
     var platform = navigator.platform;
     var edge = /Edge\/(\d+)/.exec(userAgent);
@@ -19,4 +19,4 @@ EQuery(function () {
         var height = window.innerHeight - 110;
         EQuery('main').css(`min-height: ${height}px;`);
     });
-});
+})(window);

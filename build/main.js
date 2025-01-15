@@ -24,11 +24,12 @@ let rendererLog = log.createLogger('[CBT Main]');
 let canEdit, isEditing;
 
 const startServer = function () {
-  server.init(args.hostPort);
+  if (!server.isRunning()) server.init(args.hostPort);
+  else log.warn('Server is already running');
 }
 
 const stopServer = function () {
-  if (server.isRunning) server.stop();
+  if (server.isRunning()) server.stop();
 }
 
 function decorateURL(url) {
@@ -120,7 +121,7 @@ function isTrustedSender(webContents) {
 }
 
 function confirmQuit() {
-  if (server.isRunning) {
+  if (server.isRunning()) {
     return confirm('The server is still running, terminate?');
   } else {
     if (isEditing) {
@@ -140,6 +141,10 @@ function ipcHandlers() {
     return VERSION;
   });
 
+  ipcMain.handle('isServerRunning', () => {
+    return server.isRunning;
+  });
+
   ipcMain.on('send-data', (event, data) => {
     switch (data.type) {
       case 'log':
@@ -150,9 +155,14 @@ function ipcHandlers() {
         }
         break;
 
-      case 'start_server':
+      case 'start-server':
         startServer();
         break;
+
+      case 'stop-server':
+        stopServer();
+        break;
+
       default:
         break
     }
@@ -173,7 +183,7 @@ const loadURL = async (appUrl) => {
     if (args.dev) {mainWindow.webContents.openDevTools();log('DevTools opened')}
     mainWindow.focus();
   } catch (e) {
-    if (args.hostPort) server.stop()
+    if (args.hostPort) stopServer();
     log.error('Error loading URL')
     log.error(e);
   }
@@ -189,7 +199,7 @@ const loadFile = async (appPath) => {
     if (args.dev) {mainWindow.webContents.openDevTools();log('DevTools opened')}
     mainWindow.focus();
   } catch (e) {
-    if (args.hostPort) server.stop()
+    if (args.hostPort) stopServer();
     log.error('Error loading file')
     log.error(e);
   }

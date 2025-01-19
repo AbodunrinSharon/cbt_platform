@@ -9,13 +9,13 @@
         }
         body{
             height: 100vh;
-            background-image: linear-gradient(to bottom, white, rgb(201, 222, 255));
+            background-image: linear-gradient(to bottom, lightblue, rgb(201, 222, 255));
         }
         nav{
-            color: white;
+            font-weight: 700;
             padding: 15px;
-            font-size: 20px;
-            background-color: rgb(50, 123, 50);
+            font-size: 30px;
+            color: rgb(10, 123, 10);
         }
         .topbar{
             margin: 10px auto;
@@ -29,7 +29,7 @@
             font-size: 30px;
             text-align: center;
             color: white;
-            background-color: red;
+            background-color: rgb(158, 1, 1);
             border: 1px solid black;
             padding: 5px;
         }
@@ -38,13 +38,13 @@
             padding: 5px;
             font-size: 20px;
             color: white;
-            background-color: rgb(179, 87, 1);
+            background-color: rgb(255, 17, 0);
             border: 1px solid rgb(255, 120, 120);
         }
         .main{
             position: relative;
             margin: auto;
-            background-color: rgb(255, 255, 255);
+            background-color: rgb(232, 255, 227);
             padding: 20px;
             padding-bottom: 40px;
             width: 600px;
@@ -55,19 +55,19 @@
             position: absolute;
             bottom: 5px;
             right: 5px;
-            font-size: 15px;
-            padding: 5px;
             color: white;
-            border-radius: 5px;
-            background-color: rgb(0, 123, 0);
+            width: 30px;
+        }.flag img{
+            border: none;
+            width: 100%;
+            height: 100%;
         }
         header{
             margin: 10px;
             text-align: center;
             font-size: 30px;
             border-radius: 20px;
-            border-bottom: 3px solid rgb(50, 160, 50);
-            border-right: 3px solid rgb(50, 160, 50);
+            border-bottom: 3px solid lightblue;
         }
         img{
             border: 1px dashed black;
@@ -80,6 +80,8 @@
             display: flex;
         }
         .currentquestion p{
+            font-weight: 500;
+            color: rgb(0, 45, 117);
             font-size: 20px;
             margin: 20px;
         }
@@ -89,39 +91,46 @@
             gap: 20px;
         }
         .options button{
+            font-weight: 300;
+            border: none;
             font-size: 20px;
-            padding: 5px;
-            border-radius: 15px;
-            border-top-color: white;
-            border-left-color: white;
-            border-right-color: black;
-            border-bottom-color: black;
-            color: rgb(255, 255, 255);
-            background-color: rgb(40, 123, 255);
-        }
-        .options button :hover{
-            background-color: rgb(26, 79, 163);
+            padding: 10px 5px;
+            border-radius: 20px;
+            color: black;
+            background-color: rgb(121, 171, 252);
         }
         .navigation{
             margin: 5px auto;
             width: 600px;
         }
         .right, .left{
-            width: 200px;
+            font-weight: 450;
+            width: 40%;
             padding: 10px 15px;
             border: none;
-            font-size: 15px;
+            font-size: 17px;
             color: white;
-            border-radius: 1px;
             background-color: rgb(50, 123, 50);
         }
         .right{
+            background-image: linear-gradient(to right, lightgreen, green);
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
             float: inline-end;
-            text-align: right;
+            border-bottom: 1px solid green;
+            border-right: 1px solid green;
+            border-top: 1px solid lightgreen;
+            border-left: 1px solid lightgreen;
         }
         .left{
+            background-image: linear-gradient(to left, lightgreen, green);
+            border-bottom-left-radius: 10px;
+            border-top-left-radius: 10px;
             float: inline-start;
-            text-align: left;
+            border-bottom: 1px solid green;
+            border-left: 1px solid green;
+            border-top: 1px solid lightgreen;
+            border-right: 1px solid lightgreen;
         }
         .questions{
             position: absolute;
@@ -138,6 +147,26 @@
             background-color: rgb(50, 123, 50);
             color: white;
             border: none;
+        }
+        .options button:hover{
+            color: white;
+            background-color: blue;
+        }
+        .navigation .left:hover{
+            color: white;
+            background-image: linear-gradient(to right, green, rgb(0, 255, 0));
+            border-top: 1px solid green;
+            border-right: 1px solid green;
+            border-bottom: 1px solid lightgreen;
+            border-left: 1px solid lightgreen;
+        }
+        .navigation .right:hover{
+            color: white;
+            background-image: linear-gradient(to left, green, rgb(0, 255, 0));
+            border-top: 1px solid green;
+            border-left: 1px solid green;
+            border-bottom: 1px solid lightgreen;
+            border-right: 1px solid lightgreen;
         }
         @media screen and (width < 700px) {
             .main{
@@ -160,7 +189,7 @@
         <button>Submit</button>
     </div>
     <div class="main">
-        <p class="flag">Flag</p> <!-- The icon of a flag is to be used -->
+        <p class="flag"><img src="flag.png"></p> <!-- The icon of a flag is to be used -->
         <header>Question 1</header>
         <div class="questionBox">
             <div class="currentquestion">
@@ -176,8 +205,8 @@
         </div>
     </div>
     <div class="navigation">
-        <button class="right">Next >></button>
-        <button class="left"><< Previous</button>
+        <button class="right">Next</button>
+        <button class="left">Previous</button>
     </div>
     <div class="questions">
         <button>1</button>
